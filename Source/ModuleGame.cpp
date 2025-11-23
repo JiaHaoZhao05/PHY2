@@ -4,6 +4,7 @@
 #include "ModuleGame.h"
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
+#include "CAR.h"
 
 ModuleGame::ModuleGame(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -20,7 +21,7 @@ bool ModuleGame::Start()
 	bool ret = true;
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
-	
+	entities.emplace_back(new TDCar(App->physics->world));
 	return ret;
 }
 

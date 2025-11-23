@@ -60,7 +60,7 @@
     <ClInclude Include="Source\ModuleGame.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="0_car.h">
+    <ClInclude Include="CAR.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
