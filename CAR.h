@@ -430,3 +430,100 @@ public:
     TDCar* m_car;
 };
 */
+
+
+//------------------------------------------- Car.h?? ------------------------------------------------------
+/* 
+#pragma once
+
+#include <vector>
+#include <set>
+#include "box2d/box2d.h"
+
+#define DEGTORAD 0.0174532925199432957f
+#define RADTODEG 57.295779513082320876f
+
+enum {
+    TDC_LEFT = 0x1,
+    TDC_RIGHT = 0x2,
+    TDC_UP = 0x4,
+    TDC_DOWN = 0x8
+};
+
+enum fixtureUserDataType {
+    FUD_CAR_TIRE,
+    FUD_GROUND_AREA
+};
+
+//---------------- Fixture User Data Base ----------------
+class FixtureUserData {
+protected:
+    fixtureUserDataType m_type;
+    FixtureUserData(fixtureUserDataType type);
+public:
+    virtual fixtureUserDataType getType();
+    virtual ~FixtureUserData();
+};
+
+//---------------- Tire Marker ----------------
+class CarTireFUD : public FixtureUserData {
+public:
+    CarTireFUD();
+};
+
+//---------------- Ground Area Marker ----------------
+class GroundAreaFUD : public FixtureUserData {
+public:
+    float frictionModifier;
+    bool outOfCourse;
+
+    GroundAreaFUD(float fm, bool ooc);
+};
+
+//---------------- Tire ----------------
+class TDTire {
+public:
+    b2Body* m_body;
+
+    TDTire(b2World* world);
+    ~TDTire();
+
+    void setCharacteristics(float forward, float backward, float driveForce, float lateralImpulse);
+
+    void addGroundArea(GroundAreaFUD* ga);
+    void removeGroundArea(GroundAreaFUD* ga);
+
+    void updateFriction();
+    void updateDrive(int controlState);
+    void updateTurn(int controlState);
+
+private:
+    float m_maxForwardSpeed;
+    float m_maxBackwardSpeed;
+    float m_maxDriveForce;
+    float m_maxLateralImpulse;
+
+    std::set<GroundAreaFUD*> m_groundAreas;
+    float m_currentTraction;
+
+    void updateTraction();
+    b2Vec2 getLateralVelocity();
+    b2Vec2 getForwardVelocity();
+};
+
+//---------------- Car ----------------
+class TDCar {
+public:
+    TDCar(b2World* world);
+    ~TDCar();
+
+    void update(int controlState);
+
+private:
+    b2Body* m_body;
+    std::vector<TDTire*> m_tires;
+    b2RevoluteJoint* flJoint;
+    b2RevoluteJoint* frJoint;
+};
+
+*/
