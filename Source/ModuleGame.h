@@ -5,6 +5,9 @@
 
 #include "p2Point.h"
 
+#include "Map.h"
+#include "Player.h"
+
 #include "raylib.h"
 #include <vector>
 #include <set>
@@ -41,4 +44,7 @@ public:
 	bool ray_on;
 
 	std::set<std::set<PhysicEntity*>> collidingEntities;
+
+	Map* map;
+	Player* player;
 };
