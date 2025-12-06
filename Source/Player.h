@@ -1,18 +1,20 @@
 #pragma once
-#include "Module.h"
-#include "Globals.h"
-#include "p2Point.h"
 
-class ModulePlayer : public Module
-{
-public:
-	ModulePlayer(Application* app, bool start_enabled = true);
-	virtual ~ModulePlayer();
+#include "Car.h"
 
-	bool Start();
-	update_status Update();
-	bool CleanUp();
-
+class Player{
 public:
 
+	Player();
+	Player(b2World* world, const b2Vec2& position);
+	~Player();
+	
+	void OnCollisionWithMap();
+	
+private:
+	
+	b2Body* body;
+	b2Vec2 position;
+	b2Vec2 velocity;
+	
 };

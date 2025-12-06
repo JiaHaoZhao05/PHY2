@@ -1,34 +1,34 @@
-#include "Globals.h"
-#include "Application.h"
-#include "ModulePlayer.h"
+#include "Player.h"
 
-ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled)
+Player::Player(b2World* world, const b2Vec2& position)
 {
-}
+    // Define the body
+    b2BodyDef bodyDef;
+    bodyDef.type = b2_dynamicBody;   // or b2_staticBody / b2_kinematicBody
+    bodyDef.position = position;     // initial position in world coordinates
+    bodyDef.fixedRotation = true;    // optional: prevent rotation if you want
 
-ModulePlayer::~ModulePlayer()
-{}
+    // Create the body in the world
+    body = world->CreateBody(&bodyDef);
 
-// Load assets
-bool ModulePlayer::Start()
-{
-	LOG("Loading player");
-	return true;
-}
+    // Define a shape (e.g., box for player)
+    b2PolygonShape boxShape;
+    boxShape.SetAsBox(0.5f, 1.0f);   // half-width, half-height
 
-// Unload assets
-bool ModulePlayer::CleanUp()
-{
-	LOG("Unloading player");
+    // Define fixture (physical properties)
+    b2FixtureDef fixtureDef;
+    fixtureDef.shape = &boxShape;
+    fixtureDef.density = 1.0f;
+    fixtureDef.friction = 0.3f;
 
-	return true;
-}
-
-// Update: draw background
-update_status ModulePlayer::Update()
-{
-	return UPDATE_CONTINUE;
+    // Attach fixture to body
+    body->CreateFixture(&fixtureDef);
 }
 
 
+Player::~Player() {}
 
+void Player::OnCollisionWithMap() 
+{
+
+}
