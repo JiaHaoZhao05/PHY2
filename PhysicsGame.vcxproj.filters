@@ -28,9 +28,6 @@
     <ClCompile Include="Source\ModuleGame.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Car.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="Source\PhysicEntity.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
@@ -38,6 +35,9 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Source\Map.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Car.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>

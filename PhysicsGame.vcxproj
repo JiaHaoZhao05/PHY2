@@ -196,7 +196,6 @@
     <ClInclude Include="Source\Timer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Car.cpp" />
     <ClCompile Include="Source/Application.cpp" />
     <ClCompile Include="Source/Log.cpp" />
     <ClCompile Include="Source/Main.cpp" />
@@ -204,6 +203,7 @@
     <ClCompile Include="Source/ModulePhysics.cpp" />
     <ClCompile Include="Source/ModuleRender.cpp" />
     <ClCompile Include="Source/ModuleWindow.cpp" />
+    <ClCompile Include="Source\Car.cpp" />
     <ClCompile Include="Source\Map.cpp" />
     <ClCompile Include="Source\ModuleGame.cpp" />
     <ClCompile Include="Source\PhysicEntity.cpp" />
