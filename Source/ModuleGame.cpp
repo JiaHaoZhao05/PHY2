@@ -21,7 +21,7 @@ bool ModuleGame::Start()
 	bool ret = true;
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
-	entities.emplace_back(new TDCar(App->physics->world));
+	entities.emplace_back(new Car(App->physics->world));
 	return ret;
 }
 

@@ -6,6 +6,7 @@ class PhysicEntity
 {
 public:
 
+	PhysicEntity();
 	PhysicEntity(PhysBody* _body, Module* _listener)
 		: physBody(_body)
 		, listener(_listener)

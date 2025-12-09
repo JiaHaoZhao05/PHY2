@@ -1,10 +1,12 @@
 #include <vector>
 #include <set>
 #include "box2d/box2d.h"
+#include "PhysicEntity.h"
 
-class Car {
+class Car : PhysicEntity{
 public:
     Car();
+    Car(PhysBody* _body, Module* _listener);
     ~Car();
 
     void update();
