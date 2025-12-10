@@ -23,6 +23,7 @@ Player::Player(b2World* world, const b2Vec2& position)
 
     // Attach fixture to body
     body->CreateFixture(&fixtureDef);
+    Camera2D camera;
 }
 
 

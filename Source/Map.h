@@ -7,6 +7,7 @@
 #include <vector>
 
 using namespace std;
+class PhysicEntity;
 
 class Map {
 public:
@@ -16,6 +17,6 @@ public:
 	void BuildMap();
 
 private:
-	vector<PhysicEntity> entities;
+	vector<PhysicEntity*> entities;
 
 };

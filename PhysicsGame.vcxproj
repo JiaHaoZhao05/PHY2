@@ -188,7 +188,7 @@
     <ClInclude Include="Source/ModuleRender.h" />
     <ClInclude Include="Source/ModuleWindow.h" />
     <ClInclude Include="Source/p2Point.h" />
-    <ClInclude Include="Source\CAR.h" />
+    <ClInclude Include="Source\Car.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\ModuleGame.h" />
     <ClInclude Include="Source\PhysicEntity.h" />

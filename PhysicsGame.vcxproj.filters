@@ -75,7 +75,7 @@
     <ClInclude Include="Source\PhysicEntity.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Source\CAR.h">
+    <ClInclude Include="Source\Car.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Source\Player.h">

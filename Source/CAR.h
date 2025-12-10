@@ -3,16 +3,18 @@
 #include "box2d/box2d.h"
 #include "PhysicEntity.h"
 
-class Car : PhysicEntity{
+class Car : public PhysicEntity{
 public:
-    Car();
-    Car(PhysBody* _body, Module* _listener);
+    Car(PhysBody* _body, Module* _listener) {
+        physBody = _body;
+        physBody->listener = _listener;
+    }
+
     ~Car();
 
     void update();
 
 private:
-    b2Body* m_body;
     b2RevoluteJoint* flJoint;
     b2RevoluteJoint* frJoint;
 };
