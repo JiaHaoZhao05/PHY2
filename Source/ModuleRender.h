@@ -1,7 +1,8 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
-
+#include "Application.h"
+#include "ModuleWindow.h"
 #include <limits.h>
 
 class ModuleRender : public Module
@@ -23,5 +24,5 @@ public:
 public:
 
 	Color background;
-    Rectangle camera;
+	Camera2D camera = { 0 };
 };

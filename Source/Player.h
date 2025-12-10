@@ -14,10 +14,12 @@ public:
 	}
 	void Turn();
 	void Throttle();
+	void Brake();
 protected:
 	Camera2D camera;
 	b2Vec2 pos;
-	b2Vec2 speed;
+	float speed;
+	double angle;
 private:
 	Texture2D texture;
 };
