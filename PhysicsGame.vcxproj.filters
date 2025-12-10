@@ -31,6 +31,15 @@
     <ClCompile Include="Source\Player.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scenario.h">
+      <Filter>Headers</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scenario.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Map1.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source/p2Point.h">
@@ -66,7 +75,11 @@
     <ClInclude Include="Source\Player.h">
       <Filter>Headers</Filter>
     </ClInclude>
+
     <ClInclude Include="Source\PhysicEntity.h">
+
+    <ClInclude Include="Source\Map1.h">
+
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
