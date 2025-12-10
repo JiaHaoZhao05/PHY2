@@ -2,7 +2,18 @@
 #include "Module.h"
 #include "Globals.h"
 #include "p2Point.h"
-
+#include "PhysicEntity.h"
+#include "ModulePhysics.h"
+class Player :public PhysicEntity {
+	Player(ModulePhysics* physics, int _x, int _y, Module* _listener, Texture2D _texture, float friction)
+		: PhysicEntity(physics->CreateRectangle(_x,_y,5,8,PLAYER), _listener)
+		, texture(_texture)
+	{
+		type = 0;
+	}
+private:
+	Texture2D texture;
+};
 class ModulePlayer : public Module
 {
 public:
