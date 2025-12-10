@@ -2,10 +2,20 @@
 #include "Application.h"
 #include "ModuleRender.h"
 #include "ModulePhysics.h"
+//#include "PhysicEntity.h"
 
 #include "p2Point.h"
 
 #include <math.h>
+
+#define PIXELS_PER_METER 50.0f
+#define METER_PER_PIXEL (1.0f / PIXELS_PER_METER)
+#define METERS_TO_PIXELS(m) ((float)((m) * PIXELS_PER_METER))
+#define PIXELS_TO_METERS(p) ((float)(p) / PIXELS_PER_METER)
+
+
+#define DEGTORAD 0.0174532925199432957f
+#define RADTODEG 57.295779513082320876f
 
 
 
@@ -22,13 +32,37 @@ ModulePhysics::~ModulePhysics()
 bool ModulePhysics::Start()
 {
 	LOG("Creating Physics 2D environment");
-	
+
+	// --- Create Box2D world ---
+	b2Vec2 gravity(GRAVITY_X, GRAVITY_Y);
+	world = new b2World(gravity);
+	world->SetContactListener(this);
+
+	// --- Create static ground ---
+	b2BodyDef groundDef;
+	groundDef.position.Set(0, 0);
+	ground = world->CreateBody(&groundDef);
+
 	return true;
 }
 
 update_status ModulePhysics::PreUpdate()
 {
+	world->Step(1.0f / 60.0f, 6, 2);
 
+	for (b2Contact* contact = world->GetContactList(); contact; contact = contact->GetNext())
+	{
+		if (contact->GetFixtureA()->IsSensor() && contact->IsTouching())
+		{
+			b2BodyUserData dataA = contact->GetFixtureA()->GetBody()->GetUserData();
+			b2BodyUserData dataB = contact->GetFixtureA()->GetBody()->GetUserData();
+			PhysBody* physA = (PhysBody*)dataA.pointer;
+			PhysBody* physB = (PhysBody*)dataB.pointer;
+			if (physA && physB /*&& physA->listener*/) {
+				//physA->listener->OnCollision(physA, physB); //call OnCollision method
+			}
+		}
+	}
 	return UPDATE_CONTINUE;
 }
 

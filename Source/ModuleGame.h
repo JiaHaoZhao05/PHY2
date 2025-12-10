@@ -2,6 +2,8 @@
 
 #include "Globals.h"
 #include "Module.h"
+#include "Player.h"
+//#include "Scenario.h"
 
 #include "p2Point.h"
 
@@ -21,8 +23,11 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
+	void ReadInputs();
+	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 
 public:
-
+	//Scenario* scenario;
+	//Player* player;
 	
 };
