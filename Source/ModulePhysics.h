@@ -63,8 +63,6 @@ public:
 	void BeginContact(b2Contact* contact);
 
 private:
-	b2World* world = nullptr;
-	b2Body* ground;
 	bool debug;
 	b2World* world;
 	b2MouseJoint* mouse_joint;
