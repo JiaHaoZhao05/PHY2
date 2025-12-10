@@ -4,7 +4,6 @@
 #include "ModuleGame.h"
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
-#include "Car.h"
 
 ModuleGame::ModuleGame(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -19,7 +18,6 @@ bool ModuleGame::Start()
 {
 	LOG("Loading Intro assets");
 	bool ret = true;
-	App->renderer->camera.x = App->renderer->camera.y = 0;
 
 	return ret;
 }

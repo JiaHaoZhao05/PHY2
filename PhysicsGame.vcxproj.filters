@@ -28,16 +28,7 @@
     <ClCompile Include="Source\ModuleGame.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Source\PhysicEntity.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Player.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Map.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Car.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -72,16 +63,7 @@
     <ClInclude Include="Source\ModuleGame.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Source\PhysicEntity.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Car.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Player.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Map.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
