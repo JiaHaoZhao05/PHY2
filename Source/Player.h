@@ -5,12 +5,19 @@
 #include "PhysicEntity.h"
 #include "ModulePhysics.h"
 class Player :public PhysicEntity {
+public:
 	Player(ModulePhysics* physics, int _x, int _y, Module* _listener, Texture2D _texture, float friction)
 		: PhysicEntity(physics->CreateRectangle(_x,_y,5,8,PLAYER), _listener)
 		, texture(_texture)
 	{
 		type = 0;
 	}
+	void Turn();
+	void Throttle();
+protected:
+	Camera2D camera;
+	b2Vec2 pos;
+	b2Vec2 speed;
 private:
 	Texture2D texture;
 };
@@ -25,5 +32,5 @@ public:
 	bool CleanUp();
 
 public:
-
+	
 };
