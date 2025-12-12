@@ -18,6 +18,11 @@ ModuleGame::~ModuleGame()
 bool ModuleGame::Start()
 {
 	LOG("Loading Intro assets");
+
+	entities.emplace_back(new Map1())
+
+
+
 	bool ret = true;
 
 	return ret;

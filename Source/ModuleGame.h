@@ -3,7 +3,7 @@
 #include "Globals.h"
 #include "Module.h"
 #include "Player.h"
-//#include "Scenario.h"
+#include "Map1.h"
 
 #include "p2Point.h"
 
@@ -29,5 +29,8 @@ public:
 public:
 	//Scenario* scenario;
 	//Player* player;
+
+	Map1* map1;
+	std::vector<PhysicEntity> entities;
 	
 };
