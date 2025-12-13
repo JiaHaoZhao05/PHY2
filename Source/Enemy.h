@@ -28,11 +28,12 @@ struct AIController {
 
     void Update(Car* car, const std::vector<b2Vec2>& waypoints, float dt) {
         b2Vec2 pos = car->physBody->body->GetPosition();
+        pos = b2Vec2{ (float)METERS_TO_PIXELS(pos.x), (float)METERS_TO_PIXELS(pos.y)};
         float angle = car->physBody->body->GetAngle();
 
         // Target waypoint
         b2Vec2 target = waypoints[currentWaypoint];
-        target -= {5384+SCREEN_WIDTH/2, 824+SCREEN_HEIGHT/2};
+        target -= {5524+SCREEN_WIDTH/2, 600+SCREEN_HEIGHT/2}; //hardcoded
         if ((target - pos).Length() < 2.0f && currentWaypoint + 1 < (int)waypoints.size()) {
             currentWaypoint++;
             target = waypoints[currentWaypoint];
@@ -44,19 +45,20 @@ struct AIController {
         float desiredAngle = atan2f(dir.y, dir.x);
 
         // Steering error
-        float steerError = fmodf(desiredAngle - angle + b2_pi, 2 * b2_pi) - b2_pi;
+        float steerError = fmodf(desiredAngle - angle + b2_pi, 2 * b2_pi) - b2_pi/2;
         float steerCmd = steerPID.step(steerError, dt);
 
         // Speed control
-        float vTarget = 10.0f;
+        float vTarget = 5.0f;
         b2Vec2 vel = car->physBody->body->GetLinearVelocity();
-        b2Vec2 forward(cosf(angle), sinf(angle));
+        b2Vec2 forward = car->physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
         float vCurrent = b2Dot(vel, forward);
         float throttleCmd = throttlePID.step(vTarget - vCurrent, dt);
 
         // Apply forces
-        car->physBody->body->ApplyForceToCenter(throttleCmd * forward, true);
+        car->physBody->body->ApplyForceToCenter(-throttleCmd * forward, true);
         car->physBody->body->ApplyTorque(steerCmd, true);
+
     }
 };
 

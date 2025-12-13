@@ -14,11 +14,6 @@ bool Scenario::Init() {
 	return true;
 
 }
-// Called each loop iteration
-update_status Scenario::PreUpdate()
-{
-	return UPDATE_CONTINUE;
-}
 
 update_status Scenario::Update()
 {
@@ -26,12 +21,6 @@ update_status Scenario::Update()
 	return UPDATE_CONTINUE;
 }
 
-update_status Scenario::PostUpdate()
-{
-	return UPDATE_CONTINUE;
-}
-
-// Called before quitting
 bool Scenario::CleanUp()
 {
 	return true;

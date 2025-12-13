@@ -21,9 +21,9 @@ bool ModuleGame::Start()
 	LOG("Loading Intro assets");
 	App->scenario->LoadMap();
 	SetTargetFPS(60);
-	player = new Player(App->physics, initialPos.x, initialPos.y, this, 0.6f);
+	player = new Player(App->physics, initialPos.x, initialPos.y+80, this, 0.6f);
 	enemy1Tex = LoadTexture("Assets/Textures/player.png");
-	enemies.emplace_back(new Enemy(App->physics, 300, 300, this, enemy1Tex, 0.6f));
+	enemies.emplace_back(new Enemy(App->physics, initialPos.x, initialPos.y, this, enemy1Tex, 0.6f));
 	
 	player->Start();
 	for (PhysicEntity* entity : enemies) {
