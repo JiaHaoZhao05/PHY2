@@ -21,5 +21,6 @@ public:
 	Texture currentMapTex;
 	Map1* map1;
 	int currentMap;
+	b2Vec2 mapPos;
 	b2Body* body;
 };
