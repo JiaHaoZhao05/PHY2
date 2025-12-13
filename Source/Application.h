@@ -9,8 +9,8 @@ class ModuleWindow;
 class ModuleRender;
 class ModuleAudio;
 class ModulePhysics;
-class ModuleGame;
 class Scenario;
+class ModuleGame;
 
 class Application
 {
@@ -20,8 +20,8 @@ public:
 	ModuleWindow* window;
 	ModuleAudio* audio;
 	ModulePhysics* physics;
-	ModuleGame* game;
 	Scenario* scenario;
+	ModuleGame* game;
 
 private:
 
