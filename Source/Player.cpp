@@ -31,17 +31,19 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
+	
 	return UPDATE_CONTINUE;
 }
 //Player functions
-void ModulePlayer::Throttle() {
-	 
+void Player::Throttle(float force) {
+	b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
+	physBody->body->ApplyForceToCenter(force * forward, true);
 }
-void ModulePlayer::Turn() {
-	if (IsKeyPressedRepeat(KEY_A) || IsKeyPressedRepeat(KEY_RIGHT)) {
-		
-	}
+void Player::Turn(float torque, bool left) {
+	physBody->body->ApplyAngularImpulse(torque * left, true);
+	
 }
-void ModulePlayer::Brake() {
-
+void Player::Brake(float force) {
+	b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
+	physBody->body->ApplyForceToCenter(-force * forward, true);
 }
