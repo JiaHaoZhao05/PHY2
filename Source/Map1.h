@@ -9,7 +9,10 @@ public:
 	Map1(b2ChainShape _mapChain);
 	~Map1();
 
+	std::vector<b2Vec2> GetCenterLine();
+
 private:
-	b2ChainShape map1Chain1;
-	b2ChainShape map1Chain2;
+	std::vector<b2Vec2> leftWaypoints;
+	std::vector<b2Vec2> rightWaypoints;
+	std::vector<b2Vec2> centerLine;
 };
