@@ -189,6 +189,7 @@
     <ClInclude Include="Source/ModuleWindow.h" />
     <ClInclude Include="Source/p2Point.h" />
     <ClInclude Include="Source\Car.h" />
+    <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\Map1.h" />
     <ClInclude Include="Source\ModuleGame.h" />
     <ClInclude Include="Source\PhysicEntity.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="Source/ModulePhysics.cpp" />
     <ClCompile Include="Source/ModuleRender.cpp" />
     <ClCompile Include="Source/ModuleWindow.cpp" />
+    <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\Map1.cpp" />
     <ClCompile Include="Source\Scenario.cpp" />
     <ClCompile Include="Source\Scenario.h" />

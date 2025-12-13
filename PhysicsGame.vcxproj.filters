@@ -40,6 +40,9 @@
     <ClCompile Include="Source\Scenario.h">
       <Filter>Headers</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Enemy.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source/Application.h">
@@ -82,6 +85,9 @@
       <Filter>Headers\Containers</Filter>
     </ClInclude>
     <ClInclude Include="Source\Car.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
