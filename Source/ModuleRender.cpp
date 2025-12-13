@@ -3,6 +3,7 @@
 #include "ModuleWindow.h"
 #include "ModuleRender.h"
 #include "ModuleGame.h"
+#include "Scenario.h"
 #include <math.h>
 
 ModuleRender::ModuleRender(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -28,8 +29,13 @@ bool ModuleRender::Init()
 // PreUpdate: clear buffer
 update_status ModuleRender::PreUpdate()
 {
-    camera.target = { App->game->player->physBody->body->GetPosition().x * PIXELS_PER_METER, App->game->player->physBody->body->GetPosition().y * PIXELS_PER_METER};
-   // camera.rotation = -App->game->player->physBody->body->GetAngle() * RAD2DEG;
+    camera.target = { App->game->player->physBody->body->GetPosition().x * PIXELS_PER_METER, App->game->player->physBody->body->GetPosition().y * PIXELS_PER_METER };
+    //camera.rotation = -App->game->player->physBody->body->GetAngle() * RAD2DEG; //Rotating camera option
+    //Draw the background
+    
+    BeginMode2D(camera);
+    App->scenario->Draw();
+    EndMode2D();
     return UPDATE_CONTINUE;
 }
 
@@ -40,7 +46,6 @@ update_status ModuleRender::Update()
     // maximum performance, all consecutive Draw() calls are
     // not processed until EndDrawing() is called
     BeginDrawing();
-    ClearBackground(background);
     BeginMode2D(camera);
 	return UPDATE_CONTINUE;
 }
@@ -50,6 +55,7 @@ update_status ModuleRender::PostUpdate()
 {
     // Draw everything in our batch!
     DrawFPS(10, 10);
+    
     EndMode2D();
   
     EndDrawing();

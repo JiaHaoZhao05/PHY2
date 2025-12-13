@@ -3,7 +3,6 @@
 #include "Scenario.h"
 #include "ModuleGame.h"
 
-
 Scenario::Scenario(Application* app, bool start_enabled) : Module(app, start_enabled) {
 }
 
@@ -23,7 +22,7 @@ update_status Scenario::PreUpdate()
 
 update_status Scenario::Update()
 {
-	Draw();
+	//Draw();
 	return UPDATE_CONTINUE;
 }
 
@@ -49,10 +48,11 @@ void Scenario::LoadMap() {
 
 void Scenario::LoadMap1() {
 	currentMapTex =  LoadTexture("Assets/Maps/Map1.png");
-	mapPos = { -5924,-942 };
+	mapPos = { -5524,-600 };
 }
 
 void Scenario::Draw() {
 	//DrawLine(METERS_TO_PIXELS(v1.x), METERS_TO_PIXELS(v1.y), METERS_TO_PIXELS(v2.x), METERS_TO_PIXELS(v2.y), BLUE);
-	DrawTexture(currentMapTex, mapPos.x-App->game->player->pos.x, mapPos.y-App->game->player->pos.y, WHITE);
+	//DrawTexture(currentMapTex, mapPos.x-App->game->player->pos.x, mapPos.y-App->game->player->pos.y, WHITE);
+	DrawTexture(currentMapTex, mapPos.x, mapPos.y, WHITE);
 }
