@@ -24,16 +24,16 @@ public:
 	void Draw();
 
 public:
-	float maxspeed = PIXELS_TO_METERS(400);
-	float speed = PIXELS_TO_METERS(80);
+	float maxspeed = 25;
+	float speed = 5;
 
-	float maxtorque = PIXELS_TO_METERS(100);
-	float torque = PIXELS_TO_METERS(60);
+	float maxtorque = 4;
+	float torque = 2.5;
 
-	float brake = PIXELS_TO_METERS(100);
-
-protected:
+	float brake = 5;
 	b2Vec2 pos;
+protected:
+
 	double angle;
 private:
 	Texture2D texture;

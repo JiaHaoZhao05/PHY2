@@ -18,6 +18,7 @@ ModuleGame::~ModuleGame()
 // Load assets
 bool ModuleGame::Start()
 {
+	SetTargetFPS(60);
 	player = new Player(App->physics, initialPos.x, initialPos.y, this, 0.6f);
 	player->Start();
 	LOG("Loading Intro assets");
