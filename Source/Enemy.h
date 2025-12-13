@@ -90,6 +90,6 @@ public:
 
 private:
 	AIController ai;
-    Map1* map1;
+    Map1 map1;
     std::vector<b2Vec2> centerLine;
 };
