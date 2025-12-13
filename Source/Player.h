@@ -17,6 +17,7 @@ public:
 	void Throttle(float force, bool front);
 	void Turn(float torque, bool left, bool turn);
 	void Brake(float force);
+	void GroundFriction();
 
 	bool Start();
 	bool Update();
