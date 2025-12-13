@@ -29,7 +29,7 @@ bool ModuleRender::Init()
 update_status ModuleRender::PreUpdate()
 {
     camera.target = { App->game->player->physBody->body->GetPosition().x * PIXELS_PER_METER, App->game->player->physBody->body->GetPosition().y * PIXELS_PER_METER};
-    camera.rotation = -App->game->player->physBody->body->GetAngle() * RAD2DEG;
+   // camera.rotation = -App->game->player->physBody->body->GetAngle() * RAD2DEG;
     return UPDATE_CONTINUE;
 }
 

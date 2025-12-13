@@ -59,9 +59,12 @@ void ModuleGame::ReadInputs() {
 		player->Turn(player->torque, false, false);
 	}
 	if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) {
-		player->Throttle(player->speed);
+		player->Throttle(player->speed, true);
 	}
-	if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_SPACE)) {
+	else if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) {
+		player->Throttle(player->speed, false);
+	}
+	if (IsKeyDown(KEY_SPACE)) {
 		player->Brake(player->brake);
 	}
 }

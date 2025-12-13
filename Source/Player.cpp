@@ -35,18 +35,21 @@ bool Player::Update()
 	int x,y;
 	physBody->GetPhysicPosition(x,y);
 	pos = { (float)x,(float)y };
-
-	//Update camera
-	//camera.target = {PIXEL_TO_METERS(pos.x), PIXEL_TO_METERS(pos.y)};
-
+	
 	Draw();
 	return true;
 }
 //Player functions
-void Player::Throttle(float force) {
+void Player::Throttle(float force, bool front) {
 	if (physBody->body->GetLinearVelocity().Length() < maxspeed) {
-		b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
-		physBody->body->ApplyForceToCenter(-force * forward, true);
+		if (front) {
+			b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
+			physBody->body->ApplyForceToCenter(-force * forward, true);
+		}
+		else {
+			b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
+			physBody->body->ApplyForceToCenter(force * forward, true);
+		}
 	}
 }
 void Player::Turn(float torque, bool left, bool turn) {
@@ -86,10 +89,12 @@ void Player::Brake(float force) {
 }
 
 void Player::Draw() {
+	Vector2 position{ GetScreenWidth() / 2,  GetScreenHeight() / 2 };
 	float scale = 1.0f;
 	Rectangle source = { 0.0f, 0.0f, (float)texture.width, (float)texture.height };
 	Rectangle dest = { pos.x, pos.y, (float)texture.width * scale, (float)texture.height * scale };
 	Vector2 origin = { (float)texture.width / 2.0f, (float)texture.height / 2.0f };
-	float rotation = physBody->GetRotation() * RAD2DEG;
+	float rotation = physBody->body->GetAngle() * RAD2DEG;
 	DrawTexturePro(texture, source, dest, origin, rotation, WHITE);
+	//DrawTexture(texture, GetScreenWidth() / 2 - texture.width / 2, GetScreenHeight() / 2 - texture.height / 2, WHITE);
 }

@@ -14,7 +14,7 @@ public:
 		
 	}
 	~Player();
-	void Throttle(float force);
+	void Throttle(float force, bool front);
 	void Turn(float torque, bool left, bool turn);
 	void Brake(float force);
 
