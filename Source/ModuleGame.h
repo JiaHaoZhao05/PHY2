@@ -2,6 +2,8 @@
 
 #include "Globals.h"
 #include "Module.h"
+#include "Player.h"
+#include "Map1.h"
 
 #include "p2Point.h"
 
@@ -21,8 +23,14 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
+	void ReadInputs();
+	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 
 public:
+	//Scenario* scenario;
+	//Player* player;
 
+	Map1* map1;
+	std::vector<PhysicEntity> entities;
 	
 };

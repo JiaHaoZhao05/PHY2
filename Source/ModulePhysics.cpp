@@ -2,10 +2,21 @@
 #include "Application.h"
 #include "ModuleRender.h"
 #include "ModulePhysics.h"
+//#include "PhysicEntity.h"
 
 #include "p2Point.h"
 
 #include <math.h>
+
+#define PIXELS_PER_METER 50.0f
+#define METER_PER_PIXEL (1.0f / PIXELS_PER_METER)
+#define METERS_TO_PIXELS(m) ((float)((m) * PIXELS_PER_METER))
+#define PIXELS_TO_METERS(p) ((float)(p) / PIXELS_PER_METER)
+
+
+#define DEGTORAD 0.0174532925199432957f
+#define RADTODEG 57.295779513082320876f
+
 
 ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -22,7 +33,6 @@ ModulePhysics::~ModulePhysics()
 bool ModulePhysics::Start()
 {
 	LOG("Creating Physics 2D environment");
-
 	world = new b2World(b2Vec2(GRAVITY_X, -GRAVITY_Y));
 	world->SetContactListener(this);
 
@@ -55,7 +65,6 @@ bool ModulePhysics::Start()
 update_status ModulePhysics::PreUpdate()
 {
 	world->Step(1.0f / 60.0f, 6, 2);
-
 	for (b2Contact* c = world->GetContactList(); c; c = c->GetNext())
 	{
 		if (c->GetFixtureA()->IsSensor() && c->IsTouching())
@@ -69,7 +78,6 @@ update_status ModulePhysics::PreUpdate()
 				pb1->listener->OnCollision(pb1, pb2);
 		}
 	}
-
 	return UPDATE_CONTINUE;
 }
 
