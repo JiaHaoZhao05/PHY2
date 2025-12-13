@@ -4,7 +4,7 @@
 #include "Globals.h"
 
 #include "box2d\box2d.h"
-
+#include <vector>
 #define GRAVITY_X 0.0f
 #define GRAVITY_Y 0.0f
 
@@ -57,7 +57,7 @@ public:
 	PhysBody* CreateCircle(int x, int y, int radius);
 	PhysBody* CreateRectangle(int x, int y, int width, int height, float friction, uint16 categoryBits, uint16 maskBits = 0xFFFF, int16 groupIndex = 0);
 	PhysBody* CreateRectangleSensor(int x, int y, int width, int height);
-	PhysBody* CreateChain(int x, int y, const int* points, int size);
+	PhysBody* CreateChain(int x, int y, std::vector<int> points);
 
 	// b2ContactListener ---
 	void BeginContact(b2Contact* contact);

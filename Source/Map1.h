@@ -13,7 +13,8 @@ public:
 
 public:
 	Texture mapTex;
-
+	std::vector<int> chain1;
+	std::vector<int> chain2;
 private:
 	std::vector<b2Vec2> leftWaypoints;
 	std::vector<b2Vec2> rightWaypoints;

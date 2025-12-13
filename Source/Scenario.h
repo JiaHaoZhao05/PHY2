@@ -21,4 +21,6 @@ public:
 	int currentMap;
 	b2Vec2 mapPos;
 	b2Body* body;
+	PhysBody* chain1;
+	PhysBody* chain2;
 };
