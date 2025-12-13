@@ -72,6 +72,7 @@ void ModuleGame::ReadInputs() {
 	else if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) {
 		player->Throttle(player->speed, false);
 	}
+
 	if (IsKeyDown(KEY_SPACE)) {
 		player->Brake(player->brake);
 	}
