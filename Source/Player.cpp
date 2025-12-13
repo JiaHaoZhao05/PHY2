@@ -90,10 +90,6 @@ void Player::Brake(float force) {
 void Player::GroundFriction() {
 	b2Vec2 force = physBody->body->GetLinearVelocity();
 	force *= -1 * physBody->body->GetFixtureList()->GetDensity() * physBody->body->GetFixtureList()->GetFriction();
-	float d = physBody->body->GetFixtureList()->GetDensity();
-	float f = physBody->body->GetFixtureList()->GetFriction();
-	
-
 	physBody->body->ApplyForceToCenter(force, true);
 }
 void Player::Draw() {
