@@ -33,7 +33,8 @@ struct AIController {
 
         // Target waypoint
         b2Vec2 target = waypoints[currentWaypoint];
-        target -= {5524+SCREEN_WIDTH/2, 600+SCREEN_HEIGHT/2}; //hardcoded
+        target += { -5924 + (SCREEN_WIDTH / 2), -942 + (SCREEN_HEIGHT / 2)}; //hardcoded
+        DrawCircle(target.x, target.y, 10, RED);
         if ((target - pos).Length() < 2.0f && currentWaypoint + 1 < (int)waypoints.size()) {
             currentWaypoint++;
             target = waypoints[currentWaypoint];
@@ -49,7 +50,7 @@ struct AIController {
         float steerCmd = steerPID.step(steerError, dt);
 
         // Speed control
-        float vTarget = 5.0f;
+        float vTarget = 2.0f;
         b2Vec2 vel = car->physBody->body->GetLinearVelocity();
         b2Vec2 forward = car->physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
         float vCurrent = b2Dot(vel, forward);
