@@ -107,7 +107,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, uint16 categoryBits, uint16 maskBits, int16 groupIndex)
+PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, float friction, uint16 categoryBits, uint16 maskBits, int16 groupIndex)
 {
 	PhysBody* pbody = new PhysBody();
 
@@ -123,6 +123,7 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, ui
 	b2FixtureDef fixture;
 	fixture.shape = &box;
 	fixture.density = 1.0f;
+	fixture.friction = friction;
 
 	// TODO 2: Add filter categoryBits and maskBits to fixture
 	fixture.filter.categoryBits = categoryBits;

@@ -32,5 +32,5 @@ public:
 
 	Map1* map1;
 	std::vector<PhysicEntity> entities;
-	
+	b2Vec2 initialPos = { 300,300 }; //player position,  needs to be in scenario
 };

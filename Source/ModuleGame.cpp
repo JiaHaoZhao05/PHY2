@@ -5,6 +5,7 @@
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
 #include "ModulePhysics.h"
+#include "Player.h"
 
 ModuleGame::ModuleGame(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -17,6 +18,8 @@ ModuleGame::~ModuleGame()
 // Load assets
 bool ModuleGame::Start()
 {
+	player = new Player(App->physics, initialPos.x, initialPos.y, this, 0.6f);
+	player->Start();
 	LOG("Loading Intro assets");
 
 	//entities.emplace_back(new Map1())
@@ -37,6 +40,8 @@ bool ModuleGame::CleanUp()
 // Update: draw background
 update_status ModuleGame::Update()
 {
+	ReadInputs();
+	player->Update();
 	return UPDATE_CONTINUE;
 }
 
@@ -46,7 +51,7 @@ void ModuleGame::ReadInputs() {
 	if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) {
 		player->Turn(player->torque, true);
 	}
-	else if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) {
+	if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) {
 		player->Turn(player->torque, false);
 	}
 	if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) {

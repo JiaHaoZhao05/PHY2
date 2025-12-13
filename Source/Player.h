@@ -4,12 +4,12 @@
 #include "p2Point.h"
 #include "PhysicEntity.h"
 #include "ModulePhysics.h"
+#include "Car.h"
 
-class Player :public PhysicEntity {
+class Player :public Car {
 public:
-	Player(ModulePhysics* physics, int _x, int _y, Module* _listener, Texture2D _texture, float friction)
-		: PhysicEntity(physics->CreateRectangle(_x,_y,5,8,PLAYER), _listener, EntityType::PLAYER)
-		, texture(_texture)
+	Player(ModulePhysics* physics, int pos_x, int pos_y, Module* _listener, float _friction)
+		: Car(physics->CreateRectangle(pos_x,pos_y,32,64, _friction,PLAYER), _listener, EntityType::PLAYER)
 	{
 		
 	}
@@ -19,9 +19,9 @@ public:
 	void Brake(float force);
 
 public:
-	float speed = 4;
-	float torque = 0.4;
-	float brake = 8;
+	float speed = PIXELS_TO_METERS(25);
+	float torque = PIXELS_TO_METERS(4);
+	float brake = PIXELS_TO_METERS(15);
 
 protected:
 	Camera2D camera;
@@ -35,6 +35,7 @@ public:
 	bool Start();
 	bool Update();
 	bool CleanUp();
+	void Draw();
 
 public:
 	Player* player;
