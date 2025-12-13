@@ -104,5 +104,4 @@ void Player::Draw() {
 	Vector2 origin = { (float)texture.width / 2.0f, (float)texture.height / 2.0f };
 	float rotation = physBody->body->GetAngle() * RAD2DEG;
 	DrawTexturePro(texture, source, dest, origin, rotation, WHITE);
-	//DrawTexture(texture, GetScreenWidth() / 2 - texture.width / 2, GetScreenHeight() / 2 - texture.height / 2, WHITE);
 }

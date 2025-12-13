@@ -5,6 +5,59 @@
 #include "PhysicEntity.h"
 #include "ModulePhysics.h"
 #include "Car.h"
+#include "Map1.h"
+
+struct PID {
+    float kp, ki, kd;
+    float integral = 0.0f;
+    float prevError = 0.0f;
+
+    float step(float error, float dt) {
+        integral += error * dt;
+        float derivative = (error - prevError) / dt;
+        float u = kp * error + ki * integral + kd * derivative;
+        prevError = error;
+        return u;
+    }
+};
+
+struct AIController {
+    PID steerPID{ 1.0f, 0.0f, 0.2f };
+    PID throttlePID{ 0.5f, 0.0f, 0.1f };
+    int currentWaypoint = 0;
+
+    void Update(Car* car, const std::vector<b2Vec2>& waypoints, float dt) {
+        b2Vec2 pos = car->physBody->body->GetPosition();
+        float angle = car->physBody->body->GetAngle();
+
+        // Target waypoint
+        b2Vec2 target = waypoints[currentWaypoint];
+        if ((target - pos).Length() < 2.0f && currentWaypoint + 1 < (int)waypoints.size()) {
+            currentWaypoint++;
+            target = waypoints[currentWaypoint];
+        }
+
+        // Desired direction
+        b2Vec2 dir = target - pos;
+        dir.Normalize();
+        float desiredAngle = atan2f(dir.y, dir.x);
+
+        // Steering error
+        float steerError = fmodf(desiredAngle - angle + b2_pi, 2 * b2_pi) - b2_pi;
+        float steerCmd = steerPID.step(steerError, dt);
+
+        // Speed control
+        float vTarget = 10.0f;
+        b2Vec2 vel = car->physBody->body->GetLinearVelocity();
+        b2Vec2 forward(cosf(angle), sinf(angle));
+        float vCurrent = b2Dot(vel, forward);
+        float throttleCmd = throttlePID.step(vTarget - vCurrent, dt);
+
+        // Apply forces
+        car->physBody->body->ApplyForceToCenter(throttleCmd * forward, true);
+        car->physBody->body->ApplyTorque(steerCmd, true);
+    }
+};
 
 class Enemy :public Car {
 public:
@@ -25,7 +78,7 @@ public:
 
 protected:
 	b2Vec2 pos;
-	double angle;
+	double angle = 0;
 private:
 	Texture2D texture;
 
@@ -35,5 +88,8 @@ public:
 	bool Update();
 	bool CleanUp();
 
-public:
+private:
+	AIController ai;
+    Map1* map1;
+    std::vector<b2Vec2> centerLine;
 };

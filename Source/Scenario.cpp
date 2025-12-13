@@ -4,6 +4,6 @@ Scenario::Scenario(Application* app, bool start_enabled) : Module(app, start_ena
 
 Scenario::~Scenario() {}
 
-//void Scenario::LoadMap(Map map) {
-//
-//}
+void Scenario::LoadMap(Map1 map) {
+
+}
