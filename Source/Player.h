@@ -34,5 +34,5 @@ public:
 	void Throttle();
 	void Brake();
 public:
-	
+	Player* player;
 };
