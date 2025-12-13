@@ -4,11 +4,12 @@
 #include "p2Point.h"
 #include "PhysicEntity.h"
 #include "ModulePhysics.h"
+#include "Car.h"
 
-class Player :public PhysicEntity {
+class Player :public Car {
 public:
 	Player(ModulePhysics* physics, int _x, int _y, Module* _listener, Texture2D _texture, float friction)
-		: PhysicEntity(physics->CreateRectangle(_x,_y,5,8,PLAYER), _listener, EntityType::PLAYER)
+		: Car(physics->CreateRectangle(_x,_y,5,8,PLAYER), _listener, EntityType::PLAYER)
 		, texture(_texture)
 	{
 		
