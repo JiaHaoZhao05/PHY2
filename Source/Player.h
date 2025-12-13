@@ -37,5 +37,4 @@ public:
 	bool CleanUp();
 
 public:
-	Player* player;
 };
