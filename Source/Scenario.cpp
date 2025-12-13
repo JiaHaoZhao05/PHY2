@@ -42,13 +42,14 @@ void Scenario::LoadMap() {
 	case 1:
 		LoadMap1();
 		break;
-
 	}
 }
 
 void Scenario::LoadMap1() {
-	currentMapTex =  LoadTexture("Assets/Maps/Map1.png");
+	currentMapTex =  map1->mapTex;
 	mapPos = { -5924,-942 };
+	chain1 = App->physics->CreateChain(0, 0, map1->chain1);
+	chain2 = App->physics->CreateChain(0, 0, map1->chain2);
 }
 
 void Scenario::Draw() {

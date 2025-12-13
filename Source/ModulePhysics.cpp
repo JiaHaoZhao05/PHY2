@@ -7,7 +7,7 @@
 #include "p2Point.h"
 
 #include <math.h>
-
+#include <vector>
 #define PIXELS_PER_METER 50.0f
 #define METER_PER_PIXEL (1.0f / PIXELS_PER_METER)
 #define METERS_TO_PIXELS(m) ((float)((m) * PIXELS_PER_METER))
@@ -169,39 +169,45 @@ PhysBody* ModulePhysics::CreateRectangleSensor(int x, int y, int width, int heig
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateChain(int x, int y, const int* points, int size)
+PhysBody* ModulePhysics::CreateChain(int x, int y, std::vector<int> points)
 {
-	PhysBody* pbody = new PhysBody();
+    PhysBody* pbody = new PhysBody();
 
-	b2BodyDef body;
-	body.type = b2_dynamicBody;
-	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
-	body.userData.pointer = reinterpret_cast<uintptr_t>(pbody);
+    b2BodyDef bodyDef;
+    bodyDef.type = b2_staticBody;
+    bodyDef.position.Set(
+        PIXEL_TO_METERS(x),
+        PIXEL_TO_METERS(y)
+    );
+    bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(pbody);
 
-	b2Body* b = world->CreateBody(&body);
+    b2Body* body = world->CreateBody(&bodyDef);
 
-	b2ChainShape shape;
-	b2Vec2* p = new b2Vec2[size / 2];
+    int count = points.size() / 2;
+    b2Vec2* vertices = new b2Vec2[count];
 
-	for (int i = 0; i < size / 2; ++i)
-	{
-		p[i].x = PIXEL_TO_METERS(points[i * 2 + 0]);
-		p[i].y = PIXEL_TO_METERS(points[i * 2 + 1]);
-	}
+    for (int i = 0; i < count; ++i)
+    {
+        vertices[i].x = points[i * 2]     / PIXELS_PER_METER;
+        vertices[i].y = points[i * 2 + 1] / PIXELS_PER_METER;
+    }
 
-	shape.CreateLoop(p, size / 2);
+    b2ChainShape shape;
+    shape.CreateLoop(vertices, count);
 
-	b2FixtureDef fixture;
-	fixture.shape = &shape;
+    b2FixtureDef fixtureDef;
+    fixtureDef.shape = &shape;
+    fixtureDef.friction = 0.8f;
 
-	b->CreateFixture(&fixture);
+    body->CreateFixture(&fixtureDef);
 
-	delete p;
+    delete[] vertices;
 
-	pbody->body = b;
-	pbody->width = pbody->height = 0;
+    pbody->body = body;
+    pbody->width = 0;
+    pbody->height = 0;
 
-	return pbody;
+    return pbody;
 }
 
 // 
