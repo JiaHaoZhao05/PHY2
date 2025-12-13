@@ -5,6 +5,7 @@
 #include "PhysicEntity.h"
 #include "ModulePhysics.h"
 #include "Car.h"
+#include "Map1.h"
 
 struct PID {
     float kp, ki, kd;
@@ -89,5 +90,6 @@ public:
 
 private:
 	AIController ai;
-
+    Map1* map1;
+    std::vector<b2Vec2> centerLine;
 };
