@@ -12,10 +12,18 @@ public:
 	{
 		type = 0;
 	}
+	void Throttle(float force);
+	void Turn(float torque, bool left);
+	void Brake(float force);
+
+public:
+	float speed = 4;
+	float torque = 0.4;
+	float brake = 2;
+
 protected:
 	Camera2D camera;
 	b2Vec2 pos;
-	float speed;
 	double angle;
 private:
 	Texture2D texture;
@@ -30,9 +38,6 @@ public:
 	update_status Update();
 	bool CleanUp();
 
-	void Turn();
-	void Throttle();
-	void Brake();
 public:
 	Player* player;
 };

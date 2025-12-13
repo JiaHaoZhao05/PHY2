@@ -31,17 +31,30 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
+	if (IsKeyPressedRepeat(KEY_A) || IsKeyPressedRepeat(KEY_LEFT)) {
+		player->Turn(player->torque, true);
+	}
+	else if (IsKeyPressedRepeat(KEY_D) || IsKeyPressedRepeat(KEY_RIGHT)) {
+		player->Turn(player->torque, false);
+	}
+	if (IsKeyPressedRepeat(KEY_W) || IsKeyPressedRepeat(KEY_UP)) {
+		player->Throttle(player->speed);
+	}
+	if (IsKeyPressedRepeat(KEY_S) || IsKeyPressedRepeat(KEY_DOWN)) {
+		player->Brake(player->brake);
+	}
 	return UPDATE_CONTINUE;
 }
 //Player functions
-void ModulePlayer::Throttle() {
-	 
+void Player::Throttle(float force) {
+	b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
+	physBody->body->ApplyForceToCenter(force * forward, true);
 }
-void ModulePlayer::Turn() {
-	if (IsKeyPressedRepeat(KEY_A) || IsKeyPressedRepeat(KEY_RIGHT)) {
-		
-	}
-}
-void ModulePlayer::Brake() {
+void Player::Turn(float torque, bool left) {
 
+	physBody->body->ApplyAngularImpulse(torque * left, true);
+}
+void Player::Brake(float force) {
+	b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
+	physBody->body->ApplyForceToCenter(-force * forward, true);
 }
