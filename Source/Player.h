@@ -12,9 +12,6 @@ public:
 	{
 		type = 0;
 	}
-	void Turn();
-	void Throttle();
-	void Brake();
 protected:
 	Camera2D camera;
 	b2Vec2 pos;
@@ -33,6 +30,9 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+	void Turn();
+	void Throttle();
+	void Brake();
 public:
 	
 };
