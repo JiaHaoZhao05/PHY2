@@ -38,5 +38,4 @@ public:
 	void Draw();
 
 public:
-	Player* player;
 };
