@@ -7,21 +7,19 @@
 #include "PhysicEntity.h"
 #include "Player.h"
 
-ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled)
-{
-}
 
-ModulePlayer::~ModulePlayer()
+
+Player::~Player()
 {}
 
 // Load assets
-bool ModulePlayer::Start()
+bool Player::Start()
 {
 	LOG("Loading player");
 	return true;
 }
 // Unload assets
-bool ModulePlayer::CleanUp()
+bool Player::CleanUp()
 {
 	LOG("Unloading player");
 
@@ -29,19 +27,21 @@ bool ModulePlayer::CleanUp()
 }
 
 // Update: draw background
-update_status ModulePlayer::Update()
+bool Player::Update()
 {
-	return UPDATE_CONTINUE;
+	
+	return true;
 }
 //Player functions
-void ModulePlayer::Throttle() {
-	 
+void Player::Throttle(float force) {
+	b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
+	physBody->body->ApplyForceToCenter(force * forward, true);
 }
-void ModulePlayer::Turn() {
-	if (IsKeyPressedRepeat(KEY_A) || IsKeyPressedRepeat(KEY_RIGHT)) {
-		
-	}
+void Player::Turn(float torque, bool left) {
+	physBody->body->ApplyAngularImpulse(torque * left, true);
+	
 }
-void ModulePlayer::Brake() {
-
+void Player::Brake(float force) {
+	b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
+	physBody->body->ApplyForceToCenter(-force * forward, true);
 }
