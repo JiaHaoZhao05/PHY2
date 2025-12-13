@@ -19,7 +19,7 @@ bool ModuleGame::Start()
 {
 	LOG("Loading Intro assets");
 
-	entities.emplace_back(new Map1())
+	//entities.emplace_back(new Map1())
 
 
 
