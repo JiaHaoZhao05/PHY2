@@ -16,6 +16,8 @@ Player::~Player()
 bool Player::Start()
 {
 	LOG("Loading player");
+	//initialize the camera
+	
 	texture = LoadTexture("Assets/Textures/player.png");
 	return true;
 }
@@ -33,23 +35,54 @@ bool Player::Update()
 	int x,y;
 	physBody->GetPhysicPosition(x,y);
 	pos = { (float)x,(float)y };
+
+	//Update camera
+	//camera.target = {PIXEL_TO_METERS(pos.x), PIXEL_TO_METERS(pos.y)};
+
 	Draw();
 	return true;
 }
 //Player functions
 void Player::Throttle(float force) {
-	b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
-	physBody->body->ApplyForceToCenter(-force * forward, true);
+	if (physBody->body->GetLinearVelocity().Length() < maxspeed) {
+		b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
+		physBody->body->ApplyForceToCenter(-force * forward, true);
+	}
 }
-void Player::Turn(float torque, bool left) {
-	if (left)physBody->body->ApplyTorque(-torque , true);
-	else physBody->body->ApplyTorque(torque, true);
-	
-	
+void Player::Turn(float torque, bool left, bool turn) {
+	if (turn) {
+		if (abs(physBody->body->GetAngularVelocity()) < maxtorque) {
+			if (left)physBody->body->ApplyTorque(-torque, true);
+			else physBody->body->ApplyTorque(torque, true);
+		}
+	}
+	else {
+		if (physBody->body->GetAngularVelocity() != 0) {
+			physBody->body->SetAngularVelocity(0);
+		}
+	}
 }
 void Player::Brake(float force) {
-	b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
-	physBody->body->ApplyForceToCenter(force * forward, true);
+	b2Vec2 brakeF;
+	if (physBody->body->GetLinearVelocity().x > 0) {
+		brakeF.x = -force;
+	}
+	else if (physBody->body->GetLinearVelocity().x < 0) {
+		brakeF.x = force;
+	}
+	else {
+		brakeF.x = 0;
+	}
+	if (physBody->body->GetLinearVelocity().y > 0) {
+		brakeF.y = -force;
+	}
+	else if (physBody->body->GetLinearVelocity().y < 0) {
+		brakeF.y = force;
+	}
+	else {
+		brakeF.y = 0;
+	}
+	physBody->body->ApplyForceToCenter(brakeF, true);
 }
 
 void Player::Draw() {

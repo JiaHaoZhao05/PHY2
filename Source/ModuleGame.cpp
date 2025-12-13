@@ -48,11 +48,14 @@ update_status ModuleGame::Update()
 
 
 void ModuleGame::ReadInputs() {
-	if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) {
-		player->Turn(player->torque, true);
+	if ((IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) && !(IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT))) {
+		player->Turn(player->torque, true, true);
 	}
-	if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) {
-		player->Turn(player->torque, false);
+	else if ((IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) && !(IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT))) {
+		player->Turn(player->torque, false, true);
+	}
+	else {
+		player->Turn(player->torque, false, false);
 	}
 	if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) {
 		player->Throttle(player->speed);
