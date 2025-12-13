@@ -47,7 +47,7 @@ void Scenario::LoadMap() {
 
 void Scenario::LoadMap1() {
 	currentMapTex =  map1->mapTex;
-	mapPos = { -5924,-942 };
+	mapPos = { -5524,-600 };
 	chain1 = App->physics->CreateChain(0, 0, map1->chain1);
 	chain2 = App->physics->CreateChain(0, 0, map1->chain2);
 }
@@ -55,5 +55,5 @@ void Scenario::LoadMap1() {
 void Scenario::Draw() {
 	//DrawLine(METERS_TO_PIXELS(v1.x), METERS_TO_PIXELS(v1.y), METERS_TO_PIXELS(v2.x), METERS_TO_PIXELS(v2.y), BLUE);
 	//DrawTexture(currentMapTex, mapPos.x-App->game->player->pos.x, mapPos.y-App->game->player->pos.y, WHITE);
-	DrawTexture(currentMapTex, 0, 0, WHITE);
+	DrawTexture(currentMapTex, mapPos.x, mapPos.y, WHITE);
 }
