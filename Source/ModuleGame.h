@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include "Module.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "Map1.h"
 
 #include "p2Point.h"
@@ -27,10 +28,14 @@ public:
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 
 public:
-	//Scenario* scenario;
+
+	Texture enemy1Tex; //should be in Enemy.h ?
 	Player* player;
+	std::vector<PhysicEntity*> enemies;
+
+	
 
 	Map1* map1;
-	std::vector<PhysicEntity> entities;
+	
 	b2Vec2 initialPos = { SCREEN_WIDTH/2,SCREEN_HEIGHT/2 }; //player position,  needs to be in scenario
 };

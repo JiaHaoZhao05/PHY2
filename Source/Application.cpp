@@ -5,6 +5,7 @@
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
 #include "ModuleGame.h"
+#include "Scenario.h"
 
 #include "Application.h"
 
@@ -14,6 +15,7 @@ Application::Application()
 	renderer = new ModuleRender(this);
 	audio = new ModuleAudio(this, true);
 	physics = new ModulePhysics(this);
+	scenario = new Scenario(this);
 	game = new ModuleGame(this);
 
 	// The order of calls is very important!
@@ -26,7 +28,9 @@ Application::Application()
 	AddModule(audio);
 	
 	// Scenes
+	AddModule(scenario);
 	AddModule(game);
+	
 
 	// Rendering happens at the end
 	AddModule(renderer);

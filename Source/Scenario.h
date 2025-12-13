@@ -6,5 +6,20 @@ public:
 	Scenario(Application* app, bool start_enabled = true);
 	~Scenario();
 
-	void LoadMap(Map1 map);
+	bool Init();
+	update_status PreUpdate();
+	update_status Update();
+	update_status PostUpdate();
+	bool CleanUp();
+
+	void LoadMap();
+	void LoadMap1();
+	void Draw();
+
+
+public:
+	Texture currentMapTex;
+	Map1* map1;
+	int currentMap;
+	b2Body* body;
 };

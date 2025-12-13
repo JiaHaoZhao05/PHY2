@@ -62,7 +62,7 @@ struct AIController {
 class Enemy :public Car {
 public:
 	Enemy(ModulePhysics* physics, int _x, int _y, Module* _listener, Texture2D _texture, float friction)
-		: Car(physics->CreateRectangle(_x, _y, 5, 8,0.6, ENEMY), _listener, EntityType::ENEMY)
+		: Car(physics->CreateRectangle(_x, _y, 32, 64, friction, ENEMY), _listener, EntityType::ENEMY)
 		, texture(_texture)
 	{
 

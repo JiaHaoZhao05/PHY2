@@ -431,12 +431,13 @@ chain2.CreateLoop(racetrack2, vertexCount2);
 //	0.737222f, 0.227778f
 //};
 
-leftWaypoints.assign(racetracksketch1, racetracksketch1 + vertexCount1);
-rightWaypoints.assign(racetrack2, racetrack2 + vertexCount2);
-for (size_t i = 0; i < leftWaypoints.size() && i < rightWaypoints.size(); i++) {
-	b2Vec2 mid = 0.5f * (leftWaypoints[i] + rightWaypoints[i]);
-	centerLine.push_back(mid);
-}
+	leftWaypoints.assign(racetracksketch1, racetracksketch1 + vertexCount1);
+	rightWaypoints.assign(racetrack2, racetrack2 + vertexCount2);
+	for (size_t i = 0; i < leftWaypoints.size() && i < rightWaypoints.size(); i++) {
+		b2Vec2 mid = 0.5f * (leftWaypoints[i] + rightWaypoints[i]);
+		centerLine.push_back(mid);
+	}
+	mapTex = LoadTexture("Assets/Maps/Map1.png");
 }
 Map1::Map1(b2ChainShape _mapChain) {
 

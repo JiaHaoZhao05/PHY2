@@ -11,8 +11,12 @@ public:
 
 	std::vector<b2Vec2> GetCenterLine();
 
+public:
+	Texture mapTex;
+
 private:
 	std::vector<b2Vec2> leftWaypoints;
 	std::vector<b2Vec2> rightWaypoints;
 	std::vector<b2Vec2> centerLine;
+	
 };
