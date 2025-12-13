@@ -28,7 +28,7 @@ public:
 
 public:
 	//Scenario* scenario;
-	//Player* player;
+	Player* player;
 
 	Map1* map1;
 	std::vector<PhysicEntity> entities;

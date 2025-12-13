@@ -19,7 +19,7 @@ public:
 public:
 	float speed = 4;
 	float torque = 0.4;
-	float brake = 2;
+	float brake = 8;
 
 protected:
 	Camera2D camera;
