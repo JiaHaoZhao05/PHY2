@@ -81,6 +81,9 @@
     <ClInclude Include="Source/p2Point.h">
       <Filter>Headers\Containers</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Car.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">

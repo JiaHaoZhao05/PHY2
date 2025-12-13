@@ -8,19 +8,27 @@
 
 #include "raylib.h"
 #include <vector>
+
+enum class EntityType
+{
+	PLAYER,
+	ENEMY,
+};
+
 class PhysicEntity
 {
 public:
-
-	PhysicEntity(PhysBody* _body, Module* _listener)
+	PhysicEntity() {}
+	PhysicEntity(PhysBody* _body, Module* _listener, EntityType _type)
 		: physBody(_body)
 		, listener(_listener)
+		, type(_type)
 	{
 		
 	}
 
 	virtual ~PhysicEntity() = default;
-	virtual void Update() = 0;
+	virtual bool Update() = 0;
 
 	virtual int RayHit(vec2<int> ray, vec2<int> mouse, vec2<float>& normal)
 	{
@@ -30,8 +38,8 @@ public:
 
 	PhysBody* physBody;
 	Module* listener;
-	int type;
 	bool isSwitched = false;
 	int state = 0;
+	EntityType type;
 
 };
