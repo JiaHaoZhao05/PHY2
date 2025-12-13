@@ -10,5 +10,6 @@ public:
 	~Map1();
 
 private:
-	b2ChainShape mapChain1;
+	b2ChainShape map1Chain1;
+	b2ChainShape map1Chain2;
 };
