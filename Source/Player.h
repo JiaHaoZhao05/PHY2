@@ -12,6 +12,7 @@ public:
 	{
 		type = 0;
 	}
+	~Player();
 	void Throttle(float force);
 	void Turn(float torque, bool left);
 	void Brake(float force);
@@ -27,15 +28,11 @@ protected:
 	double angle;
 private:
 	Texture2D texture;
-};
-class ModulePlayer : public Module
-{
+
 public:
-	ModulePlayer(Application* app, bool start_enabled = true);
-	virtual ~ModulePlayer();
 
 	bool Start();
-	update_status Update();
+	bool Update();
 	bool CleanUp();
 
 public:
