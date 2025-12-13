@@ -19,13 +19,16 @@ bool ModuleRender::Init()
 	LOG("Creating Renderer context");
 	bool ret = true;
 
+
 	return ret;
 }
 
 // PreUpdate: clear buffer
 update_status ModuleRender::PreUpdate()
 {
-	return UPDATE_CONTINUE;
+    
+    BeginMode2D(camera);
+    return UPDATE_CONTINUE;
 }
 
 // Update: debug camera
@@ -46,7 +49,8 @@ update_status ModuleRender::PostUpdate()
 {
     // Draw everything in our batch!
     DrawFPS(10, 10);
-
+    EndMode2D();
+  
     EndDrawing();
 
 	return UPDATE_CONTINUE;
@@ -74,9 +78,9 @@ bool ModuleRender::Draw(Texture2D texture, int x, int y, const Rectangle* sectio
 
     if (section != NULL) rect = *section;
 
-    position.x = (float)(x-pivot_x) * scale + camera.x;
-    position.y = (float)(y-pivot_y) * scale + camera.y;
-
+    position.x = (float)(x - pivot_x) * scale;// +camera.x;
+    position.y = (float)(y - pivot_y) * scale;// +camera.y;
+    
 	rect.width *= scale;
 	rect.height *= scale;
 

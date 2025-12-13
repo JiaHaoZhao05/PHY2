@@ -21,8 +21,6 @@ bool ModuleGame::Start()
 
 	//entities.emplace_back(new Map1())
 
-
-
 	bool ret = true;
 
 	return ret;

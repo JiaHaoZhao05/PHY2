@@ -10,7 +10,13 @@
     <ClCompile Include="Source/Main.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Map1.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
     <ClCompile Include="Source/ModuleAudio.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ModuleGame.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Source/ModulePhysics.cpp">
@@ -22,29 +28,20 @@
     <ClCompile Include="Source/ModuleWindow.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Timer.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ModuleGame.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Player.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scenario.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Timer.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Source\Scenario.h">
       <Filter>Headers</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scenario.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Map1.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source/p2Point.h">
-      <Filter>Headers\Containers</Filter>
-    </ClInclude>
     <ClInclude Include="Source/Application.h">
       <Filter>Headers</Filter>
     </ClInclude>
@@ -54,47 +51,51 @@
     <ClInclude Include="Source/Module.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Map1.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
     <ClInclude Include="Source/ModuleAudio.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Source/ModulePhysics.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Source/ModuleRender.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Source/ModuleWindow.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Timer.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Source\ModuleGame.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Source/ModuleWindow.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source/ModuleRender.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source/ModulePhysics.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PhysicEntity.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Player.h">
       <Filter>Headers</Filter>
     </ClInclude>
-
-    <ClInclude Include="Source\PhysicEntity.h">
-
-    <ClInclude Include="Source\Map1.h">
-
+    <ClInclude Include="Source\Timer.h">
       <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source/p2Point.h">
+      <Filter>Headers\Containers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Headers">
-      <UniqueIdentifier>{d82c32f1-eea9-456f-981b-a7e64f40f8d1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sources">
-      <UniqueIdentifier>{8fd46c61-4dab-4d27-8542-1af6dd78d6d0}</UniqueIdentifier>
+      <UniqueIdentifier>{6ac7a782-2058-4c16-b210-cce9f4606a35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{1c375fdc-43de-4a52-856c-ef7e7768bdbd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Headers\Containers">
-      <UniqueIdentifier>{39bd4360-6afc-44b3-8ba5-578b26392b24}</UniqueIdentifier>
+      <UniqueIdentifier>{f1fd6841-a402-4fe9-9618-8ff4984d0933}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Source\resources.rc" />
+    <ResourceCompile Include="Source\resources.rc">
+      <Filter>Headers\Containers</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

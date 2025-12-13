@@ -12,12 +12,11 @@ public:
 	{
 		type = 0;
 	}
-	void Turn();
-	void Throttle();
 protected:
 	Camera2D camera;
 	b2Vec2 pos;
-	b2Vec2 speed;
+	float speed;
+	double angle;
 private:
 	Texture2D texture;
 };
@@ -31,6 +30,9 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+	void Turn();
+	void Throttle();
+	void Brake();
 public:
-	
+	Player* player;
 };
