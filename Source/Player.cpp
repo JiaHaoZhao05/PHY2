@@ -92,9 +92,8 @@ void Player::Draw() {
 	Vector2 position{ GetScreenWidth() / 2,  GetScreenHeight() / 2 };
 	float scale = 1.0f;
 	Rectangle source = { 0.0f, 0.0f, (float)texture.width, (float)texture.height };
-	Rectangle dest = { pos.x, pos.y, (float)texture.width * scale, (float)texture.height * scale };
+	Rectangle dest = { position.x, position.y, (float)texture.width * scale, (float)texture.height * scale };
 	Vector2 origin = { (float)texture.width / 2.0f, (float)texture.height / 2.0f };
 	float rotation = physBody->body->GetAngle() * RAD2DEG;
 	DrawTexturePro(texture, source, dest, origin, rotation, WHITE);
-	//DrawTexture(texture, GetScreenWidth() / 2 - texture.width / 2, GetScreenHeight() / 2 - texture.height / 2, WHITE);
 }
