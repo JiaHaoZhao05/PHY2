@@ -41,7 +41,7 @@ bool ModulePhysics::Start()
 	ground = world->CreateBody(&bd);
 
 	{
-		b2EdgeShape shape;
+		/*b2EdgeShape shape;
 
 		b2FixtureDef sd;
 		sd.shape = &shape;
@@ -56,9 +56,9 @@ bool ModulePhysics::Start()
 		shape.SetTwoSided(b2Vec2(PIXEL_TO_METERS(0.0f), PIXEL_TO_METERS((0.0f))), b2Vec2(PIXEL_TO_METERS(SCREEN_WIDTH), PIXEL_TO_METERS(0.0f)));
 		floor->CreateFixture(&sd);
 		shape.SetTwoSided(b2Vec2(PIXEL_TO_METERS(0.0f), PIXEL_TO_METERS((0.0f))), b2Vec2(PIXEL_TO_METERS(0.0f), PIXEL_TO_METERS(SCREEN_HEIGHT)));
-		floor->CreateFixture(&sd);
+		floor->CreateFixture(&sd);*/
 	}
-
+	
 	return true;
 }
 

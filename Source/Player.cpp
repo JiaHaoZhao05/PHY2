@@ -35,7 +35,7 @@ bool Player::Update()
 	int x,y;
 	physBody->GetPhysicPosition(x,y);
 	pos = { (float)x,(float)y };
-	
+	GroundFriction();
 	Draw();
 	return true;
 }
@@ -87,7 +87,15 @@ void Player::Brake(float force) {
 	}
 	physBody->body->ApplyForceToCenter(brakeF, true);
 }
+void Player::GroundFriction() {
+	b2Vec2 force = physBody->body->GetLinearVelocity();
+	force *= -1 * physBody->body->GetFixtureList()->GetDensity() * physBody->body->GetFixtureList()->GetFriction();
+	float d = physBody->body->GetFixtureList()->GetDensity();
+	float f = physBody->body->GetFixtureList()->GetFriction();
+	
 
+	physBody->body->ApplyForceToCenter(force, true);
+}
 void Player::Draw() {
 	Vector2 position{ GetScreenWidth() / 2,  GetScreenHeight() / 2 };
 	float scale = 1.0f;
