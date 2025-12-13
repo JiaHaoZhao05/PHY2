@@ -32,6 +32,7 @@ struct AIController {
 
         // Target waypoint
         b2Vec2 target = waypoints[currentWaypoint];
+        target -= {5384+SCREEN_WIDTH/2, 824+SCREEN_HEIGHT/2};
         if ((target - pos).Length() < 2.0f && currentWaypoint + 1 < (int)waypoints.size()) {
             currentWaypoint++;
             target = waypoints[currentWaypoint];
@@ -90,6 +91,6 @@ public:
 
 private:
 	AIController ai;
-    Map1* map1;
+    Map1 map1;
     std::vector<b2Vec2> centerLine;
 };
