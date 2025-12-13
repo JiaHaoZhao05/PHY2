@@ -15,13 +15,17 @@ public:
 	}
 	~Player();
 	void Throttle(float force);
-	void Turn(float torque, bool left);
+	void Turn(float torque, bool left, bool turn);
 	void Brake(float force);
 
 public:
-	float speed = PIXELS_TO_METERS(25);
-	float torque = PIXELS_TO_METERS(4);
-	float brake = PIXELS_TO_METERS(15);
+	float maxspeed = PIXELS_TO_METERS(400);
+	float speed = PIXELS_TO_METERS(80);
+
+	float maxtorque = PIXELS_TO_METERS(100);
+	float torque = PIXELS_TO_METERS(60);
+
+	float brake = PIXELS_TO_METERS(100);
 
 protected:
 	Camera2D camera;
