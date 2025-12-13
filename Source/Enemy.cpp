@@ -15,6 +15,7 @@ Enemy::~Enemy()
 bool Enemy::Start()
 {
 	LOG("Loading player");
+	centerLine = map1->GetCenterLine();
 	return true;
 }
 // Unload assets
@@ -26,11 +27,12 @@ bool Enemy::CleanUp()
 }
 
 // Update: draw background
-bool Enemy::Update()
-{
-
+bool Enemy::Update() {
+	float dt = 1.0f / 60.0f; // or your actual timestep
+	ai.Update(this, centerLine, dt);
 	return true;
 }
+
 
 void Enemy::Move() {
 

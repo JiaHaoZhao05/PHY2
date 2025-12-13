@@ -5,8 +5,8 @@
 #include "PhysicEntity.h"
 #include "ModulePhysics.h"
 #include "Car.h"
+#include "Map1.h"
 
-// PID controller
 struct PID {
     float kp, ki, kd;
     float integral = 0.0f;
@@ -21,21 +21,14 @@ struct PID {
     }
 };
 
-// Angle difference helper
-float AngleDiff(float a, float b) {
-    float diff = fmodf(b - a + b2_pi, 2 * b2_pi) - b2_pi;
-    return diff;
-}
-
-// Simple AI controller
 struct AIController {
     PID steerPID{ 1.0f, 0.0f, 0.2f };
     PID throttlePID{ 0.5f, 0.0f, 0.1f };
     int currentWaypoint = 0;
 
-    void Update(b2Body* car, const std::vector<b2Vec2>& waypoints, float dt) {
-        b2Vec2 pos = car->GetPosition();
-        float angle = car->GetAngle();
+    void Update(Car* car, const std::vector<b2Vec2>& waypoints, float dt) {
+        b2Vec2 pos = car->physBody->body->GetPosition();
+        float angle = car->physBody->body->GetAngle();
 
         // Target waypoint
         b2Vec2 target = waypoints[currentWaypoint];
@@ -47,23 +40,22 @@ struct AIController {
         // Desired direction
         b2Vec2 dir = target - pos;
         dir.Normalize();
-
         float desiredAngle = atan2f(dir.y, dir.x);
 
         // Steering error
-        float steerError = AngleDiff(angle, desiredAngle);
+        float steerError = fmodf(desiredAngle - angle + b2_pi, 2 * b2_pi) - b2_pi;
         float steerCmd = steerPID.step(steerError, dt);
 
         // Speed control
-        float vTarget = 10.0f; // desired speed
-        b2Vec2 vel = car->GetLinearVelocity();
+        float vTarget = 10.0f;
+        b2Vec2 vel = car->physBody->body->GetLinearVelocity();
         b2Vec2 forward(cosf(angle), sinf(angle));
         float vCurrent = b2Dot(vel, forward);
         float throttleCmd = throttlePID.step(vTarget - vCurrent, dt);
 
         // Apply forces
-        car->ApplyForceToCenter(throttleCmd * forward, true);
-        car->ApplyTorque(steerCmd, true);
+        car->physBody->body->ApplyForceToCenter(throttleCmd * forward, true);
+        car->physBody->body->ApplyTorque(steerCmd, true);
     }
 };
 
@@ -96,7 +88,8 @@ public:
 	bool Update();
 	bool CleanUp();
 
-public:
+private:
 	AIController ai;
-
+    Map1* map1;
+    std::vector<b2Vec2> centerLine;
 };
