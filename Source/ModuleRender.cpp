@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 #include "ModuleRender.h"
+#include "ModuleGame.h"
 #include <math.h>
 
 ModuleRender::ModuleRender(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -18,29 +19,29 @@ bool ModuleRender::Init()
 {
 	LOG("Creating Renderer context");
 	bool ret = true;
-
-
+    camera.offset = { GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f };
+    camera.zoom = 1.0f;
+    camera.rotation = 0.0f;
 	return ret;
 }
 
 // PreUpdate: clear buffer
 update_status ModuleRender::PreUpdate()
 {
-    
-    BeginMode2D(camera);
+    camera.target = { App->game->player->physBody->body->GetPosition().x * PIXELS_PER_METER, App->game->player->physBody->body->GetPosition().y * PIXELS_PER_METER};
+    camera.rotation = -App->game->player->physBody->body->GetAngle() * RAD2DEG;
     return UPDATE_CONTINUE;
 }
 
 // Update: debug camera
 update_status ModuleRender::Update()
 {
-    ClearBackground(background);
-
     // NOTE: This function setups render batching system for
     // maximum performance, all consecutive Draw() calls are
     // not processed until EndDrawing() is called
     BeginDrawing();
-
+    ClearBackground(background);
+    BeginMode2D(camera);
 	return UPDATE_CONTINUE;
 }
 

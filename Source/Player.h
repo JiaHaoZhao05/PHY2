@@ -18,6 +18,11 @@ public:
 	void Turn(float torque, bool left, bool turn);
 	void Brake(float force);
 
+	bool Start();
+	bool Update();
+	bool CleanUp();
+	void Draw();
+
 public:
 	float maxspeed = PIXELS_TO_METERS(400);
 	float speed = PIXELS_TO_METERS(80);
@@ -28,18 +33,8 @@ public:
 	float brake = PIXELS_TO_METERS(100);
 
 protected:
-	Camera2D camera;
 	b2Vec2 pos;
 	double angle;
 private:
 	Texture2D texture;
-
-public:
-
-	bool Start();
-	bool Update();
-	bool CleanUp();
-	void Draw();
-
-public:
 };

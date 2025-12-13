@@ -16,6 +16,8 @@ Player::~Player()
 bool Player::Start()
 {
 	LOG("Loading player");
+	//initialize the camera
+	
 	texture = LoadTexture("Assets/Textures/player.png");
 	return true;
 }
@@ -33,6 +35,10 @@ bool Player::Update()
 	int x,y;
 	physBody->GetPhysicPosition(x,y);
 	pos = { (float)x,(float)y };
+
+	//Update camera
+	//camera.target = {PIXEL_TO_METERS(pos.x), PIXEL_TO_METERS(pos.y)};
+
 	Draw();
 	return true;
 }
@@ -64,11 +70,17 @@ void Player::Brake(float force) {
 	else if (physBody->body->GetLinearVelocity().x < 0) {
 		brakeF.x = force;
 	}
+	else {
+		brakeF.x = 0;
+	}
 	if (physBody->body->GetLinearVelocity().y > 0) {
 		brakeF.y = -force;
 	}
 	else if (physBody->body->GetLinearVelocity().y < 0) {
 		brakeF.y = force;
+	}
+	else {
+		brakeF.y = 0;
 	}
 	physBody->body->ApplyForceToCenter(brakeF, true);
 }
