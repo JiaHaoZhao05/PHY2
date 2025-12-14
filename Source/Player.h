@@ -38,4 +38,10 @@ protected:
 	double angle;
 private:
 	Texture2D texture;
+	ModuleAudio* audio;
+	//sounds
+	unsigned int throttleFX;
+	unsigned int brakeFX;
+	unsigned int turnFX;
+	unsigned int crashFX;
 };

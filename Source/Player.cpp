@@ -17,8 +17,11 @@ bool Player::Start()
 {
 	LOG("Loading player");
 	//initialize the camera
-	
-	texture = LoadTexture("Assets/Textures/player.png");
+	/*throttleFX = audio->LoadFx("Assets/Sounds/throttleFX.wav");
+	* brakeFX = audio->LoadFx("Assets/Sounds/brakeFX.wav")
+	* turnFX = audio->LoadFx("Assets/Sounds/turnFX.wav")
+	* crashFX = audio->LoadFx("Assets/Sounds/crashFX.wav")
+	texture = LoadTexture("Assets/Textures/player.png");*/
 	return true;
 }
 // Unload assets
@@ -45,6 +48,7 @@ void Player::Throttle(float force, bool front) {
 		if (front) {
 			b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
 			physBody->body->ApplyForceToCenter(-force * forward, true);
+			/*audio->PlayFx(throttleFX - 1);*/
 		}
 		else {
 			b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
@@ -57,6 +61,7 @@ void Player::Turn(float torque, bool left, bool turn) {
 		if (abs(physBody->body->GetAngularVelocity()) < maxtorque) {
 			if (left)physBody->body->ApplyTorque(-torque, true);
 			else physBody->body->ApplyTorque(torque, true);
+			/*audio->PlayFx(turnFX - 1);*/
 		}
 	}
 	else {
@@ -86,6 +91,7 @@ void Player::Brake(float force) {
 		brakeF.y = 0;
 	}
 	physBody->body->ApplyForceToCenter(brakeF, true);
+	/*audio->PlayFx(brakeFX - 1);*/
 }
 void Player::GroundFriction() {
 	b2Vec2 force = physBody->body->GetLinearVelocity();
