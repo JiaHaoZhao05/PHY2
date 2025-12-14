@@ -5,25 +5,17 @@
 #include "PhysicEntity.h"
 #include "ModulePhysics.h"
 
-class Car : public PhysicEntity {
+class Items : public PhysicEntity {
 
 protected:
-	b2Vec2 pos;
-	float speed;
-	double angle;
-private:
 	Texture2D texture;
 
 public:
-	Car() {}
-	Car(PhysBody* _body, Module* _listener, EntityType _type)
-		: physBody(_body)
-		, listener(_listener)
-		, type(_type)
+	Items() {}
+	Items(PhysBody* _body, Module* _listener, EntityType _type) : PhysicEntity(_body, _listener, _type)
 	{
-
 	}
-	~Car(){}
+	~Items() {}
 
 	virtual bool Start() {
 		return true;
@@ -34,9 +26,5 @@ public:
 	virtual bool CleanUp() {
 		return true;
 	}
-
-public:
-	EntityType type;
-	PhysBody* physBody;
-	Module* listener;
+	void Draw();
 };

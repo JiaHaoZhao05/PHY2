@@ -37,8 +37,8 @@ void Scenario::LoadMap() {
 void Scenario::LoadMap1() {
 	currentMapTex =  map1->mapTex;
 	mapPos = map1->startingLine;
-	chain1 = App->physics->CreateChain(mapPos.x, mapPos.y, map1->chain3);
-	chain2 = App->physics->CreateChain(mapPos.x, mapPos.y, map1->chain4);
+	chain1 = App->physics->CreateChain(mapPos.x, mapPos.y, map1->chain3, MAP);
+	chain2 = App->physics->CreateChain(mapPos.x, mapPos.y, map1->chain4, MAP);
 }
 
 void Scenario::Draw() {

@@ -5,19 +5,21 @@
 #include "PhysicEntity.h"
 #include "ModulePhysics.h"
 #include "Car.h"
-
+#include "Items.h"
+#include <vector>
 class Player :public Car {
 public:
 	Player(ModulePhysics* physics, int pos_x, int pos_y, Module* _listener, float _friction)
-		: Car(physics->CreateRectangle(pos_x,pos_y,32,64, _friction,PLAYER), _listener, EntityType::PLAYER)
+		: Car(physics->CreateRectangle(pos_x, pos_y, 32, 64, _friction, PLAYER), _listener, EntityType::PLAYER)
 	{
-		
+
 	}
 	~Player();
-	void Throttle(float force, bool front);
-	void Turn(float torque, bool left, bool turn);
-	void Brake(float force);
+	void Throttle(bool front);
+	void Turn(bool left, bool turn);
+	void Brake();
 	void GroundFriction();
+	void AddItem(Items* item);
 
 	bool Start();
 	bool Update();
@@ -25,6 +27,10 @@ public:
 	void Draw();
 
 public:
+	std::vector<Items*> PItems;
+	b2Vec2 pos;
+private:
+	Texture2D texture;
 	float maxspeed = 25;
 	float speed = 5;
 
@@ -32,10 +38,4 @@ public:
 	float torque = 2.5;
 
 	float brake = 5;
-	b2Vec2 pos;
-protected:
-
-	double angle;
-private:
-	Texture2D texture;
 };

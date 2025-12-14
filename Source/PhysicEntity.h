@@ -13,6 +13,8 @@ enum class EntityType
 {
 	PLAYER,
 	ENEMY,
+	ITEM,
+
 };
 
 class PhysicEntity
