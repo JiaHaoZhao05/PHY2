@@ -108,7 +108,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, float friction, EntityType _type, Module* _listener, uint16 categoryBits, uint16 maskBits, int16 groupIndex, float bounceness)
+PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, float friction, float rotation, EntityType _type, Module* _listener, uint16 categoryBits, uint16 maskBits, int16 groupIndex, float bounceness)
 {
 	PhysBody* pbody = new PhysBody();
 
@@ -118,6 +118,7 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, fl
 	body.type = b2_dynamicBody;
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
 	body.userData.pointer = reinterpret_cast<uintptr_t>(pbody);
+	body.angle = rotation;
 
 	b2Body* b = world->CreateBody(&body);
 	b2PolygonShape box;

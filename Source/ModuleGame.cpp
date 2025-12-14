@@ -19,16 +19,15 @@ ModuleGame::~ModuleGame()
 bool ModuleGame::Start()
 {
 	LOG("Loading Intro assets");
-	timer.Start();
-
-	App->scenario->LoadMap();
-	initialPos = App->scenario->mapPos;
 	SetTargetFPS(60);
-	player = new Player(App->physics, initialPos.x, initialPos.y, this, 0.6f,App->scenario->checkpoints);
-	enemies.emplace_back(new Enemy(App->physics, initialPos.x + 360, initialPos.y, this, 0.6f, App->scenario->centerLine));
-	enemies.emplace_back(new Enemy(App->physics, initialPos.x+120, initialPos.y -40, this, 0.6f, App->scenario->centerLine));
+	timer.Start();
+	App->scenario->LoadMap();
+	float rotation = App->scenario->initialRotation;
+	player = new Player(App->physics, App->scenario->mapPos[0].x, App->scenario->mapPos[0].y, this, 0.6f, rotation, App->scenario->checkpoints);
+	enemies.emplace_back(new Enemy(App->physics, App->scenario->mapPos[1].x, App->scenario->mapPos[1].y, this, 0.6f, rotation, App->scenario->centerLine));
+	enemies.emplace_back(new Enemy(App->physics, App->scenario->mapPos[2].x, App->scenario->mapPos[2].y, this, 0.6f, rotation,App->scenario->centerLine));
 
-	enemies.emplace_back(new Enemy(App->physics, initialPos.x + 240, initialPos.y + 40, this, 0.6f, App->scenario->centerLine));
+	enemies.emplace_back(new Enemy(App->physics, App->scenario->mapPos[3].x, App->scenario->mapPos[3].y, this, 0.6f, rotation,App->scenario->centerLine));
 
 	
 	player->Start();

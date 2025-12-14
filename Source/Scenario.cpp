@@ -41,6 +41,7 @@ void Scenario::LoadMap1() {
 	chain2 = App->physics->CreateChain(0, 0, map1->chain4, MAP);
 	centerLine = map1->GetCenterLine();
 	checkpoints = map1->GetCheckpoints();
+	initialRotation = map1->initialRotation;
 }
 
 void Scenario::Draw() {

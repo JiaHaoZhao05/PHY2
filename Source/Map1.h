@@ -15,8 +15,9 @@ public:
 public:
 	Texture mapTex;
 
-	b2Vec2 startingLine;
-
+	b2Vec2 initialPos;
+	std::vector<b2Vec2> startingLine;
+	float initialRotation;
 	std::vector<int> chain3;
 	std::vector<int> chain4;
 	std::vector<b2Vec2> checkpoints;

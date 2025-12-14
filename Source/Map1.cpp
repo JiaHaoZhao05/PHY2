@@ -224,14 +224,21 @@ b2ChainShape chain2;
 chain2.CreateLoop(racetrack2, vertexCount2);*/
 
 
-	//leftWaypoints.assign(racetracksketch1, racetracksketch1 + vertexCount1);
-	//rightWaypoints.assign(racetrack2, racetrack2 + vertexCount2);
-	//for (size_t i = 0; i < leftWaypoints.size() && i < rightWaypoints.size(); i++) {
-	//	b2Vec2 mid = 0.5f * (leftWaypoints[i] + rightWaypoints[i]);
-	//	centerLine.push_back(mid);
-	//}
+//leftWaypoints.assign(racetracksketch1, racetracksketch1 + vertexCount1);
+//rightWaypoints.assign(racetrack2, racetrack2 + vertexCount2);
+//for (size_t i = 0; i < leftWaypoints.size() && i < rightWaypoints.size(); i++) {
+//	b2Vec2 mid = 0.5f * (leftWaypoints[i] + rightWaypoints[i]);
+//	centerLine.push_back(mid);
+//}
 	mapTex = LoadTexture("Assets/Maps/Map1.png");
-	startingLine = {5703,938};
+	initialPos = { 5450, 950 };
+	startingLine = { 
+		{initialPos.x,initialPos.y-64},
+		{initialPos.x+ 128,initialPos.y + 64},
+		{initialPos.x +256,initialPos.y - 64},
+		{initialPos.x +256+128,initialPos.y + 64}
+};
+	initialRotation = PI/2;
 	chain3 = {
 5300, 863,
 5185, 760,
