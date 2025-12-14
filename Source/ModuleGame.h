@@ -31,7 +31,7 @@ public:
 
 	Player* player;
 	std::vector<PhysicEntity*> enemies;
-
+	Timer timer;
 	
 
 	Map1* map1;
