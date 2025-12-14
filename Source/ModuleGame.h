@@ -29,7 +29,6 @@ public:
 
 public:
 
-	Texture enemy1Tex; //should be in Enemy.h ?
 	Player* player;
 	std::vector<PhysicEntity*> enemies;
 

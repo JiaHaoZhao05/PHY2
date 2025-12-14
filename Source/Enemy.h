@@ -65,15 +65,15 @@ struct AIController {
 
 class Enemy :public Car {
 public:
-	Enemy(ModulePhysics* physics, int _x, int _y, Module* _listener, Texture2D _texture, float friction)
+	Enemy(ModulePhysics* physics, int _x, int _y, Module* _listener, float friction)
 		: Car(physics->CreateRectangle(_x, _y, 32, 64, friction, ENEMY), _listener, EntityType::ENEMY)
-		, texture(_texture)
 	{
 
 	}
 	~Enemy();
 
 	void Move();
+    void Draw();
 
 public:
 	float speed = 4;
