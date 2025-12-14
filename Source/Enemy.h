@@ -34,7 +34,7 @@ struct AIController {
         // Target waypoint
         b2Vec2 target = waypoints[currentWaypoint];
         target += { -5924 + (SCREEN_WIDTH / 2), -942 + (SCREEN_HEIGHT / 2)}; //hardcoded
-        if ((target - pos).Length() < 2.0f && currentWaypoint + 1 < (int)waypoints.size()) {
+        if ((target - pos).Length() < 200.0f && currentWaypoint + 1 < (int)waypoints.size()) {
             currentWaypoint++;
             target = waypoints[currentWaypoint];
             target += { -5924 + (SCREEN_WIDTH / 2), -942 + (SCREEN_HEIGHT / 2)};
