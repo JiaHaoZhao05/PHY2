@@ -71,7 +71,7 @@ struct AIController {
 class Enemy :public Car {
 public:
 	Enemy(ModulePhysics* physics, int _x, int _y, Module* _listener, float friction, std::vector<b2Vec2> _centerLine)
-		: Car(physics->CreateRectangle(_x, _y, 32, 64, friction, ENEMY), _listener, EntityType::ENEMY), centerLine(_centerLine)
+		: Car(physics->CreateRectangle(_x, _y, 32, 64, friction, EntityType::ENEMY,_listener, ENEMY), _listener, EntityType::ENEMY), centerLine(_centerLine)
 	{
 
 	}

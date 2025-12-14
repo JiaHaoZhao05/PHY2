@@ -9,7 +9,7 @@ class Hand : public Items {
 public:
 	Hand() {}
 	Hand(ModulePhysics* physics, int _x, int _y, Module* _listener, b2Vec2 eject)
-		: Items(physics->CreateRectangle(_x, _y, 32, 64, 0, ITEM, MAP | ENEMY, 0, 0.8), _listener, EntityType::ENEMY)
+		: Items(physics->CreateRectangle(_x, _y, 32, 64, 0, EntityType::ITEM,_listener, ITEM, MAP | ENEMY, 0, 0.8), _listener, EntityType::ENEMY)
 	{
 		Start();
 		shot = eject;

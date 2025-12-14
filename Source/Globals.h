@@ -34,6 +34,15 @@ enum update_status
 	UPDATE_ERROR
 };
 
+enum class EntityType
+{
+	PLAYER,
+	ENEMY,
+	ITEM,
+
+};
+
+
 // Configuration -----------
 #define SCREEN_WIDTH		 1280
 #define SCREEN_HEIGHT		  720

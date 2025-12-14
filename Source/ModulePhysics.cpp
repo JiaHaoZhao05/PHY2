@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleRender.h"
 #include "ModulePhysics.h"
+#include "ModuleGame.h"
 //#include "PhysicEntity.h"
 
 #include "p2Point.h"
@@ -107,9 +108,11 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, float friction, uint16 categoryBits, uint16 maskBits, int16 groupIndex, float bounceness)
+PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, float friction, EntityType _type, Module* _listener, uint16 categoryBits, uint16 maskBits, int16 groupIndex, float bounceness)
 {
 	PhysBody* pbody = new PhysBody();
+
+	pbody->type = _type;
 
 	b2BodyDef body;
 	body.type = b2_dynamicBody;
@@ -138,6 +141,7 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, fl
 	pbody->body = b;
 	pbody->width = (int)(width * 0.5f);
 	pbody->height = (int)(height * 0.5f);
+	pbody->listener = _listener;
 
 	return pbody;
 }

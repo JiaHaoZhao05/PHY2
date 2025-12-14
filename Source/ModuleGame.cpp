@@ -48,6 +48,8 @@ bool ModuleGame::CleanUp()
 	return true;
 }
 
+
+
 // Update: draw background
 update_status ModuleGame::Update()
 {
@@ -92,5 +94,15 @@ void ModuleGame::ReadInputs() {
 
 
 void ModuleGame::OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
+	if (bodyA->type == EntityType::PLAYER) {
+
+		switch (bodyB->type) {
+		case(EntityType::ENEMY):
+			player->OnCollissionEnemy();
+			break;
+		case(EntityType::ITEM):
+			break;
+		}
+	}
 
 }

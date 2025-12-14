@@ -9,13 +9,7 @@
 #include "raylib.h"
 #include <vector>
 
-enum class EntityType
-{
-	PLAYER,
-	ENEMY,
-	ITEM,
 
-};
 
 class PhysicEntity
 {

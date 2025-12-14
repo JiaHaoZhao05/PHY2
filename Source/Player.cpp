@@ -129,3 +129,8 @@ void Player::CheckCheckpoints() {
 		DrawCircle(pos.x, pos.y, 100, GREEN);
 	}
 }
+
+
+void Player::OnCollissionEnemy() {
+	//physBody->body->ApplyLinearImpulseToCenter({ -5,0 }, 1);
+}
