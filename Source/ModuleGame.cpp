@@ -22,8 +22,7 @@ bool ModuleGame::Start()
 	App->scenario->LoadMap();
 	SetTargetFPS(60);
 	player = new Player(App->physics, initialPos.x, initialPos.y+80, this, 0.6f);
-	enemy1Tex = LoadTexture("Assets/Textures/player.png");
-	enemies.emplace_back(new Enemy(App->physics, initialPos.x, initialPos.y, this, enemy1Tex, 0.6f));
+	enemies.emplace_back(new Enemy(App->physics, initialPos.x, initialPos.y, this, 0.6f));
 	
 	player->Start();
 	for (PhysicEntity* entity : enemies) {
@@ -63,7 +62,7 @@ void ModuleGame::ReadInputs() {
 	else if ((IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) && !(IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT))) {
 		player->Turn(player->torque, false, true);
 	}
-	else {
+	else if (IsKeyReleased(KEY_D) || IsKeyReleased(KEY_RIGHT) || IsKeyReleased(KEY_A) || IsKeyReleased(KEY_LEFT)) {
 		player->Turn(player->torque, false, false);
 	}
 	if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) {
@@ -72,10 +71,10 @@ void ModuleGame::ReadInputs() {
 	else if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) {
 		player->Throttle(player->speed, false);
 	}
-
-	if (IsKeyDown(KEY_SPACE)) {
+	if (IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT)) {
 		player->Brake(player->brake);
 	}
+
 }
 
 

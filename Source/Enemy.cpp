@@ -14,15 +14,15 @@ Enemy::~Enemy()
 // Load assets
 bool Enemy::Start()
 {
-	LOG("Loading player");
+	LOG("Loading enemy");
 	centerLine = map1.GetCenterLine();
-
+	texture = LoadTexture("Assets/Textures/enemy.png");
 	return true;
 }
 // Unload assets
 bool Enemy::CleanUp()
 {
-	LOG("Unloading player");
+	LOG("Unloading enemy");
 
 	return true;
 }
@@ -35,10 +35,20 @@ bool Enemy::Update() {
 		DrawCircle(target.x, target.y, 10, RED);
 	}*/
 	ai.Update(this, centerLine, dt);
+	Draw();
 	return true;
 }
 
 
 void Enemy::Move() {
 
+}
+void Enemy::Draw() {
+	Vector2 position{ physBody->body->GetPosition().x * PIXELS_PER_METER, physBody->body->GetPosition().y * PIXELS_PER_METER };
+	float scale = 1.0f;
+	Rectangle source = { 0.0f, 0.0f, (float)texture.width, (float)texture.height };
+	Rectangle dest = { position.x, position.y, (float)texture.width * scale, (float)texture.height * scale };
+	Vector2 origin = { (float)texture.width / 2.0f, (float)texture.height / 2.0f };
+	float rotation = physBody->body->GetAngle() * RAD2DEG;
+	DrawTexturePro(texture, source, dest, origin, rotation, WHITE);
 }
