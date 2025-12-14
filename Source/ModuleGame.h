@@ -26,6 +26,7 @@ public:
 	bool CleanUp();
 	void ReadInputs();
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
+	void EndCollision(PhysBody* bodyA, PhysBody* bodyB);
 
 public:
 

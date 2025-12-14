@@ -341,9 +341,20 @@ update_status ModulePhysics::PostUpdate()
 		mouse_joint = nullptr;
 	}
 
+
+	for (PhysBody* pbody : bodiesToDestroy)
+	{
+		world->DestroyBody(pbody->body);
+		delete pbody;
+	}
+
+	bodiesToDestroy.clear();
 	return UPDATE_CONTINUE;
 }
-
+void ModulePhysics::QueueBodyForDestroy(PhysBody* body)
+{
+	bodiesToDestroy.push_back(body);
+}
 
 // Called before quitting
 bool ModulePhysics::CleanUp()
@@ -431,4 +442,19 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 
 	if (physB && physB->listener != NULL)
 		physB->listener->OnCollision(physB, physA);
+}
+void ModulePhysics::EndContact(b2Contact* contact)
+{
+	PhysBody* bodyA =
+		reinterpret_cast<PhysBody*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
+	PhysBody* bodyB =
+		reinterpret_cast<PhysBody*>(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
+
+	if (!bodyA || !bodyB) return;
+
+	if (bodyA->listener && bodyB->listener)
+	{
+		bodyA->listener->EndCollision(bodyA, bodyB);
+		bodyB->listener->EndCollision(bodyB, bodyA);
+	}
 }

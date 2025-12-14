@@ -61,6 +61,10 @@ update_status ModuleGame::Update()
 	}
 	for (Items* n : player->PItems) {
 		n->Update();
+		if (n->pendingToDelete) {
+			App->physics->QueueBodyForDestroy(n->physBody);
+			delete n;
+		}
 	}
 	return UPDATE_CONTINUE;
 }
@@ -104,4 +108,15 @@ void ModuleGame::OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
 		}
 	}
 
+}
+
+void ModuleGame::EndCollision(PhysBody* bodyA, PhysBody* bodyB) {
+	if (bodyA->type == EntityType::PLAYER) {
+		switch (bodyB->type) {
+		case(EntityType::ENEMY):
+			break;
+		case(EntityType::ITEM):
+			break;
+		}
+	}
 }

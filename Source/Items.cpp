@@ -15,3 +15,6 @@ void Items::Draw() { //I'm sick of copying and pasting this
 	float rotation = physBody->body->GetAngle() * RAD2DEG;
 	DrawTexturePro(texture, source, dest, origin, rotation, WHITE);
 }
+void Items::Destroy() {
+	pendingToDelete = true;
+}

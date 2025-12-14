@@ -38,7 +38,7 @@ public:
 		return 0;
 	}
 
-
+	bool pendingToDelete = false;
 	PhysBody* physBody;
 	Module* listener;
 	bool isSwitched = false;

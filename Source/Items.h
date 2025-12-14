@@ -27,4 +27,5 @@ public:
 		return true;
 	}
 	void Draw();
+	void Destroy();
 };
