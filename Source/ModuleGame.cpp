@@ -20,9 +20,10 @@ bool ModuleGame::Start()
 {
 	LOG("Loading Intro assets");
 	App->scenario->LoadMap();
+	initialPos = App->scenario->initialPos;
 	SetTargetFPS(60);
-	player = new Player(App->physics, initialPos.x, initialPos.y+80, this, 0.6f);
-	enemies.emplace_back(new Enemy(App->physics, initialPos.x, initialPos.y, this, 0.6f));
+	player = new Player(App->physics, initialPos.x, initialPos.y, this, 0.6f,App->scenario->checkpoints);
+	enemies.emplace_back(new Enemy(App->physics, initialPos.x, initialPos.y+80, this, 0.6f, App->scenario->centerLine));
 	
 	player->Start();
 	for (PhysicEntity* entity : enemies) {

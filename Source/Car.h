@@ -15,7 +15,7 @@ private:
 	Texture2D texture;
 
 public:
-	Car() {}
+
 	Car(PhysBody* _body, Module* _listener, EntityType _type)
 		: physBody(_body)
 		, listener(_listener)
@@ -36,6 +36,7 @@ public:
 	}
 
 public:
+	b2Vec2 initialPos;
 	EntityType type;
 	PhysBody* physBody;
 	Module* listener;

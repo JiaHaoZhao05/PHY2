@@ -36,5 +36,5 @@ public:
 
 	Map1* map1;
 	
-	b2Vec2 initialPos = { SCREEN_WIDTH/2,SCREEN_HEIGHT/2 }; //player position,  needs to be in scenario
+	b2Vec2 initialPos; //player position,  needs to be in scenario
 };

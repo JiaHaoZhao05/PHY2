@@ -17,8 +17,15 @@ bool Player::Start()
 {
 	LOG("Loading player");
 	//initialize the camera
-	
 	texture = LoadTexture("Assets/Textures/player.png");
+	currentCheckpoint = 0;
+	nextCheckpoint = checkpoints[currentCheckpoint];
+	nextCheckpoint += initialPos;
+	/*throttleFX = audio->LoadFx("Assets/Sounds/throttleFX.wav");
+	* brakeFX = audio->LoadFx("Assets/Sounds/brakeFX.wav")
+	* turnFX = audio->LoadFx("Assets/Sounds/turnFX.wav")
+	* crashFX = audio->LoadFx("Assets/Sounds/crashFX.wav")
+	texture = LoadTexture("Assets/Textures/player.png");*/
 	return true;
 }
 // Unload assets
@@ -36,6 +43,7 @@ bool Player::Update()
 	physBody->GetPhysicPosition(x,y);
 	pos = { (float)x,(float)y };
 	GroundFriction();
+	CheckCheckpoints();
 	Draw();
 	return true;
 }
@@ -45,6 +53,7 @@ void Player::Throttle(bool front) {
 		if (front) {
 			b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
 			physBody->body->ApplyForceToCenter(-speed * forward, true);
+
 		}
 		else {
 			b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
@@ -57,6 +66,7 @@ void Player::Turn(bool left, bool turn) {
 		if (abs(physBody->body->GetAngularVelocity()) < maxtorque) {
 			if (left)physBody->body->ApplyTorque(-torque, true);
 			else physBody->body->ApplyTorque(torque, true);
+			/*audio->PlayFx(turnFX - 1);*/
 		}
 	}
 	else {
@@ -86,6 +96,7 @@ void Player::Brake() {
 		brakeF.y = 0;
 	}
 	physBody->body->ApplyForceToCenter(brakeF, true);
+	/*audio->PlayFx(brakeFX - 1);*/
 }
 void Player::GroundFriction() {
 	b2Vec2 force = physBody->body->GetLinearVelocity();
@@ -101,6 +112,15 @@ void Player::Draw() {
 	float rotation = physBody->body->GetAngle() * RAD2DEG;
 	DrawTexturePro(texture, source, dest, origin, rotation, WHITE);
 }
+
 void Player::AddItem(Items* item) {
 	PItems.push_back(item);
+}
+void Player::CheckCheckpoints() {
+	DrawCircle(nextCheckpoint.x, nextCheckpoint.y, 10, BLUE);
+	if ((nextCheckpoint - pos).Length() < 200.0f && currentCheckpoint + 1 < (int)checkpoints.size()) {
+		currentCheckpoint++;
+		nextCheckpoint = checkpoints[currentCheckpoint];
+		nextCheckpoint += initialPos;
+	}
 }

@@ -9,8 +9,8 @@
 #include <vector>
 class Player :public Car {
 public:
-	Player(ModulePhysics* physics, int pos_x, int pos_y, Module* _listener, float _friction)
-		: Car(physics->CreateRectangle(pos_x, pos_y, 32, 64, _friction, PLAYER), _listener, EntityType::PLAYER)
+	Player(ModulePhysics* physics, int pos_x, int pos_y, Module* _listener, float _friction, std::vector<b2Vec2> _checkpoints)
+		: Car(physics->CreateRectangle(pos_x,pos_y,32,64, _friction,PLAYER), _listener, EntityType::PLAYER), checkpoints(_checkpoints)
 	{
 
 	}
@@ -25,6 +25,7 @@ public:
 	bool Update();
 	bool CleanUp();
 	void Draw();
+	void CheckCheckpoints();
 
 public:
 	std::vector<Items*> PItems;
@@ -38,4 +39,16 @@ private:
 	float torque = 2.5;
 
 	float brake = 5;
+protected:
+
+private:
+	std::vector<b2Vec2> checkpoints;
+	b2Vec2 nextCheckpoint;
+	int currentCheckpoint;
+	//ModuleAudio* audio;
+	//sounds
+	unsigned int throttleFX;
+	unsigned int brakeFX;
+	unsigned int turnFX;
+	unsigned int crashFX;
 };

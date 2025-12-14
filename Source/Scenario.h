@@ -19,8 +19,10 @@ public:
 	Texture currentMapTex;
 	Map1* map1;
 	int currentMap;
-	b2Vec2 mapPos;
+	b2Vec2 initialPos;
 	b2Body* body;
 	PhysBody* chain1;
 	PhysBody* chain2;
+	std::vector<b2Vec2> centerLine;
+	std::vector<b2Vec2> checkpoints;
 };
