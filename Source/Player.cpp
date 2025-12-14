@@ -19,6 +19,9 @@ bool Player::Start()
 	//initialize the camera
 	
 	texture = LoadTexture("Assets/Textures/player.png");
+	currentCheckpoint = 0;
+	nextCheckpoint = checkpoints[currentCheckpoint];
+	nextCheckpoint += initialPos;
 	return true;
 }
 // Unload assets
@@ -36,6 +39,7 @@ bool Player::Update()
 	physBody->GetPhysicPosition(x,y);
 	pos = { (float)x,(float)y };
 	GroundFriction();
+	CheckCheckpoints();
 	Draw();
 	return true;
 }
@@ -100,4 +104,13 @@ void Player::Draw() {
 	Vector2 origin = { (float)texture.width / 2.0f, (float)texture.height / 2.0f };
 	float rotation = physBody->body->GetAngle() * RAD2DEG;
 	DrawTexturePro(texture, source, dest, origin, rotation, WHITE);
+}
+
+void Player::CheckCheckpoints() {
+	DrawCircle(nextCheckpoint.x, nextCheckpoint.y, 10, BLUE);
+	if ((nextCheckpoint - pos).Length() < 200.0f && currentCheckpoint + 1 < (int)checkpoints.size()) {
+		currentCheckpoint++;
+		nextCheckpoint = checkpoints[currentCheckpoint];
+		nextCheckpoint += initialPos;
+	}
 }

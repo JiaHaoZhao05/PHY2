@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include "Globals.h"
 #include "Application.h"
+#include "Scenario.h"
 #include "ModuleRender.h"
 #include "ModuleGame.h"
 #include "ModuleAudio.h"
@@ -15,7 +16,7 @@ Enemy::~Enemy()
 bool Enemy::Start()
 {
 	LOG("Loading enemy");
-	centerLine = map1.GetCenterLine();
+	//centerLine = App->scenario->map1->GetCenterLine();
 	texture = LoadTexture("Assets/Textures/enemy.png");
 	return true;
 }
@@ -30,14 +31,10 @@ bool Enemy::CleanUp()
 // Update: draw background
 bool Enemy::Update() {
 	float dt = 1.0f / 60.0f; // or your actual timestep
-	/*for (b2Vec2 target : centerLine) {
-		target += { -5924 + (SCREEN_WIDTH / 2), -942 + (SCREEN_HEIGHT / 2)};
-		DrawCircle(target.x, target.y, 10, RED);
-	}*/
 	GroundFriction();
 	ai.Update(this, centerLine, dt);
 	Draw();
-	return true;
+	return true;;
 }
 
 

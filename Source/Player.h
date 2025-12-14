@@ -8,8 +8,8 @@
 
 class Player :public Car {
 public:
-	Player(ModulePhysics* physics, int pos_x, int pos_y, Module* _listener, float _friction)
-		: Car(physics->CreateRectangle(pos_x,pos_y,32,64, _friction,PLAYER), _listener, EntityType::PLAYER)
+	Player(ModulePhysics* physics, int pos_x, int pos_y, Module* _listener, float _friction, std::vector<b2Vec2> _checkpoints)
+		: Car(physics->CreateRectangle(pos_x,pos_y,32,64, _friction,PLAYER), _listener, EntityType::PLAYER), checkpoints(_checkpoints)
 	{
 		
 	}
@@ -23,6 +23,7 @@ public:
 	bool Update();
 	bool CleanUp();
 	void Draw();
+	void CheckCheckpoints();
 
 public:
 	float maxspeed = 25;
@@ -38,4 +39,7 @@ protected:
 	double angle;
 private:
 	Texture2D texture;
+	std::vector<b2Vec2> checkpoints;
+	b2Vec2 nextCheckpoint;
+	int currentCheckpoint;
 };

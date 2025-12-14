@@ -26,6 +26,7 @@ struct AIController {
     PID throttlePID{ 0.5f, 0.0f, 0.1f };
     int currentWaypoint = 0;
 
+
     void Update(Car* car, const std::vector<b2Vec2>& waypoints, float dt) {
         b2Vec2 pos = car->physBody->body->GetPosition();
         pos = b2Vec2{ (float)METERS_TO_PIXELS(pos.x), (float)METERS_TO_PIXELS(pos.y)};
@@ -33,12 +34,12 @@ struct AIController {
 
         // Target waypoint
         b2Vec2 target = waypoints[currentWaypoint];
-        target += { -5924 + (SCREEN_WIDTH / 2), -942 + (SCREEN_HEIGHT / 2)}; //hardcoded
+        target += car->initialPos;
         DrawCircle(target.x, target.y, 10, RED);
         if ((target - pos).Length() < 200.0f && currentWaypoint + 1 < (int)waypoints.size()) {
             currentWaypoint++;
             target = waypoints[currentWaypoint];
-            target += { -5924 + (SCREEN_WIDTH / 2), -942 + (SCREEN_HEIGHT / 2)};
+            target += car->initialPos;
         }
 
         // Desired direction
@@ -69,8 +70,8 @@ struct AIController {
 
 class Enemy :public Car {
 public:
-	Enemy(ModulePhysics* physics, int _x, int _y, Module* _listener, float friction)
-		: Car(physics->CreateRectangle(_x, _y, 32, 64, friction, ENEMY), _listener, EntityType::ENEMY)
+	Enemy(ModulePhysics* physics, int _x, int _y, Module* _listener, float friction, std::vector<b2Vec2> _centerLine)
+		: Car(physics->CreateRectangle(_x, _y, 32, 64, friction, ENEMY), _listener, EntityType::ENEMY), centerLine(_centerLine)
 	{
 
 	}
@@ -84,7 +85,7 @@ public:
 	float speed = 4;
 	float torque = 0.4;
 	float brake = 8;
-
+    b2Vec2 initialPos;
 protected:
 	b2Vec2 pos;
 	double angle = 0;
@@ -99,6 +100,5 @@ public:
 
 private:
 	AIController ai;
-    Map1 map1;
     std::vector<b2Vec2> centerLine;
 };

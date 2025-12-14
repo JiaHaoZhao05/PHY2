@@ -36,13 +36,15 @@ void Scenario::LoadMap() {
 
 void Scenario::LoadMap1() {
 	currentMapTex =  map1->mapTex;
-	mapPos = map1->startingLine;
-	chain1 = App->physics->CreateChain(mapPos.x, mapPos.y, map1->chain3);
-	chain2 = App->physics->CreateChain(mapPos.x, mapPos.y, map1->chain4);
+	initialPos = map1->startingLine;
+	chain1 = App->physics->CreateChain(0, 0, map1->chain3);
+	chain2 = App->physics->CreateChain(0, 0, map1->chain4);
+	centerLine = map1->GetCenterLine();
+	checkpoints = map1->GetCheckpoints();
 }
 
 void Scenario::Draw() {
 	//DrawLine(METERS_TO_PIXELS(v1.x), METERS_TO_PIXELS(v1.y), METERS_TO_PIXELS(v2.x), METERS_TO_PIXELS(v2.y), BLUE);
 	//DrawTexture(currentMapTex, mapPos.x-App->game->player->pos.x, mapPos.y-App->game->player->pos.y, WHITE);
-	DrawTexture(currentMapTex, mapPos.x, mapPos.y, WHITE);
+	DrawTexture(currentMapTex, 0, 0, WHITE);
 }
