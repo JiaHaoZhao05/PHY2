@@ -118,9 +118,14 @@ void Player::AddItem(Items* item) {
 }
 void Player::CheckCheckpoints() {
 	DrawCircle(nextCheckpoint.x, nextCheckpoint.y, 10, BLUE);
-	if ((nextCheckpoint - pos).Length() < 200.0f && currentCheckpoint + 1 < (int)checkpoints.size()) {
-		currentCheckpoint++;
-		nextCheckpoint = checkpoints[currentCheckpoint];
-		nextCheckpoint += initialPos;
+	if (currentCheckpoint + 1 < (int)checkpoints.size()){
+		if ((nextCheckpoint - pos).Length() < 200.0f) {
+			currentCheckpoint++;
+			nextCheckpoint = checkpoints[currentCheckpoint];
+			nextCheckpoint += initialPos;
+		}
+	}
+	else if ((nextCheckpoint.x - pos.x) < 10.0f) { //END RACE
+		DrawCircle(pos.x, pos.y, 100, GREEN);
 	}
 }
