@@ -25,7 +25,11 @@ bool ModuleGame::Start()
 	initialPos = App->scenario->initialPos;
 	SetTargetFPS(60);
 	player = new Player(App->physics, initialPos.x, initialPos.y, this, 0.6f,App->scenario->checkpoints);
-	enemies.emplace_back(new Enemy(App->physics, initialPos.x, initialPos.y+80, this, 0.6f, App->scenario->centerLine));
+	enemies.emplace_back(new Enemy(App->physics, initialPos.x + 360, initialPos.y, this, 0.6f, App->scenario->centerLine));
+	enemies.emplace_back(new Enemy(App->physics, initialPos.x+120, initialPos.y -40, this, 0.6f, App->scenario->centerLine));
+
+	enemies.emplace_back(new Enemy(App->physics, initialPos.x + 240, initialPos.y + 40, this, 0.6f, App->scenario->centerLine));
+
 	
 	player->Start();
 	for (PhysicEntity* entity : enemies) {

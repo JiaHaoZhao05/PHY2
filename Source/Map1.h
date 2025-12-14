@@ -20,9 +20,10 @@ public:
 	std::vector<int> chain3;
 	std::vector<int> chain4;
 	std::vector<b2Vec2> checkpoints;
+	std::vector<b2Vec2> centerLine;
 private:
 	std::vector<b2Vec2> leftWaypoints;
 	std::vector<b2Vec2> rightWaypoints;
-	std::vector<b2Vec2> centerLine;
+
 	
 };
