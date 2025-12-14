@@ -19,6 +19,8 @@ ModuleGame::~ModuleGame()
 bool ModuleGame::Start()
 {
 	LOG("Loading Intro assets");
+	timer.Start();
+
 	App->scenario->LoadMap();
 	SetTargetFPS(60);
 	player = new Player(App->physics, initialPos.x, initialPos.y+80, this, 0.6f);
@@ -45,6 +47,7 @@ bool ModuleGame::CleanUp()
 update_status ModuleGame::Update()
 {
 	App->scenario->Update();
+	
 	ReadInputs();
 	player->Update();
 	for (PhysicEntity* entity : enemies) {
