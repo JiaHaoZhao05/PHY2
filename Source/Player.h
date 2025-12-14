@@ -42,4 +42,10 @@ private:
 	std::vector<b2Vec2> checkpoints;
 	b2Vec2 nextCheckpoint;
 	int currentCheckpoint;
+	//ModuleAudio* audio;
+	//sounds
+	unsigned int throttleFX;
+	unsigned int brakeFX;
+	unsigned int turnFX;
+	unsigned int crashFX;
 };
