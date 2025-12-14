@@ -6,7 +6,7 @@
 #include "ModulePhysics.h"
 #include "Scenario.h"
 #include "Player.h"
-
+#include "Hand.h"
 ModuleGame::ModuleGame(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	
@@ -22,7 +22,7 @@ bool ModuleGame::Start()
 	timer.Start();
 
 	App->scenario->LoadMap();
-	initialPos = App->scenario->initialPos;
+	initialPos = App->scenario->mapPos;
 	SetTargetFPS(60);
 	player = new Player(App->physics, initialPos.x, initialPos.y, this, 0.6f,App->scenario->checkpoints);
 	enemies.emplace_back(new Enemy(App->physics, initialPos.x + 360, initialPos.y, this, 0.6f, App->scenario->centerLine));
@@ -58,31 +58,36 @@ update_status ModuleGame::Update()
 	for (PhysicEntity* entity : enemies) {
 		entity->Update();
 	}
+	for (Items* n : player->PItems) {
+		n->Update();
+	}
 	return UPDATE_CONTINUE;
 }
 
-
-
 void ModuleGame::ReadInputs() {
-	if ((IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) && !(IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT))) {
-		player->Turn(player->torque, true, true);
+	if ((IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) && !(IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT))) {
+		player->Turn(true, true);
 	}
-	else if ((IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) && !(IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT))) {
-		player->Turn(player->torque, false, true);
+	else if ((IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) && !(IsKeyPressed(KEY_A) || IsKeyPressed(KEY_LEFT))) {
+		player->Turn(false, true);
 	}
 	else if (IsKeyReleased(KEY_D) || IsKeyReleased(KEY_RIGHT) || IsKeyReleased(KEY_A) || IsKeyReleased(KEY_LEFT)) {
-		player->Turn(player->torque, false, false);
+		player->Turn(false, false);
 	}
 	if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) {
-		player->Throttle(player->speed, true);
+		player->Throttle(true);
 	}
 	else if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) {
-		player->Throttle(player->speed, false);
+		player->Throttle(false);
 	}
 	if (IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT)) {
-		player->Brake(player->brake);
+		player->Brake();
 	}
-
+	if (IsKeyPressed(KEY_SPACE)) {
+		if (player->PItems.size() < 3) {
+			player->AddItem(new Hand(App->physics, player->pos.x, player->pos.y, this, player->physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f))));
+		}
+	}
 }
 
 

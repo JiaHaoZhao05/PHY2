@@ -43,6 +43,12 @@
     <ClCompile Include="Source\Enemy.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Hand.cpp">
+      <Filter>Sources\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Items.cpp">
+      <Filter>Sources\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source/Application.h">
@@ -90,6 +96,12 @@
     <ClInclude Include="Source\Enemy.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Hand.h">
+      <Filter>Headers\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Items.h">
+      <Filter>Headers\Items</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">
@@ -100,6 +112,12 @@
     </Filter>
     <Filter Include="Headers\Containers">
       <UniqueIdentifier>{f1fd6841-a402-4fe9-9618-8ff4984d0933}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Items">
+      <UniqueIdentifier>{3a15a32a-5c02-4f2d-8f88-82fd8d0c6179}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Items">
+      <UniqueIdentifier>{b5ee802f-f0f6-4136-ad9d-f5e95e8ca4f6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

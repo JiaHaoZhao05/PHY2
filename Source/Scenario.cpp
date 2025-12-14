@@ -36,9 +36,9 @@ void Scenario::LoadMap() {
 
 void Scenario::LoadMap1() {
 	currentMapTex =  map1->mapTex;
-	initialPos = map1->startingLine;
-	chain1 = App->physics->CreateChain(0, 0, map1->chain3);
-	chain2 = App->physics->CreateChain(0, 0, map1->chain4);
+	mapPos = map1->startingLine;
+	chain1 = App->physics->CreateChain(0, 0, map1->chain3, MAP);
+	chain2 = App->physics->CreateChain(0, 0, map1->chain4, MAP);
 	centerLine = map1->GetCenterLine();
 	checkpoints = map1->GetCheckpoints();
 }

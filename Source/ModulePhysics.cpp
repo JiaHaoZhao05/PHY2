@@ -107,7 +107,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, float friction, uint16 categoryBits, uint16 maskBits, int16 groupIndex)
+PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, float friction, uint16 categoryBits, uint16 maskBits, int16 groupIndex, float bounceness)
 {
 	PhysBody* pbody = new PhysBody();
 
@@ -124,6 +124,7 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, fl
 	fixture.shape = &box;
 	fixture.density = 1.0f;
 	fixture.friction = friction;
+	fixture.restitution = bounceness;
 
 	// TODO 2: Add filter categoryBits and maskBits to fixture
 	fixture.filter.categoryBits = categoryBits;
@@ -169,7 +170,7 @@ PhysBody* ModulePhysics::CreateRectangleSensor(int x, int y, int width, int heig
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateChain(int x, int y, std::vector<int> points)
+PhysBody* ModulePhysics::CreateChain(int x, int y, std::vector<int> points, uint16 categoryBits, uint16 maskBits, int16 groupIndex)
 {
     PhysBody* pbody = new PhysBody();
 
@@ -198,6 +199,9 @@ PhysBody* ModulePhysics::CreateChain(int x, int y, std::vector<int> points)
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &shape;
     fixtureDef.friction = 0.8f;
+	fixtureDef.filter.categoryBits = categoryBits;
+	fixtureDef.filter.maskBits = maskBits;
+	fixtureDef.filter.groupIndex = groupIndex;
 
     body->CreateFixture(&fixtureDef);
 

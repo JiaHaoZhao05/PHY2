@@ -18,9 +18,10 @@
 enum ObjectCategories {
 	PLAYER = 1,
 	ENEMY = 2,
-	OBSTACLE = 4,
+	ITEM = 4,
 	DAMPSURFACE = 8,
 	BOOSTER = 16,
+	MAP = 32,
 
 };
 class PhysBody
@@ -55,9 +56,9 @@ public:
 	bool CleanUp();
 
 	PhysBody* CreateCircle(int x, int y, int radius);
-	PhysBody* CreateRectangle(int x, int y, int width, int height, float friction, uint16 categoryBits, uint16 maskBits = 0xFFFF, int16 groupIndex = 0);
+	PhysBody* CreateRectangle(int x, int y, int width, int height, float friction, uint16 categoryBits, uint16 maskBits = 0xFFFF, int16 groupIndex = 0, float bounceness = 0);
 	PhysBody* CreateRectangleSensor(int x, int y, int width, int height);
-	PhysBody* CreateChain(int x, int y, std::vector<int> points);
+	PhysBody* CreateChain(int x, int y, std::vector<int> points, uint16 categoryBits, uint16 maskBits = 0xFFFF, int16 groupIndex = 0);
 
 	// b2ContactListener ---
 	void BeginContact(b2Contact* contact);

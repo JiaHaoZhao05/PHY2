@@ -19,7 +19,7 @@ public:
 	Texture currentMapTex;
 	Map1* map1;
 	int currentMap;
-	b2Vec2 initialPos;
+	b2Vec2 mapPos;
 	b2Body* body;
 	PhysBody* chain1;
 	PhysBody* chain2;

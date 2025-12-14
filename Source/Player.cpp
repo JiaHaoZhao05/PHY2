@@ -48,20 +48,20 @@ bool Player::Update()
 	return true;
 }
 //Player functions
-void Player::Throttle(float force, bool front) {
+void Player::Throttle(bool front) {
 	if (physBody->body->GetLinearVelocity().Length() < maxspeed) {
 		if (front) {
 			b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
-			physBody->body->ApplyForceToCenter(-force * forward, true);
-			/*audio->PlayFx(throttleFX - 1);*/
+			physBody->body->ApplyForceToCenter(-speed * forward, true);
+
 		}
 		else {
 			b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
-			physBody->body->ApplyForceToCenter(force * forward, true);
+			physBody->body->ApplyForceToCenter(speed * forward, true);
 		}
 	}
 }
-void Player::Turn(float torque, bool left, bool turn) {
+void Player::Turn(bool left, bool turn) {
 	if (turn) {
 		if (abs(physBody->body->GetAngularVelocity()) < maxtorque) {
 			if (left)physBody->body->ApplyTorque(-torque, true);
@@ -75,22 +75,22 @@ void Player::Turn(float torque, bool left, bool turn) {
 		}
 	}
 }
-void Player::Brake(float force) {
+void Player::Brake() {
 	b2Vec2 brakeF;
 	if (physBody->body->GetLinearVelocity().x > 0) {
-		brakeF.x = -force;
+		brakeF.x = -speed;
 	}
 	else if (physBody->body->GetLinearVelocity().x < 0) {
-		brakeF.x = force;
+		brakeF.x = speed;
 	}
 	else {
 		brakeF.x = 0;
 	}
 	if (physBody->body->GetLinearVelocity().y > 0) {
-		brakeF.y = -force;
+		brakeF.y = -speed;
 	}
 	else if (physBody->body->GetLinearVelocity().y < 0) {
-		brakeF.y = force;
+		brakeF.y = speed;
 	}
 	else {
 		brakeF.y = 0;
@@ -113,6 +113,9 @@ void Player::Draw() {
 	DrawTexturePro(texture, source, dest, origin, rotation, WHITE);
 }
 
+void Player::AddItem(Items* item) {
+	PItems.push_back(item);
+}
 void Player::CheckCheckpoints() {
 	DrawCircle(nextCheckpoint.x, nextCheckpoint.y, 10, BLUE);
 	if (currentCheckpoint + 1 < (int)checkpoints.size()){
