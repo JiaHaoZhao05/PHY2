@@ -34,6 +34,7 @@ bool Enemy::Update() {
 		target += { -5924 + (SCREEN_WIDTH / 2), -942 + (SCREEN_HEIGHT / 2)};
 		DrawCircle(target.x, target.y, 10, RED);
 	}*/
+	GroundFriction();
 	ai.Update(this, centerLine, dt);
 	Draw();
 	return true;
@@ -51,4 +52,10 @@ void Enemy::Draw() {
 	Vector2 origin = { (float)texture.width / 2.0f, (float)texture.height / 2.0f };
 	float rotation = physBody->body->GetAngle() * RAD2DEG;
 	DrawTexturePro(texture, source, dest, origin, rotation, WHITE);
+}
+
+void Enemy::GroundFriction() {
+	b2Vec2 force = physBody->body->GetLinearVelocity();
+	force *= -1 * physBody->body->GetFixtureList()->GetDensity() * physBody->body->GetFixtureList()->GetFriction();
+	physBody->body->ApplyForceToCenter(force, true);
 }

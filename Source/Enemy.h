@@ -34,6 +34,7 @@ struct AIController {
         // Target waypoint
         b2Vec2 target = waypoints[currentWaypoint];
         target += { -5924 + (SCREEN_WIDTH / 2), -942 + (SCREEN_HEIGHT / 2)}; //hardcoded
+        DrawCircle(target.x, target.y, 10, RED);
         if ((target - pos).Length() < 200.0f && currentWaypoint + 1 < (int)waypoints.size()) {
             currentWaypoint++;
             target = waypoints[currentWaypoint];
@@ -77,6 +78,7 @@ public:
 
 	void Move();
     void Draw();
+    void GroundFriction();
 
 public:
 	float speed = 4;
