@@ -32,10 +32,11 @@ update_status ModuleRender::PreUpdate()
     camera.target = { App->game->player->physBody->body->GetPosition().x * PIXELS_PER_METER, App->game->player->physBody->body->GetPosition().y * PIXELS_PER_METER };
     //camera.rotation = -App->game->player->physBody->body->GetAngle() * RAD2DEG; //Rotating camera option
     //Draw the background
+    BeginDrawing();
     ClearBackground(BLACK);
     BeginMode2D(camera);
     App->scenario->Draw();
-    EndMode2D();
+    //EndMode2D();
     return UPDATE_CONTINUE;
 }
 
@@ -46,8 +47,8 @@ update_status ModuleRender::Update()
     // maximum performance, all consecutive Draw() calls are
     // not processed until EndDrawing() is called
 
-    BeginDrawing();
-    BeginMode2D(camera);
+    
+    //BeginMode2D(camera);
 	return UPDATE_CONTINUE;
 }
 

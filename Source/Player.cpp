@@ -93,7 +93,7 @@ void Player::GroundFriction() {
 	physBody->body->ApplyForceToCenter(force, true);
 }
 void Player::Draw() {
-	Vector2 position{ GetScreenWidth() / 2,  GetScreenHeight() / 2 };
+	Vector2 position{ physBody->body->GetPosition().x * PIXELS_PER_METER, physBody->body->GetPosition().y * PIXELS_PER_METER };
 	float scale = 1.0f;
 	Rectangle source = { 0.0f, 0.0f, (float)texture.width, (float)texture.height };
 	Rectangle dest = { position.x, position.y, (float)texture.width * scale, (float)texture.height * scale };

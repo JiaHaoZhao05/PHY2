@@ -63,7 +63,7 @@ void ModuleGame::ReadInputs() {
 	else if ((IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) && !(IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT))) {
 		player->Turn(player->torque, false, true);
 	}
-	else {
+	else if (IsKeyReleased(KEY_D) || IsKeyReleased(KEY_RIGHT) || IsKeyReleased(KEY_A) || IsKeyReleased(KEY_LEFT)) {
 		player->Turn(player->torque, false, false);
 	}
 	if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) {
