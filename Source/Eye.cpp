@@ -17,9 +17,6 @@ bool Eye::Start()
 {
 	LOG("Loading hand");
 	texture = LoadTexture("Assets/Textures/eye.png");
-	shot.x = rand() % 21 - 10;
-	shot.y = rand() % 21 - 10;
-	shot.Normalize();
 	return true;
 }
 // Unload assets
@@ -38,10 +35,6 @@ bool Eye::Update() {
 }
 
 void Eye::Behave() {
-	if (!hasbeenshot) {
-		physBody->body->ApplyForceToCenter(-force * shot, true);
-		hasbeenshot = true;
-	}
 	if (physBody->body->GetLinearVelocity().Length() < maxspeed) {
 		shot.x = rand() % 21 - 10;
 		shot.y = rand() % 21 - 10;

@@ -15,7 +15,6 @@ public:
 	bool Update();
 	bool CleanUp();
 private:
-	bool hasbeenshot = false;
 	b2Vec2 shot;
 	float maxspeed = 40;
 	float force = 40;

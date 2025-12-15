@@ -35,7 +35,7 @@ public:
 	void Move();
     void Draw();
     void GroundFriction();
-	void OnPlayerCollision(Items* item);
+	void AddItem(Items* item);
 	void Create(); 
 	int ID(); 
 public:

@@ -65,7 +65,7 @@ void Enemy::GroundFriction() {
 	force *= -2 * physBody->body->GetFixtureList()->GetDensity() * physBody->body->GetFixtureList()->GetFriction();
 	physBody->body->ApplyForceToCenter(force, true);
 }
-void Enemy::OnPlayerCollision(Items* item) {
+void Enemy::AddItem(Items* item) {
     EItems.push_back(item);
 }
 

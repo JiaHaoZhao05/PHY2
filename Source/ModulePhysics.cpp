@@ -280,13 +280,14 @@ update_status ModulePhysics::PostUpdate()
 		delete pbody;
 	}
 	bodiesToDestroy.clear();
+
 	//PostUpdateCreate when world is not locked
 	for (Enemy* n : App->game->enemies) {
 		if (n->create) {
 			n->create = false;
 			switch (n->ID()) {
 			case 1:
-				n->OnPlayerCollision(new Eye(App->physics, n->physBody->body->GetPosition().x * PIXELS_PER_METER, n->physBody->body->GetPosition().y * PIXELS_PER_METER, this));
+				n->AddItem(new Eye(App->physics, n->physBody->body->GetPosition().x * PIXELS_PER_METER, n->physBody->body->GetPosition().y * PIXELS_PER_METER, this));
 				break;
 			default:
 				break;
