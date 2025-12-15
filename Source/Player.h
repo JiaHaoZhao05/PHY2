@@ -58,4 +58,5 @@ private:
 	unsigned int brakeFX;
 	unsigned int turnFX;
 	unsigned int crashFX;
+	unsigned int engineFX;
 };

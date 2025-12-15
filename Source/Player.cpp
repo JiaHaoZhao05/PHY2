@@ -25,6 +25,7 @@ bool Player::Start()
 	brakeFX = audio->LoadFx("Assets/Sounds/brakeFX.wav");
 	turnFX = audio->LoadFx("Assets/Sounds/turnFX.wav");
 	crashFX = audio->LoadFx("Assets/Sounds/crashFX.wav");
+	engineFX = audio->LoadFx("Assets/Sounds/engineFX.wav");
 	/*texture = LoadTexture("Assets/Textures/player.png");*/
 	return true;
 }
