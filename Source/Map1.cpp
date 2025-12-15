@@ -230,7 +230,7 @@ chain2.CreateLoop(racetrack2, vertexCount2);*/
 //	b2Vec2 mid = 0.5f * (leftWaypoints[i] + rightWaypoints[i]);
 //	centerLine.push_back(mid);
 //}
-	mapTex = LoadTexture("Assets/Maps/Map1.png");
+	mapTex = LoadTexture("Assets/Maps/Map1Col.png");
 	initialPos = { 5450, 950 };
 	startingLine = { 
 		{initialPos.x,initialPos.y-64},
