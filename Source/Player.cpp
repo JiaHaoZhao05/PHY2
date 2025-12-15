@@ -21,11 +21,11 @@ bool Player::Start()
 	currentCheckpoint = 0;
 	nextCheckpoint = checkpoints[currentCheckpoint];
 	nextCheckpoint += initialPos;
-	/*throttleFX = audio->LoadFx("Assets/Sounds/throttleFX.wav");
-	* brakeFX = audio->LoadFx("Assets/Sounds/brakeFX.wav")
-	* turnFX = audio->LoadFx("Assets/Sounds/turnFX.wav")
-	* crashFX = audio->LoadFx("Assets/Sounds/crashFX.wav")
-	texture = LoadTexture("Assets/Textures/player.png");*/
+	throttleFX = audio->LoadFx("Assets/Sounds/throttleFX.wav");
+	brakeFX = audio->LoadFx("Assets/Sounds/brakeFX.wav");
+	turnFX = audio->LoadFx("Assets/Sounds/turnFX.wav");
+	crashFX = audio->LoadFx("Assets/Sounds/crashFX.wav");
+	/*texture = LoadTexture("Assets/Textures/player.png");*/
 	return true;
 }
 // Unload assets
@@ -49,11 +49,11 @@ bool Player::Update()
 }
 //Player functions
 void Player::Throttle(bool front) {
+	audio->PlayFx(throttleFX-1);
 	if (physBody->body->GetLinearVelocity().Length() < maxspeed) {
 		if (front) {
 			b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
 			physBody->body->ApplyForceToCenter(-speed * forward, true);
-
 		}
 		else {
 			b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
@@ -62,11 +62,11 @@ void Player::Throttle(bool front) {
 	}
 }
 void Player::Turn(bool left, bool turn) {
+	audio->PlayFx(turnFX-1);
 	if (turn) {
 		if (abs(physBody->body->GetAngularVelocity()) < maxtorque) {
 			if (left)physBody->body->ApplyTorque(-torque, true);
 			else physBody->body->ApplyTorque(torque, true);
-			/*audio->PlayFx(turnFX - 1);*/
 		}
 	}
 	else {
@@ -76,6 +76,7 @@ void Player::Turn(bool left, bool turn) {
 	}
 }
 void Player::Brake() {
+	audio->PlayFx(brakeFX-1);
 	b2Vec2 brakeF;
 	if (physBody->body->GetLinearVelocity().x > 0) {
 		brakeF.x = -speed;
@@ -96,7 +97,6 @@ void Player::Brake() {
 		brakeF.y = 0;
 	}
 	physBody->body->ApplyForceToCenter(brakeF, true);
-	/*audio->PlayFx(brakeFX - 1);*/
 }
 void Player::GroundFriction() {
 	b2Vec2 force = physBody->body->GetLinearVelocity();
