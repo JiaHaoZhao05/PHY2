@@ -47,7 +47,7 @@
       <Filter>Sources\Items</Filter>
     </ClCompile>
     <ClCompile Include="Source\Items.cpp">
-      <Filter>Sources\Items</Filter>
+      <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

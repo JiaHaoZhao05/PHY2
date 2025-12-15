@@ -18,7 +18,7 @@ bool Enemy::Start()
 	LOG("Loading enemy");
 	//centerLine = App->scenario->map1->GetCenterLine();
 	texture = LoadTexture("Assets/Textures/enemy.png");
-    speed = 5;
+    speed = 3;
     angle = 0;
 	return true;
 }
@@ -33,11 +33,11 @@ bool Enemy::CleanUp()
 // Update: draw background
 bool Enemy::Update() {
 	float dt = 1.0f / 60.0f; // or your actual timestep
-	GroundFriction();
+	
     if (isActive) {
         ai.Update(this, centerLine, dt, speed, maxspeed, torque, maxtorque);
     }
-
+    GroundFriction();
 	Draw();
 	return true;;
 }
@@ -58,7 +58,7 @@ void Enemy::Draw() {
 
 void Enemy::GroundFriction() {
 	b2Vec2 force = physBody->body->GetLinearVelocity();
-	force *= -1 * physBody->body->GetFixtureList()->GetDensity() * physBody->body->GetFixtureList()->GetFriction();
+	force *= -2 * physBody->body->GetFixtureList()->GetDensity() * physBody->body->GetFixtureList()->GetFriction();
 	physBody->body->ApplyForceToCenter(force, true);
 }
 
@@ -79,7 +79,11 @@ void AIController::Update(Car* car, const std::vector<b2Vec2>& waypoints, float 
     // Target waypoint
     b2Vec2 target = waypoints[currentWaypoint];
     target += car->initialPos;
-    DrawCircle(target.x, target.y, 10, RED);
+    static bool debug = false;
+    if (IsKeyPressed(KEY_F1)) {debug = !debug;}
+    if (debug) {
+        DrawCircle(target.x, target.y, 10, RED);
+    }
     if ((target - pos).Length() < 200.0f && currentWaypoint + 1 < (int)waypoints.size()) {
         currentWaypoint++;
         target = waypoints[currentWaypoint];
@@ -125,11 +129,11 @@ EnemyTooth::~EnemyTooth()
 bool EnemyTooth::Start(){
     LOG("Loading enemy");
     texture = LoadTexture("Assets/Textures/enemy2.png");
-    speed = 10;
-    maxspeed = 22;
+    speed = 8;
+    maxspeed = 24;
     angle = 0;
-    torque = 3;
-    maxtorque = 6;
+    torque = 6;
+    maxtorque = 12;
     brake = 2;
     return true;
 }
@@ -139,8 +143,8 @@ EnemyPsy::~EnemyPsy()
 bool EnemyPsy::Start() {
     LOG("Loading enemy");
     texture = LoadTexture("Assets/Textures/enemy3.png");
-    speed = 15;
-    maxspeed = 15;
+    speed = 12;
+    maxspeed = 12;
     angle = 0;
     torque = 8;
     maxtorque = 20;

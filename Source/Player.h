@@ -40,7 +40,7 @@ public:
 	bool finished = false;
 private:
 	Texture2D texture;
-	float maxspeed = 25;
+	float maxspeed = 40;
 	float speed = 5;
 
 	float maxtorque = 4;
