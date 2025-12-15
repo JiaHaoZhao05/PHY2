@@ -29,8 +29,9 @@ public:
 	void Draw();
 	void CheckCheckpoints();
 	
-
+	//collisions
 	void OnCollissionEnemy();
+	void OnCollissionBooster(b2Vec2 dir);
 
 public:
 	std::vector<Items*> PItems;

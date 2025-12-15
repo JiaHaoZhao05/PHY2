@@ -42,6 +42,14 @@ void Scenario::LoadMap1() {
 	centerLine = map1->GetCenterLine();
 	checkpoints = map1->GetCheckpoints();
 	initialRotation = map1->initialRotation;
+	EntityType boosterType;
+	for (auto& booster : map1->boosterList) {
+		if (booster.second.x == 1) boosterType = EntityType::BOOSTER_RIGHT;
+		else if (booster.second.x == -1)boosterType = EntityType::BOOSTER_LEFT;
+		else if (booster.second.y == 1)boosterType = EntityType::BOOSTER_DOWN;
+		else if (booster.second.y == -1)boosterType = EntityType::BOOSTER_UP;
+		App->physics->CreateChainSensor(0, 0, booster.first, boosterType, MAP, (ENEMY | PLAYER));
+	}
 }
 
 void Scenario::Draw() {
