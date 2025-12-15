@@ -191,6 +191,18 @@ void ModuleGame::OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
 			break;
 		case(EntityType::ITEM):
 			break;
+		case(EntityType::BOOSTER_UP):
+			player->OnCollissionBooster({0,-1});
+			break;
+		case(EntityType::BOOSTER_DOWN):
+			player->OnCollissionBooster({ 0,1 });
+			break;
+		case(EntityType::BOOSTER_LEFT):
+			player->OnCollissionBooster({-1,0});
+			break;
+		case(EntityType::BOOSTER_RIGHT):
+			player->OnCollissionBooster({1,0});
+			break;
 		}
 	}
 

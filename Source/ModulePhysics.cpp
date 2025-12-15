@@ -224,6 +224,8 @@ PhysBody* ModulePhysics::CreateChainSensor(int x, int y, std::vector<int> points
 {
 	PhysBody* pbody = new PhysBody();
 
+	pbody->type = _type;
+
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_staticBody;
 	bodyDef.position.Set(
@@ -252,6 +254,7 @@ PhysBody* ModulePhysics::CreateChainSensor(int x, int y, std::vector<int> points
 	fixtureDef.filter.categoryBits = categoryBits;
 	fixtureDef.filter.maskBits = maskBits;
 	fixtureDef.filter.groupIndex = groupIndex;
+	fixtureDef.isSensor = true;
 
 	body->CreateFixture(&fixtureDef);
 

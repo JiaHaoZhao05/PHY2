@@ -146,3 +146,8 @@ void Player::CheckCheckpoints() {
 void Player::OnCollissionEnemy() {
 	//physBody->body->ApplyLinearImpulseToCenter({ -5,0 }, 1);
 }
+
+void Player::OnCollissionBooster(b2Vec2 dir) {
+	
+	physBody->body->ApplyLinearImpulseToCenter(b2Vec2{ dir.x * 2,dir.y * 2 }, true);
+}
