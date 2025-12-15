@@ -52,7 +52,10 @@ bool Player::Update()
 }
 //Player functions
 void Player::Throttle(bool front) {
-	audio->PlayFx(throttleFX-1);
+	if (throttleFXCooldown.ReadSec() > 1.0f) {
+		audio->PlayFx(engineFX - 1);
+		throttleFXCooldown.Start();
+	}
 	if (physBody->body->GetLinearVelocity().Length() < maxspeed) {
 		if (front) {
 			b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
@@ -65,7 +68,10 @@ void Player::Throttle(bool front) {
 	}
 }
 void Player::Turn(bool left, bool turn) {
-	audio->PlayFx(turnFX-1);
+	if (turnFXCooldown.ReadSec() > 2.0f) {
+		audio->PlayFx(turnFX - 1);
+		turnFXCooldown.Start();
+	}
 	if (turn) {
 		if (abs(physBody->body->GetAngularVelocity()) < maxtorque) {
 			if (left)physBody->body->ApplyTorque(-torque, true);
@@ -79,7 +85,10 @@ void Player::Turn(bool left, bool turn) {
 	}
 }
 void Player::Brake() {
-	audio->PlayFx(brakeFX-1);
+	if (brakeFXCooldown.ReadSec() > 1.0f) {
+		audio->PlayFx(brakeFX - 1);
+		brakeFXCooldown.Start();
+	}
 	b2Vec2 brakeF;
 	if (physBody->body->GetLinearVelocity().x > 0) {
 		brakeF.x = -speed;

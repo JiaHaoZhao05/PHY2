@@ -56,4 +56,7 @@ private:
 	unsigned int turnFX;
 	unsigned int crashFX;
 	unsigned int engineFX;
+	Timer throttleFXCooldown;
+	Timer brakeFXCooldown;
+	Timer turnFXCooldown;
 };
