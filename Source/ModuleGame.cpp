@@ -132,7 +132,7 @@ void ModuleGame::LoadEntities() {
 	float rotation = App->scenario->initialRotation;
 	player = new Player(App->physics, App->scenario->mapPos[0].x, App->scenario->mapPos[0].y, this, 0.6f, rotation, App->scenario->checkpoints);
 	enemies.emplace_back(new Enemy(App->physics, App->scenario->mapPos[1].x, App->scenario->mapPos[1].y, this, 0.6f, rotation, App->scenario->centerLine));
-	enemies.emplace_back(new Enemy(App->physics, App->scenario->mapPos[2].x, App->scenario->mapPos[2].y, this, 0.6f, rotation, App->scenario->centerLine));
+	enemies.emplace_back(new EnemyTooth(App->physics, App->scenario->mapPos[2].x, App->scenario->mapPos[2].y, this, 0.6f, rotation, App->scenario->centerLine));
 
 	enemies.emplace_back(new Enemy(App->physics, App->scenario->mapPos[3].x, App->scenario->mapPos[3].y, this, 0.6f, rotation, App->scenario->centerLine));
 

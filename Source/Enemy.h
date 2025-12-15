@@ -21,7 +21,7 @@ struct AIController {
     int currentWaypoint = 0;
 
 
-	void Update(Car* car, const std::vector<b2Vec2>& waypoints, float dt);
+	void Update(Car* car, const std::vector<b2Vec2>& waypoints, float dt, float speed, float maxspeed, float torque, float maxtorque);
 };
 
 class Enemy :public Car {
@@ -38,23 +38,36 @@ public:
     void GroundFriction();
 
 public:
-	float torque = 0.4;
+
+	float maxspeed = 5;
+	float maxtorque = 5;
+	float torque = 1;
 	float brake = 8;
     b2Vec2 initialPos;
 	bool isActive = false;
 protected:
-	b2Vec2 pos;
-	double angle = 0;
-private:
 	Texture2D texture;
+private:
 
 public:
 
-	bool Start();
+	virtual bool Start();
 	bool Update();
 	bool CleanUp();
 
 private:
 	AIController ai;
     std::vector<b2Vec2> centerLine;
+};
+class EnemyTooth :public Enemy {
+public:
+	EnemyTooth(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine)
+		:Enemy(physics, _x, _y, _listener, _friction, _rotation, _centerLine) 
+	{
+	
+	}
+	~EnemyTooth();
+	bool Start() override;
+public:
+
 };
