@@ -60,6 +60,7 @@ public:
 	PhysBody* CreateRectangle(int x, int y, int width, int height, float friction, float rotation, EntityType _type, Module* _listener, uint16 categoryBits, uint16 maskBits = 0xFFFF, int16 groupIndex = 0, float bounceness = 0);
 	PhysBody* CreateRectangleSensor(int x, int y, int width, int height);
 	PhysBody* CreateChain(int x, int y, std::vector<int> points, uint16 categoryBits, uint16 maskBits = 0xFFFF, int16 groupIndex = 0);
+	PhysBody* CreateChainSensor(int x, int y, std::vector<int> points, EntityType _type, uint16 categoryBits, uint16 maskBits = 0xFFFF, int16 groupIndex = 0);
 
 	// b2ContactListener ---
 	void BeginContact(b2Contact* contact);

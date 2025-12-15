@@ -39,7 +39,9 @@ enum class EntityType
 	PLAYER,
 	ENEMY,
 	ITEM,
-
+	DAMPED_SURFACE,
+	SLIDING_SURFACE,
+	BOOSTER
 };
 
 

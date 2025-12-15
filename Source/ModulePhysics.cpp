@@ -219,6 +219,49 @@ PhysBody* ModulePhysics::CreateChain(int x, int y, std::vector<int> points, uint
     return pbody;
 }
 
+PhysBody* ModulePhysics::CreateChainSensor(int x, int y, std::vector<int> points, EntityType _type, uint16 categoryBits, uint16 maskBits, int16 groupIndex)
+{
+	PhysBody* pbody = new PhysBody();
+
+	b2BodyDef bodyDef;
+	bodyDef.type = b2_staticBody;
+	bodyDef.position.Set(
+		PIXEL_TO_METERS(x),
+		PIXEL_TO_METERS(y)
+	);
+	bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(pbody);
+
+	b2Body* body = world->CreateBody(&bodyDef);
+
+	int count = points.size() / 2;
+	b2Vec2* vertices = new b2Vec2[count];
+
+	for (int i = 0; i < count; ++i)
+	{
+		vertices[i].x = points[i * 2] / PIXELS_PER_METER;
+		vertices[i].y = points[i * 2 + 1] / PIXELS_PER_METER;
+	}
+
+	b2ChainShape shape;
+	shape.CreateLoop(vertices, count);
+
+	b2FixtureDef fixtureDef;
+	fixtureDef.shape = &shape;
+	fixtureDef.friction = 0.8f;
+	fixtureDef.filter.categoryBits = categoryBits;
+	fixtureDef.filter.maskBits = maskBits;
+	fixtureDef.filter.groupIndex = groupIndex;
+
+	body->CreateFixture(&fixtureDef);
+
+	delete[] vertices;
+
+	pbody->body = body;
+	pbody->width = 0;
+	pbody->height = 0;
+
+	return pbody;
+}
 // 
 update_status ModulePhysics::PostUpdate()
 {
