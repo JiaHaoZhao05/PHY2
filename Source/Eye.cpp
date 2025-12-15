@@ -8,16 +8,18 @@
 #include "PhysicEntity.h"
 
 // Load assets
-Eye::Eye(ModulePhysics* physics, int _x, int _y, Module* _listener, b2Vec2 eject)
+Eye::Eye(ModulePhysics* physics, int _x, int _y, Module* _listener)
 	: Items(physics->CreateCircle(_x, _y, 16, 0.2, 0, EntityType::ITEM, _listener, ITEM, MAP | PLAYER | ENEMY, 0, 1), _listener, EntityType::ITEM)
 {
 	Start();
-	shot = eject;
 }
 bool Eye::Start()
 {
 	LOG("Loading hand");
 	texture = LoadTexture("Assets/Textures/eye.png");
+	shot.x = rand() % 21 - 10;
+	shot.y = rand() % 21 - 10;
+	shot.Normalize();
 	return true;
 }
 // Unload assets
@@ -37,14 +39,13 @@ bool Eye::Update() {
 
 void Eye::Behave() {
 	if (!hasbeenshot) {
-		physBody->body->ApplyForceToCenter(-initimpulse * shot, true);
+		physBody->body->ApplyForceToCenter(-force * shot, true);
 		hasbeenshot = true;
 	}
 	if (physBody->body->GetLinearVelocity().Length() < maxspeed) {
-		b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
-		physBody->body->ApplyForceToCenter(-force * forward, true);
-	}
-	if (physBody->body->GetAngularVelocity() < maxtorque) {
-		physBody->body->ApplyAngularImpulse(torque, true);
+		shot.x = rand() % 21 - 10;
+		shot.y = rand() % 21 - 10;
+		shot.Normalize();
+		physBody->body->ApplyForceToCenter(-force * shot, true);
 	}
 }

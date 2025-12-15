@@ -7,6 +7,8 @@
 #include "Car.h"
 #include "Map1.h"
 #include "ModuleAudio.h"
+#include "Items.h"
+#include <vector>
 
 struct PID {
     float kp, ki, kd;
@@ -33,8 +35,12 @@ public:
 	void Move();
     void Draw();
     void GroundFriction();
-	void OnPlayerCollision(PhysBody* item);
+	void OnPlayerCollision(Items* item);
+	void Create(); 
+	int ID(); 
 public:
+	
+	bool create = false;
 
 	float maxspeed = 30;
 	float maxtorque = 60;
@@ -44,6 +50,7 @@ public:
 	bool isActive = false;
 	std::vector<Items*> EItems;
 protected:
+	int id = 1;
 	Texture2D texture;
 private:
 

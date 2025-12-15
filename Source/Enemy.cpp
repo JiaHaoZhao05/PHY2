@@ -65,7 +65,7 @@ void Enemy::GroundFriction() {
 	force *= -2 * physBody->body->GetFixtureList()->GetDensity() * physBody->body->GetFixtureList()->GetFriction();
 	physBody->body->ApplyForceToCenter(force, true);
 }
-void Enemy::OnPlayerCollision(PhysBody* item) {
+void Enemy::OnPlayerCollision(Items* item) {
     EItems.push_back(item);
 }
 
@@ -130,6 +130,14 @@ void AIController::Update(Car* car, const std::vector<b2Vec2>& waypoints, float 
         }
     }
 }
+void Enemy::Create() { 
+    if (EItems.size() < 3) {
+        create = true;
+    }
+}
+int Enemy::ID() { 
+    return id; 
+}
 EnemyTooth::EnemyTooth(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio)
     :Enemy(physics, _x, _y, _listener, _friction, _rotation, _centerLine, _audio)
 {
@@ -139,6 +147,7 @@ EnemyTooth::~EnemyTooth()
 }
 bool EnemyTooth::Start(){
     LOG("Loading enemy");
+    id = 2;
     texture = LoadTexture("Assets/Textures/enemy2.png");
     speed = 9;
     maxspeed = 24;
@@ -157,6 +166,7 @@ EnemyPsy::~EnemyPsy()
 }
 bool EnemyPsy::Start() {
     LOG("Loading enemy");
+    id = 3;
     texture = LoadTexture("Assets/Textures/enemy3.png");
     speed = 11;
     maxspeed = 11;

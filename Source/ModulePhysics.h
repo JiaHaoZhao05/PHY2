@@ -4,6 +4,7 @@
 #include "Globals.h"
 
 #include "box2d\box2d.h"
+#include "PhysicEntity.h"
 #include <vector>
 #define GRAVITY_X 0.0f
 #define GRAVITY_Y 0.0f
@@ -66,9 +67,7 @@ public:
 	void BeginContact(b2Contact* contact);
 	void EndContact(b2Contact* contact);
 
-
 	void QueueBodyForDestroy(PhysBody* body);
-
 private:
 	std::vector<PhysBody*> bodiesToDestroy;
 	bool debug;

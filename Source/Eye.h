@@ -8,7 +8,7 @@
 class Eye : public Items {
 public:
 	Eye() {}
-	Eye(ModulePhysics* physics, int _x, int _y, Module* _listener, b2Vec2 eject);
+	Eye(ModulePhysics* physics, int _x, int _y, Module* _listener);
 	~Eye() {}
 	void Behave();
 	bool Start();
@@ -17,9 +17,6 @@ public:
 private:
 	bool hasbeenshot = false;
 	b2Vec2 shot;
-	float maxtorque = 8;
-	float torque = 1;
-	float initimpulse = -1000;
-	float maxspeed = 20;
-	float force = 4;
+	float maxspeed = 40;
+	float force = 40;
 };

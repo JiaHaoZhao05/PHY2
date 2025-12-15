@@ -3,6 +3,7 @@
 #include "ModuleRender.h"
 #include "ModulePhysics.h"
 #include "ModuleGame.h"
+#include "Eye.h"
 //#include "PhysicEntity.h"
 
 #include "p2Point.h"
@@ -269,6 +270,26 @@ update_status ModulePhysics::PostUpdate()
 	{
 		debug = !debug;
 	}
+	//PostUpdateDelete when world is not locked
+	for (PhysBody* pbody : bodiesToDestroy)
+	{
+		world->DestroyBody(pbody->body);
+		delete pbody;
+	}
+	bodiesToDestroy.clear();
+	//PostUpdateCreate when world is not locked
+	for (Enemy* n : App->game->enemies) {
+		if (n->create) {
+			n->create = false;
+			switch (n->ID()) {
+			case 1:
+				n->OnPlayerCollision(new Eye(App->physics, n->physBody->body->GetPosition().x * PIXELS_PER_METER, n->physBody->body->GetPosition().y * PIXELS_PER_METER, this));
+				break;
+			default:
+				break;
+			}
+		}
+	}
 
 	if (!debug)
 	{
@@ -383,22 +404,12 @@ update_status ModulePhysics::PostUpdate()
 		world->DestroyJoint(mouse_joint);
 		mouse_joint = nullptr;
 	}
-
-
-	for (PhysBody* pbody : bodiesToDestroy)
-	{
-		world->DestroyBody(pbody->body);
-		delete pbody;
-	}
-
-	bodiesToDestroy.clear();
 	return UPDATE_CONTINUE;
 }
 void ModulePhysics::QueueBodyForDestroy(PhysBody* body)
 {
 	bodiesToDestroy.push_back(body);
 }
-
 // Called before quitting
 bool ModulePhysics::CleanUp()
 {

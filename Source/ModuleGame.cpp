@@ -120,6 +120,13 @@ void ModuleGame::UpdateEntities() {
 	player->Update();
 	for (Enemy* entity : enemies) {
 		entity->Update();
+		for (Items* n : entity->EItems) {
+			n->Update();
+			if (n->pendingToDelete) {
+				App->physics->QueueBodyForDestroy(n->physBody);
+				delete n;
+			}
+		}
 	}
 	for (Items* n : player->PItems) {
 		n->Update();
@@ -173,15 +180,12 @@ void ModuleGame::LoadEntities() {
 
 void ModuleGame::OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
 	if (bodyA->type == EntityType::PLAYER) {
-
 		switch (bodyB->type) {
 		case(EntityType::ENEMY):
 			player->OnCollissionEnemy();
 			for (Enemy* n : enemies) {
 				if (n->physBody == bodyB) {
-					if (n->EItems.size() < 3) {
-						//n->OnPlayerCollision();
-					}
+					n->Create();
 				}
 			}
 			break;
