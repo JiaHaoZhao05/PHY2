@@ -26,12 +26,15 @@ public:
 	bool CleanUp();
 	void Draw();
 	void CheckCheckpoints();
+	
 
 	void OnCollissionEnemy();
 
 public:
 	std::vector<Items*> PItems;
 	b2Vec2 pos;
+	bool isActive = false;
+	bool finished = false;
 private:
 	Texture2D texture;
 	float maxspeed = 25;

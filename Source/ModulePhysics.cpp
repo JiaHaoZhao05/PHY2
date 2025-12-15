@@ -128,7 +128,7 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, fl
 	fixture.shape = &box;
 	fixture.density = 1.0f;
 	fixture.friction = friction;
-	fixture.restitution = bounceness;
+	fixture.restitution = 0.2f;
 
 	// TODO 2: Add filter categoryBits and maskBits to fixture
 	fixture.filter.categoryBits = categoryBits;

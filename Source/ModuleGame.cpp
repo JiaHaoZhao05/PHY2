@@ -19,35 +19,28 @@ ModuleGame::~ModuleGame()
 bool ModuleGame::Start()
 {
 	LOG("Loading Intro assets");
-	SetTargetFPS(60);
-	timer.Start();
-	App->scenario->LoadMap();
-	float rotation = App->scenario->initialRotation;
-	player = new Player(App->physics, App->scenario->mapPos[0].x, App->scenario->mapPos[0].y, this, 0.6f, rotation, App->scenario->checkpoints);
-	enemies.emplace_back(new Enemy(App->physics, App->scenario->mapPos[1].x, App->scenario->mapPos[1].y, this, 0.6f, rotation, App->scenario->centerLine));
-	enemies.emplace_back(new Enemy(App->physics, App->scenario->mapPos[2].x, App->scenario->mapPos[2].y, this, 0.6f, rotation,App->scenario->centerLine));
-
-	enemies.emplace_back(new Enemy(App->physics, App->scenario->mapPos[3].x, App->scenario->mapPos[3].y, this, 0.6f, rotation,App->scenario->centerLine));
-
-	
-	player->Start();
-	for (PhysicEntity* entity : enemies) {
-		entity->Start();
-	}
 	bool ret = true;
+	SetTargetFPS(60);
+	App->scenario->LoadMap();
+	LoadEntities();
 
 	return ret;
 }
 
-// Load assets
 bool ModuleGame::CleanUp()
 {
-	LOG("Unloading Intro scene");
-
+	App->physics->QueueBodyForDestroy(player->physBody);
+	for (Enemy* entity : enemies) {
+		App->physics->QueueBodyForDestroy(entity->physBody);
+	}
+	enemies.clear();
+	for (Items* item : player->PItems) {
+		App->physics->QueueBodyForDestroy(item->physBody);
+	}
+	player->PItems.clear();
+	
 	return true;
 }
-
-
 
 // Update: draw background
 update_status ModuleGame::Update()
@@ -55,21 +48,21 @@ update_status ModuleGame::Update()
 	App->scenario->Update();
 	
 	ReadInputs();
-	player->Update();
-	for (PhysicEntity* entity : enemies) {
-		entity->Update();
-	}
-	for (Items* n : player->PItems) {
-		n->Update();
-		if (n->pendingToDelete) {
-			App->physics->QueueBodyForDestroy(n->physBody);
-			delete n;
-		}
+	UpdateEntities();
+	if (player->finished) {
+		EndGame();
 	}
 	return UPDATE_CONTINUE;
 }
 
 void ModuleGame::ReadInputs() {
+	if (gamePaused){
+		if (IsKeyPressed(KEY_ENTER)) {
+			if (player->finished) RestartGame();
+			else StartGame();
+		}	
+		return;
+	}
 	if ((IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) && !(IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT))) {
 		player->Turn(true, true);
 	}
@@ -94,7 +87,61 @@ void ModuleGame::ReadInputs() {
 		}
 	}
 }
+		
 
+void ModuleGame::UpdateEntities() {
+	player->Update();
+	for (Enemy* entity : enemies) {
+		entity->Update();
+	}
+	for (Items* n : player->PItems) {
+		n->Update();
+		if (n->pendingToDelete) {
+			App->physics->QueueBodyForDestroy(n->physBody);
+			delete n;
+		}
+	}
+}
+
+void ModuleGame::StartGame() {
+	gamePaused = false;
+	timer.Start();
+	player->isActive = true;
+	for (Enemy* entity : enemies) {
+		entity->isActive = true;
+	}
+}
+
+void ModuleGame::RestartGame() {
+	player->finished = false;
+	player->physBody->body->SetFixedRotation(false);
+	CleanUp();
+	LoadEntities();
+}
+
+void ModuleGame::EndGame() {
+	gamePaused = true;
+	for (Enemy* entity : enemies) {
+		entity->isActive = false;
+	}
+	player->physBody->body->SetLinearVelocity({0,0});
+	player->physBody->body->SetFixedRotation(true);
+}
+
+void ModuleGame::LoadEntities() {
+	float rotation = App->scenario->initialRotation;
+	player = new Player(App->physics, App->scenario->mapPos[0].x, App->scenario->mapPos[0].y, this, 0.6f, rotation, App->scenario->checkpoints);
+	enemies.emplace_back(new Enemy(App->physics, App->scenario->mapPos[1].x, App->scenario->mapPos[1].y, this, 0.6f, rotation, App->scenario->centerLine));
+	enemies.emplace_back(new Enemy(App->physics, App->scenario->mapPos[2].x, App->scenario->mapPos[2].y, this, 0.6f, rotation, App->scenario->centerLine));
+
+	enemies.emplace_back(new Enemy(App->physics, App->scenario->mapPos[3].x, App->scenario->mapPos[3].y, this, 0.6f, rotation, App->scenario->centerLine));
+
+	player->Start();
+	for (Enemy* entity : enemies) {
+		entity->Start();
+	}
+
+}
 
 void ModuleGame::OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
 	if (bodyA->type == EntityType::PLAYER) {

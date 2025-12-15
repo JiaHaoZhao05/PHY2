@@ -25,14 +25,20 @@ public:
 	update_status Update();
 	bool CleanUp();
 	void ReadInputs();
+	void UpdateEntities();
+	void StartGame();
+	void RestartGame();
+	void EndGame();
+	void LoadEntities();
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 	void EndCollision(PhysBody* bodyA, PhysBody* bodyB);
 
 public:
 
 	Player* player;
-	std::vector<PhysicEntity*> enemies;
+	std::vector<Enemy*> enemies;
 	Timer timer;
+	bool gamePaused = true;
 	
 
 	Map1* map1;

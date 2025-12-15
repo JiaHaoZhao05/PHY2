@@ -32,7 +32,9 @@ bool Enemy::CleanUp()
 bool Enemy::Update() {
 	float dt = 1.0f / 60.0f; // or your actual timestep
 	GroundFriction();
-	ai.Update(this, centerLine, dt);
+    if (isActive) {
+        ai.Update(this, centerLine, dt);
+    }
 	Draw();
 	return true;;
 }

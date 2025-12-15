@@ -44,5 +44,6 @@ public:
 	bool isSwitched = false;
 	int state = 0;
 	EntityType type;
+	bool isActive;
 
 };

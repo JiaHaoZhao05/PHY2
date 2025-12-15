@@ -38,10 +38,10 @@ public:
     void GroundFriction();
 
 public:
-	float speed = 4;
 	float torque = 0.4;
 	float brake = 8;
     b2Vec2 initialPos;
+	bool isActive = false;
 protected:
 	b2Vec2 pos;
 	double angle = 0;
