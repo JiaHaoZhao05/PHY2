@@ -59,14 +59,26 @@ private:
 	AIController ai;
     std::vector<b2Vec2> centerLine;
 };
+
 class EnemyTooth :public Enemy {
 public:
 	EnemyTooth(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine)
 		:Enemy(physics, _x, _y, _listener, _friction, _rotation, _centerLine) 
 	{
-	
 	}
 	~EnemyTooth();
+	bool Start() override;
+public:
+
+};
+
+class EnemyPsy :public Enemy {
+public:
+	EnemyPsy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine)
+		:Enemy(physics, _x, _y, _listener, _friction, _rotation, _centerLine)
+	{
+	}
+	~EnemyPsy();
 	bool Start() override;
 public:
 
