@@ -40,9 +40,9 @@ public:
 
 public:
 
-	float maxspeed = 5;
-	float maxtorque = 5;
-	float torque = 1;
+	float maxspeed = 30;
+	float maxtorque = 60;
+	float torque = 30;
 	float brake = 8;
     b2Vec2 initialPos;
 	bool isActive = false;

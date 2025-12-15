@@ -118,7 +118,14 @@ void Player::AddItem(Items* item) {
 	PItems.push_back(item);
 }
 void Player::CheckCheckpoints() {
-	DrawCircle(nextCheckpoint.x, nextCheckpoint.y, 10, BLUE);
+	static bool debug = false;
+	if (IsKeyPressed(KEY_F1))
+	{
+		debug = !debug;
+	}
+	if (debug) {
+		DrawCircle(nextCheckpoint.x, nextCheckpoint.y, 10, BLUE);
+	}
 	if (currentCheckpoint + 1 < (int)checkpoints.size()){
 		if ((nextCheckpoint - pos).Length() < 200.0f) {
 			currentCheckpoint++;
