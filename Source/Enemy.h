@@ -77,8 +77,8 @@ public:
 
 class EnemyPsy :public Enemy {
 public:
-	EnemyPsy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine)
-		:Enemy(physics, _x, _y, _listener, _friction, _rotation, _centerLine)
+	EnemyPsy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio)
+		:Enemy(physics, _x, _y, _listener, _friction, _rotation, _centerLine, _audio)
 	{
 	}
 	~EnemyPsy();
