@@ -56,3 +56,52 @@ void Enemy::GroundFriction() {
 	force *= -1 * physBody->body->GetFixtureList()->GetDensity() * physBody->body->GetFixtureList()->GetFriction();
 	physBody->body->ApplyForceToCenter(force, true);
 }
+
+float PID::step(float error, float dt) {
+
+	integral += error * dt;
+	float derivative = (error - prevError) / dt;
+	float u = kp * error + ki * integral + kd * derivative;
+	prevError = error;
+	return u;
+}
+
+void AIController::Update(Car* car, const std::vector<b2Vec2>& waypoints, float dt) {
+    b2Vec2 pos = car->physBody->body->GetPosition();
+    pos = b2Vec2{ (float)METERS_TO_PIXELS(pos.x), (float)METERS_TO_PIXELS(pos.y) };
+    float angle = car->physBody->body->GetAngle();
+
+    // Target waypoint
+    b2Vec2 target = waypoints[currentWaypoint];
+    target += car->initialPos;
+    DrawCircle(target.x, target.y, 10, RED);
+    if ((target - pos).Length() < 200.0f && currentWaypoint + 1 < (int)waypoints.size()) {
+        currentWaypoint++;
+        target = waypoints[currentWaypoint];
+        target += car->initialPos;
+    }
+
+    // Desired direction
+    b2Vec2 dir = target - pos;
+    dir.Normalize();
+    float desiredAngle = atan2f(dir.y, dir.x);
+
+    // Steering error
+    float steerError = fmodf(desiredAngle - angle + b2_pi, 2 * b2_pi) - b2_pi / 2;
+    float steerCmd = steerPID.step(steerError, dt);
+
+    // Speed control
+    float vTarget = 5.0f;
+    float maxVTarget = 5.0f;
+    b2Vec2 vel = car->physBody->body->GetLinearVelocity();
+    b2Vec2 forward = car->physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
+    float vCurrent = b2Dot(vel, forward);
+    float throttleCmd = throttlePID.step(vTarget - vCurrent, dt);
+
+    // Apply forces
+    if (car->physBody->body->GetLinearVelocity().Length() < maxVTarget) {
+        car->physBody->body->ApplyForceToCenter(-throttleCmd * forward, true);
+    }
+    car->physBody->body->ApplyTorque(steerCmd, true);
+
+}
