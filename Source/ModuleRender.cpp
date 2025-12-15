@@ -48,8 +48,7 @@ update_status ModuleRender::Update()
     // NOTE: This function setups render batching system for
     // maximum performance, all consecutive Draw() calls are
     // not processed until EndDrawing() is called
-    DrawText(TextFormat("Time: %f", App->game->timer.ReadSec()), camera.target.x - SCREEN_WIDTH/2, camera.target.y-SCREEN_HEIGHT/2, GetFontDefault(), 30, RED);
-    
+    DrawText(TextFormat("Time: %.2f", App->game->timer.ReadSec()), camera.target.x - SCREEN_WIDTH/2, camera.target.y-SCREEN_HEIGHT/2, GetFontDefault(), 5, BLACK);
     //BeginMode2D(camera);
 	return UPDATE_CONTINUE;
 }
