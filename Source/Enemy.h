@@ -6,6 +6,7 @@
 #include "ModulePhysics.h"
 #include "Car.h"
 #include "Map1.h"
+#include "ModuleAudio.h"
 
 struct PID {
     float kp, ki, kd;
@@ -26,7 +27,7 @@ struct AIController {
 
 class Enemy :public Car {
 public:
-	Enemy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine)
+	Enemy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio)
 		: Car(physics->CreateRectangle(_x, _y, 32, 64, _friction, _rotation, EntityType::ENEMY,_listener, ENEMY), _listener, EntityType::ENEMY), centerLine(_centerLine)
 	{
 
@@ -58,12 +59,14 @@ public:
 private:
 	AIController ai;
     std::vector<b2Vec2> centerLine;
+	Module* audio;
+
 };
 
 class EnemyTooth :public Enemy {
 public:
-	EnemyTooth(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine)
-		:Enemy(physics, _x, _y, _listener, _friction, _rotation, _centerLine) 
+	EnemyTooth(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio)
+		:Enemy(physics, _x, _y, _listener, _friction, _rotation, _centerLine, _audio)
 	{
 	}
 	~EnemyTooth();

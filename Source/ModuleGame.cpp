@@ -45,8 +45,8 @@ bool ModuleGame::CleanUp()
 // Update: draw background
 update_status ModuleGame::Update()
 {
+	CheckTimers();
 	App->scenario->Update();
-	
 	ReadInputs();
 	UpdateEntities();
 	if (player->finished) {
@@ -55,11 +55,36 @@ update_status ModuleGame::Update()
 	return UPDATE_CONTINUE;
 }
 
+void ModuleGame::CheckTimers() {
+	if (starting) {
+		int time = startTimer.ReadSec();
+		switch (time) {
+		case 0: //3
+			DrawCircle(player->pos.x, player->pos.y, 40, RED);
+			break;
+		case 1: //2
+			DrawCircle(player->pos.x, player->pos.y, 40, ORANGE);
+			break;
+		case 2: //1
+			DrawCircle(player->pos.x, player->pos.y, 40, YELLOW);
+			break;
+		case 3: //GO
+			DrawCircle(player->pos.x, player->pos.y, 40, GREEN);
+			starting = false;
+			StartGame();
+			break;
+		}
+	}
+}
+
 void ModuleGame::ReadInputs() {
 	if (gamePaused){
 		if (IsKeyPressed(KEY_ENTER)) {
 			if (player->finished) RestartGame();
-			else StartGame();
+			else {
+				starting = true;
+				startTimer.Start();
+			}
 		}	
 		return;
 	}
@@ -121,6 +146,7 @@ void ModuleGame::RestartGame() {
 
 void ModuleGame::EndGame() {
 	gamePaused = true;
+	if (timer.ReadSec() < bestTime);
 	for (Enemy* entity : enemies) {
 		entity->isActive = false;
 	}
@@ -130,11 +156,11 @@ void ModuleGame::EndGame() {
 
 void ModuleGame::LoadEntities() {
 	float rotation = App->scenario->initialRotation;
-	player = new Player(App->physics, App->scenario->mapPos[0].x, App->scenario->mapPos[0].y, this, 0.6f, rotation, App->scenario->checkpoints);
-	enemies.emplace_back(new Enemy(App->physics, App->scenario->mapPos[1].x, App->scenario->mapPos[1].y, this, 0.6f, rotation, App->scenario->centerLine));
-	enemies.emplace_back(new EnemyTooth(App->physics, App->scenario->mapPos[2].x, App->scenario->mapPos[2].y, this, 0.6f, rotation, App->scenario->centerLine));
+	player = new Player(App->physics, App->scenario->mapPos[0].x, App->scenario->mapPos[0].y, this, 0.6f, rotation, App->scenario->checkpoints, App->audio);
+	enemies.emplace_back(new Enemy(App->physics, App->scenario->mapPos[1].x, App->scenario->mapPos[1].y, this, 0.6f, rotation, App->scenario->centerLine, App->audio));
+	enemies.emplace_back(new EnemyTooth(App->physics, App->scenario->mapPos[2].x, App->scenario->mapPos[2].y, this, 0.6f, rotation, App->scenario->centerLine, App->audio));
+	enemies.emplace_back(new EnemyPsy(App->physics, App->scenario->mapPos[3].x, App->scenario->mapPos[3].y, this, 0.6f, rotation, App->scenario->centerLine, App->audio));
 
-	enemies.emplace_back(new EnemyPsy(App->physics, App->scenario->mapPos[3].x, App->scenario->mapPos[3].y, this, 0.6f, rotation, App->scenario->centerLine));
 
 	player->Start();
 	for (Enemy* entity : enemies) {

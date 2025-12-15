@@ -7,10 +7,12 @@
 #include "Car.h"
 #include "Items.h"
 #include <vector>
+#include "ModuleAudio.h"
+
 class Player :public Car {
 public:
-	Player(ModulePhysics* physics, int pos_x, int pos_y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _checkpoints)
-		: Car(physics->CreateRectangle(pos_x,pos_y,32,64, _friction, _rotation, EntityType::PLAYER,_listener,PLAYER), _listener, EntityType::PLAYER), checkpoints(_checkpoints)
+	Player(ModulePhysics* physics, int pos_x, int pos_y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _checkpoints, ModuleAudio* _audio)
+		: Car(physics->CreateRectangle(pos_x,pos_y,32,64, _friction, _rotation, EntityType::PLAYER,_listener,PLAYER), _listener, EntityType::PLAYER), checkpoints(_checkpoints), audio(_audio)
 	{
 
 	}
@@ -50,10 +52,11 @@ private:
 	std::vector<b2Vec2> checkpoints;
 	b2Vec2 nextCheckpoint;
 	int currentCheckpoint;
-	//ModuleAudio* audio;
+	ModuleAudio* audio;
 	//sounds
 	unsigned int throttleFX;
 	unsigned int brakeFX;
 	unsigned int turnFX;
 	unsigned int crashFX;
+	unsigned int engineFX;
 };

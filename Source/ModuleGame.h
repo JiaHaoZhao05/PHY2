@@ -24,6 +24,7 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
+	void CheckTimers();
 	void ReadInputs();
 	void UpdateEntities();
 	void StartGame();
@@ -39,6 +40,10 @@ public:
 	std::vector<Enemy*> enemies;
 	Timer timer;
 	bool gamePaused = true;
+	Timer startTimer;
+	bool starting = false;
+	
+	float bestTime;
 	
 
 	Map1* map1;
