@@ -48,7 +48,7 @@ update_status ModuleRender::Update()
     // NOTE: This function setups render batching system for
     // maximum performance, all consecutive Draw() calls are
     // not processed until EndDrawing() is called
-    if(App->game->gamePaused==false)DrawText(TextFormat("Time: %.2f", App->game->timer.ReadSec()), camera.target.x - SCREEN_WIDTH/2, camera.target.y-SCREEN_HEIGHT/2, GetFontDefault(), 5, BLACK);
+    if(App->game->gamePaused==false)DrawText(TextFormat("Time: %.2f", App->game->timer.ReadSec()), camera.target.x - SCREEN_WIDTH/2, camera.target.y-SCREEN_HEIGHT/2, GetFontDefault(), 20, WHITE, 30);
     //BeginMode2D(camera);
 	return UPDATE_CONTINUE;
 }
@@ -99,13 +99,13 @@ bool ModuleRender::Draw(Texture2D texture, int x, int y, const Rectangle* sectio
 	return ret;
 }
 
-bool ModuleRender::DrawText(const char * text, int x, int y, Font font, int spacing, Color tint) const
+bool ModuleRender::DrawText(const char * text, int x, int y, Font font, int spacing, Color tint, float size) const
 {
     bool ret = true;
 
     Vector2 position = { (float)x, (float)y };
 
-    DrawTextEx(font, text, position, (float)font.baseSize, (float)spacing, tint);
+    DrawTextEx(font, text, position, size, (float)spacing, tint);
 
     return ret;
 }
