@@ -8,12 +8,7 @@
 class Eye : public Items {
 public:
 	Eye() {}
-	Eye(ModulePhysics* physics, int _x, int _y, Module* _listener, b2Vec2 eject)
-		: Items(physics->CreateCircle(_x, _y, 16, 0.2, 0, EntityType::ITEM, _listener, ITEM, MAP | PLAYER, 0, 0.8), _listener, EntityType::ITEM)
-	{
-		Start();
-		shot = eject;
-	}
+	Eye(ModulePhysics* physics, int _x, int _y, Module* _listener, b2Vec2 eject);
 	~Eye() {}
 	void Behave();
 	bool Start();

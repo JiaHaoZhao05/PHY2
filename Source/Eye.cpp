@@ -8,10 +8,16 @@
 #include "PhysicEntity.h"
 
 // Load assets
+Eye::Eye(ModulePhysics* physics, int _x, int _y, Module* _listener, b2Vec2 eject)
+	: Items(physics->CreateCircle(_x, _y, 16, 0.2, 0, EntityType::ITEM, _listener, ITEM, MAP | PLAYER, 0, 1), _listener, EntityType::ITEM)
+{
+	Start();
+	shot = eject;
+}
 bool Eye::Start()
 {
 	LOG("Loading hand");
-	texture = LoadTexture("Assets/Textures/hand.png");
+	texture = LoadTexture("Assets/Textures/eye.png");
 	return true;
 }
 // Unload assets

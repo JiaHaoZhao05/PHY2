@@ -12,9 +12,7 @@ protected:
 
 public:
 	Items() {}
-	Items(PhysBody* _body, Module* _listener, EntityType _type) : PhysicEntity(_body, _listener, _type)
-	{
-	}
+	Items(PhysBody* _body, Module* _listener, EntityType _type);
 	~Items() {}
 
 	virtual bool Start() {

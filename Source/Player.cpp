@@ -7,7 +7,9 @@
 #include "PhysicEntity.h"
 #include "Player.h"
 
-
+Player::Player(ModulePhysics* physics, int pos_x, int pos_y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _checkpoints, ModuleAudio* _audio)
+	: Car(physics->CreateRectangle(pos_x, pos_y, 32, 64, _friction, _rotation, EntityType::PLAYER, _listener, PLAYER), _listener, EntityType::PLAYER), checkpoints(_checkpoints), audio(_audio)
+{}
 
 Player::~Player()
 {}
