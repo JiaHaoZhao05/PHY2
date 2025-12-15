@@ -133,3 +133,17 @@ bool EnemyTooth::Start(){
     brake = 2;
     return true;
 }
+EnemyPsy::~EnemyPsy()
+{
+}
+bool EnemyPsy::Start() {
+    LOG("Loading enemy");
+    texture = LoadTexture("Assets/Textures/enemy3.png");
+    speed = 15;
+    maxspeed = 15;
+    angle = 0;
+    torque = 8;
+    maxtorque = 20;
+    brake = 2;
+    return true;
+}
