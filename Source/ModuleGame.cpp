@@ -7,6 +7,7 @@
 #include "Scenario.h"
 #include "Player.h"
 #include "Hand.h"
+#include "Eye.h"
 ModuleGame::ModuleGame(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	
@@ -176,6 +177,13 @@ void ModuleGame::OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
 		switch (bodyB->type) {
 		case(EntityType::ENEMY):
 			player->OnCollissionEnemy();
+			for (Enemy* n : enemies) {
+				if (n->physBody == bodyB) {
+					if (n->EItems.size() < 3) {
+						//n->OnPlayerCollision();
+					}
+				}
+			}
 			break;
 		case(EntityType::ITEM):
 			break;

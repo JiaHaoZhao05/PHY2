@@ -9,7 +9,7 @@
 
 // Load assets
 Eye::Eye(ModulePhysics* physics, int _x, int _y, Module* _listener, b2Vec2 eject)
-	: Items(physics->CreateCircle(_x, _y, 16, 0.2, 0, EntityType::ITEM, _listener, ITEM, MAP | PLAYER, 0, 1), _listener, EntityType::ITEM)
+	: Items(physics->CreateCircle(_x, _y, 16, 0.2, 0, EntityType::ITEM, _listener, ITEM, MAP | PLAYER | ENEMY, 0, 1), _listener, EntityType::ITEM)
 {
 	Start();
 	shot = eject;

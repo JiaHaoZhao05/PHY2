@@ -8,6 +8,10 @@
 #include "ModulePhysics.h"
 #include "PhysicEntity.h"
 
+Enemy::Enemy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio)
+    : Car(physics->CreateRectangle(_x, _y, 32, 64, _friction, _rotation, EntityType::ENEMY, _listener, ENEMY), _listener, EntityType::ENEMY), centerLine(_centerLine)
+{
+}
 Enemy::~Enemy()
 {
 }
@@ -18,7 +22,7 @@ bool Enemy::Start()
 	LOG("Loading enemy");
 	//centerLine = App->scenario->map1->GetCenterLine();
 	texture = LoadTexture("Assets/Textures/enemy.png");
-    speed = 3;
+    speed = 7;
     angle = 0;
 	return true;
 }
@@ -60,6 +64,9 @@ void Enemy::GroundFriction() {
 	b2Vec2 force = physBody->body->GetLinearVelocity();
 	force *= -2 * physBody->body->GetFixtureList()->GetDensity() * physBody->body->GetFixtureList()->GetFriction();
 	physBody->body->ApplyForceToCenter(force, true);
+}
+void Enemy::OnPlayerCollision(PhysBody* item) {
+    EItems.push_back(item);
 }
 
 float PID::step(float error, float dt) {
@@ -123,13 +130,17 @@ void AIController::Update(Car* car, const std::vector<b2Vec2>& waypoints, float 
         }
     }
 }
+EnemyTooth::EnemyTooth(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio)
+    :Enemy(physics, _x, _y, _listener, _friction, _rotation, _centerLine, _audio)
+{
+}
 EnemyTooth::~EnemyTooth()
 {
 }
 bool EnemyTooth::Start(){
     LOG("Loading enemy");
     texture = LoadTexture("Assets/Textures/enemy2.png");
-    speed = 8;
+    speed = 9;
     maxspeed = 24;
     angle = 0;
     torque = 6;
@@ -137,14 +148,18 @@ bool EnemyTooth::Start(){
     brake = 2;
     return true;
 }
+EnemyPsy::EnemyPsy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio)
+    :Enemy(physics, _x, _y, _listener, _friction, _rotation, _centerLine, _audio)
+{
+}
 EnemyPsy::~EnemyPsy()
 {
 }
 bool EnemyPsy::Start() {
     LOG("Loading enemy");
     texture = LoadTexture("Assets/Textures/enemy3.png");
-    speed = 12;
-    maxspeed = 12;
+    speed = 11;
+    maxspeed = 11;
     angle = 0;
     torque = 8;
     maxtorque = 20;

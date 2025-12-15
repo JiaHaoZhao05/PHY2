@@ -27,17 +27,13 @@ struct AIController {
 
 class Enemy :public Car {
 public:
-	Enemy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio)
-		: Car(physics->CreateRectangle(_x, _y, 32, 64, _friction, _rotation, EntityType::ENEMY,_listener, ENEMY), _listener, EntityType::ENEMY), centerLine(_centerLine)
-	{
-
-	}
+	Enemy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio);
 	~Enemy();
 
 	void Move();
     void Draw();
     void GroundFriction();
-
+	void OnPlayerCollision(PhysBody* item);
 public:
 
 	float maxspeed = 30;
@@ -46,6 +42,7 @@ public:
 	float brake = 8;
     b2Vec2 initialPos;
 	bool isActive = false;
+	std::vector<Items*> EItems;
 protected:
 	Texture2D texture;
 private:
@@ -65,10 +62,7 @@ private:
 
 class EnemyTooth :public Enemy {
 public:
-	EnemyTooth(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio)
-		:Enemy(physics, _x, _y, _listener, _friction, _rotation, _centerLine, _audio)
-	{
-	}
+	EnemyTooth(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio);
 	~EnemyTooth();
 	bool Start() override;
 public:
@@ -77,10 +71,7 @@ public:
 
 class EnemyPsy :public Enemy {
 public:
-	EnemyPsy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio)
-		:Enemy(physics, _x, _y, _listener, _friction, _rotation, _centerLine, _audio)
-	{
-	}
+	EnemyPsy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio);
 	~EnemyPsy();
 	bool Start() override;
 public:
