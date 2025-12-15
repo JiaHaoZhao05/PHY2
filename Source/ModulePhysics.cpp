@@ -82,7 +82,7 @@ update_status ModulePhysics::PreUpdate()
 	return UPDATE_CONTINUE;
 }
 
-PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
+PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, float friction, float rotation, EntityType _type, Module* _listener, uint16 categoryBits, uint16 maskBits, int16 groupIndex, float bounceness)
 {
 	PhysBody* pbody = new PhysBody();
 

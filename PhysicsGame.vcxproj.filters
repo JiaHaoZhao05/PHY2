@@ -47,7 +47,10 @@
       <Filter>Sources\Items</Filter>
     </ClCompile>
     <ClCompile Include="Source\Items.cpp">
-      <Filter>Sources</Filter>
+      <Filter>Sources\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Eye.cpp">
+      <Filter>Sources\Items</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +103,9 @@
       <Filter>Headers\Items</Filter>
     </ClInclude>
     <ClInclude Include="Source\Items.h">
+      <Filter>Headers\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Eye.h">
       <Filter>Headers\Items</Filter>
     </ClInclude>
   </ItemGroup>

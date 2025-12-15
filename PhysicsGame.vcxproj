@@ -190,6 +190,7 @@
     <ClInclude Include="Source/p2Point.h" />
     <ClInclude Include="Source\Car.h" />
     <ClInclude Include="Source\Enemy.h" />
+    <ClInclude Include="Source\Eye.h" />
     <ClInclude Include="Source\Hand.h" />
     <ClInclude Include="Source\Items.h" />
     <ClInclude Include="Source\Map1.h" />
@@ -207,6 +208,7 @@
     <ClCompile Include="Source/ModuleRender.cpp" />
     <ClCompile Include="Source/ModuleWindow.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
+    <ClCompile Include="Source\Eye.cpp" />
     <ClCompile Include="Source\Hand.cpp" />
     <ClCompile Include="Source\Items.cpp" />
     <ClCompile Include="Source\Map1.cpp" />

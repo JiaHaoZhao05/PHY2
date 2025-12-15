@@ -5,16 +5,16 @@
 #include "PhysicEntity.h"
 #include "ModulePhysics.h"
 #include "Items.h"
-class Hand : public Items {
+class Eye : public Items {
 public:
-	Hand() {}
-	Hand(ModulePhysics* physics, int _x, int _y, Module* _listener, b2Vec2 eject)
-		: Items(physics->CreateRectangle(_x, _y, 32, 64, 0,0, EntityType::ITEM,_listener, ITEM, MAP | ENEMY, 0, 0.8), _listener, EntityType::ITEM)
+	Eye() {}
+	Eye(ModulePhysics* physics, int _x, int _y, Module* _listener, b2Vec2 eject)
+		: Items(physics->CreateCircle(_x, _y, 16, 0.2, 0, EntityType::ITEM, _listener, ITEM, MAP | PLAYER, 0, 0.8), _listener, EntityType::ITEM)
 	{
 		Start();
 		shot = eject;
 	}
-	~Hand() {}
+	~Eye() {}
 	void Behave();
 	bool Start();
 	bool Update();

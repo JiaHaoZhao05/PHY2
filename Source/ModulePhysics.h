@@ -56,7 +56,7 @@ public:
 	update_status PostUpdate();
 	bool CleanUp();
 
-	PhysBody* CreateCircle(int x, int y, int radius);
+	PhysBody* CreateCircle(int x, int y, int radius, float friction, float rotation, EntityType _type, Module* _listener, uint16 categoryBits, uint16 maskBits = 0xFFFF, int16 groupIndex = 0, float bounceness = 0);
 	PhysBody* CreateRectangle(int x, int y, int width, int height, float friction, float rotation, EntityType _type, Module* _listener, uint16 categoryBits, uint16 maskBits = 0xFFFF, int16 groupIndex = 0, float bounceness = 0);
 	PhysBody* CreateRectangleSensor(int x, int y, int width, int height);
 	PhysBody* CreateChain(int x, int y, std::vector<int> points, uint16 categoryBits, uint16 maskBits = 0xFFFF, int16 groupIndex = 0);
