@@ -79,6 +79,7 @@ void ModuleGame::CheckTimers() {
 
 void ModuleGame::ReadInputs() {
 	if (gamePaused){
+		DrawText(TextFormat("Time: %.2f", bestTime), player->pos.x - SCREEN_WIDTH / 2, player->pos.y - SCREEN_HEIGHT / 2, 5, BLACK);
 		if (IsKeyPressed(KEY_ENTER)) {
 			if (player->finished) RestartGame();
 			else {
@@ -146,7 +147,7 @@ void ModuleGame::RestartGame() {
 
 void ModuleGame::EndGame() {
 	gamePaused = true;
-	if (timer.ReadSec() < bestTime);
+	if (timer.ReadSec() < bestTime) bestTime = timer.ReadSec();
 	for (Enemy* entity : enemies) {
 		entity->isActive = false;
 	}
