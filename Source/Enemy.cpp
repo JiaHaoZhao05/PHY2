@@ -22,7 +22,7 @@ bool Enemy::Start()
 	LOG("Loading enemy");
 	//centerLine = App->scenario->map1->GetCenterLine();
 	texture = LoadTexture("Assets/Textures/enemy.png");
-    speed = 7;
+    speed = 8;
     angle = 0;
 	return true;
 }
@@ -149,11 +149,11 @@ bool EnemyTooth::Start(){
     LOG("Loading enemy");
     id = 2;
     texture = LoadTexture("Assets/Textures/enemy2.png");
-    speed = 9;
-    maxspeed = 24;
+    speed = 14;
+    maxspeed = 38;
     angle = 0;
-    torque = 6;
-    maxtorque = 12;
+    torque = 1;
+    maxtorque = 4;
     brake = 2;
     return true;
 }
