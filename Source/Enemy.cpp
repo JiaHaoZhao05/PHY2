@@ -87,11 +87,14 @@ void AIController::Update(Car* car, const std::vector<b2Vec2>& waypoints, float 
     if (debug) {
         DrawCircle(target.x, target.y, 10, RED);
     }
-    if ((target - pos).Length() < 200.0f && currentWaypoint + 1 < (int)waypoints.size()) {
-        currentWaypoint++;
-        target = waypoints[currentWaypoint];
-        target += car->initialPos;
+    if (currentWaypoint + 1 < (int)waypoints.size()) {
+        if ((target - pos).Length() < 200.0f) {
+            currentWaypoint++;
+            target = waypoints[currentWaypoint];
+            target += car->initialPos;
+        }
     }
+    else car->pendingToDelete = true;
 
     // Desired direction
     b2Vec2 dir = target - pos;

@@ -40,6 +40,16 @@ public:
 	b2Vec2 pos;
 	bool isActive = false;
 	bool finished = false;
+
+	unsigned int throttleFX;
+	unsigned int brakeFX;
+	unsigned int turnFX;
+	unsigned int crashFX;
+	unsigned int engineFX;
+	unsigned int boostFX;
+	unsigned int armThrowFX;
+	unsigned int carCollisionWithCarFX;
+
 private:
 	Texture2D texture;
 	float maxspeed = 40;
@@ -54,6 +64,7 @@ private:
 
 	bool insideSurface = false;
 
+
 protected:
 
 private:
@@ -62,14 +73,7 @@ private:
 	int currentCheckpoint;
 	ModuleAudio* audio;
 	//sounds
-	unsigned int throttleFX;
-	unsigned int brakeFX;
-	unsigned int turnFX;
-	unsigned int crashFX;
-	unsigned int engineFX;
-	unsigned int boostFX;
-	unsigned int armThrowFX;
-	unsigned int carCollisionWithCarFX;
+	
 	Timer throttleFXCooldown;
 	Timer brakeFXCooldown;
 	Timer turnFXTimePlaying;

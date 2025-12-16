@@ -8,7 +8,7 @@
 class Spit : public Items {
 public:
 	Spit() {}
-	Spit(ModulePhysics* physics, int _x, int _y, Module* _listener, ModuleAudio* audio);
+	Spit(ModulePhysics* physics, int _x, int _y, Module* _listener, ModuleAudio* audio, unsigned int _sound);
 	~Spit() {}
 	bool Start();
 	bool CleanUp();

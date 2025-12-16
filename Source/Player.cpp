@@ -23,14 +23,7 @@ bool Player::Start()
 	currentCheckpoint = 0;
 	nextCheckpoint = checkpoints[currentCheckpoint];
 	nextCheckpoint += initialPos;
-	throttleFX = audio->LoadFx("Assets/Sounds/throttleFX.wav");
-	brakeFX = audio->LoadFx("Assets/Sounds/brakeFX.wav");
-	turnFX = audio->LoadFx("Assets/Sounds/turnFX.wav");
-	crashFX = audio->LoadFx("Assets/Sounds/crashFX.wav");
-	engineFX = audio->LoadFx("Assets/Sounds/engineFX.wav");
-	boostFX = audio->LoadFx("Assets/Sounds/boostFX.wav");
-	armThrowFX = audio->LoadFx("Assets/Sounds/armThrowFX.wav");
-	carCollisionWithCarFX = audio->LoadFx("Assets/Sounds/carCollisionWithCarFX.wav");
+
 	/*texture = LoadTexture("Assets/Textures/player.png");*/
 
 	return true;

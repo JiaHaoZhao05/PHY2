@@ -8,15 +8,14 @@
 #include "PhysicEntity.h"
 
 // Load assets
-Tooth::Tooth(ModulePhysics* physics, int _x, int _y, Module* _listener, ModuleAudio* _audio)
-	: Items(physics->CreateRectangle(_x, _y, 32, 32, 0, EntityType::ITEM, _listener, ITEM, MAP | ENEMY | PLAYER, 0, 0, 1, 10), _listener, EntityType::ITEM, _audio)
+Tooth::Tooth(ModulePhysics* physics, int _x, int _y, Module* _listener, ModuleAudio* _audio, unsigned int _sound)
+	: Items(physics->CreateRectangle(_x, _y, 32, 32, 0, EntityType::ITEM, _listener, ITEM, MAP | ENEMY | PLAYER, 0, 0, 1, 10), _listener, EntityType::ITEM, _audio, _sound)
 {
 	Start();
 }
 bool Tooth::Start()
 {
 	LOG("Loading Tooth");
-	sound = audio->LoadFx("Assets/Sounds/toothCollisionFX.wav");
 	texture = LoadTexture("Assets/Textures/tooth.png");
 	return true;
 }

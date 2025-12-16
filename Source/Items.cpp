@@ -6,9 +6,10 @@
 #include "ModulePhysics.h"
 #include "PhysicEntity.h"
 #include "Items.h"
-Items::Items(PhysBody* _body, Module* _listener, EntityType _type, ModuleAudio* _audio) : PhysicEntity(_body, _listener, _type)
+Items::Items(PhysBody* _body, Module* _listener, EntityType _type, ModuleAudio* _audio, unsigned int _sound) : PhysicEntity(_body, _listener, _type) , audio (_audio), sound(_sound)
+
 {
-	audio = _audio;
+	
 }
 bool Items::Update() {
 	Behave();
