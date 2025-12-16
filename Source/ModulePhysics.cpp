@@ -540,3 +540,14 @@ void ModulePhysics::EndContact(b2Contact* contact)
 	}
 }
 
+void ModulePhysics::ApplySpeed(b2Vec2 vec, PhysBody* body) {
+	body->body->ApplyForceToCenter(vec, true);
+}
+
+void ModulePhysics::ApplyAngularSpeed(float torque, PhysBody* body) {
+	body->body->ApplyTorque(torque, true);
+}
+
+void ModulePhysics::ApplyImpulse(b2Vec2 vec, PhysBody* body) {
+	body->body->ApplyLinearImpulseToCenter(vec, true);
+}

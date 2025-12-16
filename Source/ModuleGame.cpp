@@ -233,10 +233,11 @@ void ModuleGame::EndGame() {
 
 void ModuleGame::LoadEntities() {
 	float rotation = App->scenario->initialRotation;
-	player = new Player(App->physics, App->scenario->mapPos[0].x, App->scenario->mapPos[0].y, this, rotation, App->scenario->checkpoints, App->audio);
-	enemies.emplace_back(new Enemy(App->physics, App->scenario->mapPos[1].x, App->scenario->mapPos[1].y, this, rotation, App->scenario->centerLine, App->audio));
-	enemies.emplace_back(new EnemyTooth(App->physics, App->scenario->mapPos[2].x, App->scenario->mapPos[2].y, this, rotation, App->scenario->centerLine, App->audio));
-	enemies.emplace_back(new EnemyPsy(App->physics, App->scenario->mapPos[3].x, App->scenario->mapPos[3].y, this, rotation, App->scenario->centerLine, App->audio));
+//	player = new Player(App->physics, App->scenario->mapPos[0].x, App->scenario->mapPos[0].y, this, rotation, App->scenario->checkpoints, App);
+	player = new Player(App->physics, App->scenario->mapPos[0].x, App->scenario->mapPos[0].y, this, rotation, App->scenario->checkpoints, App);
+	enemies.emplace_back(new Enemy(App->physics, App->scenario->mapPos[1].x, App->scenario->mapPos[1].y, this, rotation, App->scenario->centerLine, App));
+	enemies.emplace_back(new EnemyTooth(App->physics, App->scenario->mapPos[2].x, App->scenario->mapPos[2].y, this, rotation, App->scenario->centerLine, App));
+	enemies.emplace_back(new EnemyPsy(App->physics, App->scenario->mapPos[3].x, App->scenario->mapPos[3].y, this, rotation, App->scenario->centerLine, App));
 
 	player->Start();
 	for (Enemy* entity : enemies) {

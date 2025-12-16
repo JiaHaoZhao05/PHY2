@@ -6,7 +6,7 @@
 #include <vector>
 class EnemyPsy :public Enemy {
 public:
-	EnemyPsy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio);
+	EnemyPsy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _rotation, std::vector<b2Vec2> _centerLine, Application* _app);
 	~EnemyPsy();
 	bool Start() override;
 	void AddItem(Items* item) override;

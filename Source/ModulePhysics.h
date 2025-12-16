@@ -68,6 +68,10 @@ public:
 	void EndContact(b2Contact* contact);
 
 	void QueueBodyForDestroy(PhysBody* body);
+
+	void ApplySpeed(b2Vec2 vec, PhysBody* body);
+	void ApplyImpulse(b2Vec2 vec, PhysBody* body);
+	void ApplyAngularSpeed(float torque, PhysBody* body);
 private:
 	std::vector<PhysBody*> bodiesToDestroy;
 	bool debug;

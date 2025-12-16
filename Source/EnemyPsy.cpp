@@ -7,8 +7,8 @@
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
 #include "PhysicEntity.h"
-EnemyPsy::EnemyPsy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio)
-    :Enemy(physics, _x, _y, _listener, _rotation, _centerLine, _audio)
+EnemyPsy::EnemyPsy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _rotation, std::vector<b2Vec2> _centerLine, Application* _app)
+    :Enemy(physics, _x, _y, _listener, _rotation, _centerLine, _app)
 {
 }
 EnemyPsy::~EnemyPsy()

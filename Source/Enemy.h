@@ -29,7 +29,7 @@ struct AIController {
 
 class Enemy :public Car {
 public:
-	Enemy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio);
+	Enemy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _rotation, std::vector<b2Vec2> _centerLine, Application* _app);
 	~Enemy();
     void Draw();
     void GroundFriction();
@@ -64,7 +64,7 @@ protected:
 private:
 
 public:
-
+	
 	virtual bool Start();
 	bool Update();
 	bool CleanUp();
@@ -72,6 +72,5 @@ public:
 private:
 	AIController ai;
     std::vector<b2Vec2> centerLine;
-	Module* audio;
 
 };

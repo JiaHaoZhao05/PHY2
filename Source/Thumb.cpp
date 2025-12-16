@@ -8,7 +8,8 @@
 #include "PhysicEntity.h"
 
 Thumb::Thumb(ModulePhysics* physics, int _x, int _y, Module* _listener, b2Vec2 eject, ModuleAudio* _audio)
-	: Items(physics->CreateRectangle(_x, _y, 32, 32, 0, EntityType::ITEM, _listener, ITEM, MAP | ITEM | ENEMY , 0, 0, 1, 0.1), _listener, EntityType::ITEM, _audio)
+	: Items(physics->CreateRectangle(_x, _y, 32, 32, 0, EntityType::ITEM, _listener, ITEM, MAP | ITEM | ENEMY | PLAYER, 0, 0, 1, 1), _listener, EntityType::ITEM, _audio)
+
 {
 	Start();
 	shot = eject;

@@ -11,7 +11,7 @@
 
 class Player :public Car {
 public:
-	Player(ModulePhysics* physics, int pos_x, int pos_y, Module* _listener, float _rotation, std::vector<b2Vec2> _checkpoints, ModuleAudio* _audio);
+	Player(ModulePhysics* physics, int pos_x, int pos_y, Module* _listener, float _rotation, std::vector<b2Vec2> _checkpoints, Application* app);
 	~Player();
 	void Throttle(bool front);
 	void Turn(bool left, bool turn);
@@ -71,7 +71,7 @@ private:
 	std::vector<b2Vec2> checkpoints;
 	b2Vec2 nextCheckpoint;
 	int currentCheckpoint;
-	ModuleAudio* audio;
+	Application* app;
 	//sounds
 	
 	Timer throttleFXCooldown;

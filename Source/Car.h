@@ -45,5 +45,9 @@ public:
 	EntityType type;
 	PhysBody* physBody;
 	Module* listener;
+
 	bool finished = false;
+
+	Application* app;
+
 };
