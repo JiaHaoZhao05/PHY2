@@ -120,7 +120,10 @@ void ModuleGame::CheckTimers() {
 void ModuleGame::ReadInputs() {
 	if (gamePaused){
 		if (IsKeyPressed(KEY_ENTER)) {
-			if (player->finished) RestartGame();
+			if (player->finished) {
+				RestartGame();
+				firsttime = true;
+			}
 			else {
 				firsttime = false;
 				starting = true;
