@@ -22,6 +22,7 @@ bool Enemy::Start()
 	LOG("Loading enemy");
 	//centerLine = App->scenario->map1->GetCenterLine();
 	texture = LoadTexture("Assets/Textures/enemy.png");
+
     speed = 8;
     angle = 0;
 	return true;

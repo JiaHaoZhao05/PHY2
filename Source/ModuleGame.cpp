@@ -65,8 +65,8 @@ update_status ModuleGame::Update()
 {
 	if (!gamePaused) {
 		CheckMusic();
-		UpdateEntities();
 	}
+	UpdateEntities();
 	CheckTimers();
 	App->scenario->Update();
 	ReadInputs();
