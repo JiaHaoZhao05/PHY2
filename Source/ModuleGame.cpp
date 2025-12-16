@@ -59,22 +59,9 @@ update_status ModuleGame::Update()
 void ModuleGame::CheckTimers() {
 	if (starting) {
 		int time = startTimer.ReadSec();
-		switch (time) {
-		case 0: //3
-			DrawCircle(player->pos.x, player->pos.y, 40, RED);
-			break;
-		case 1: //2
-			DrawCircle(player->pos.x, player->pos.y, 40, ORANGE);
-			break;
-		case 2: //1
-			DrawCircle(player->pos.x, player->pos.y, 40, YELLOW);
-			break;
-		case 3: //GO
-			DrawCircle(player->pos.x, player->pos.y, 40, GREEN);
-			starting = false;
-			StartGame();
-			break;
-		}
+		App->renderer->DrawCountdown(time, player->pos.x - SCREEN_WIDTH / 2, player->pos.y - SCREEN_HEIGHT / 2);
+		starting = false;
+		StartGame();
 	}
 }
 
