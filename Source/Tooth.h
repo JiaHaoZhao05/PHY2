@@ -5,16 +5,16 @@
 #include "PhysicEntity.h"
 #include "ModulePhysics.h"
 #include "Items.h"
-class Eye : public Items {
+class Tooth : public Items {
 public:
-	Eye() {}
-	Eye(ModulePhysics* physics, int _x, int _y, Module* _listener);
-	~Eye() {}
+	Tooth() {}
+	Tooth(ModulePhysics* physics, int _x, int _y, Module* _listener);
+	~Tooth() {}
+	void Behave();
 	bool Start();
 	bool CleanUp();
-	void Behave();
 private:
 	b2Vec2 shot;
-	float maxspeed = 40;
-	float force = 40;
+	float maxspeed = 160;
+	float force = 20;
 };

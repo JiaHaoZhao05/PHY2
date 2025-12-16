@@ -18,12 +18,11 @@ public:
 	virtual bool Start() {
 		return true;
 	}
-	virtual bool Update() {
-		return true;
-	}
+	virtual bool Update();
 	virtual bool CleanUp() {
 		return true;
 	}
 	void Draw();
+	virtual void Behave() {}
 	void Destroy();
 };

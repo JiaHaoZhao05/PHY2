@@ -52,6 +52,9 @@
     <ClCompile Include="Source\Eye.cpp">
       <Filter>Sources\Items</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Tooth.cpp">
+      <Filter>Sources\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source/Application.h">
@@ -106,6 +109,9 @@
       <Filter>Headers\Items</Filter>
     </ClInclude>
     <ClInclude Include="Source\Eye.h">
+      <Filter>Headers\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Tooth.h">
       <Filter>Headers\Items</Filter>
     </ClInclude>
   </ItemGroup>

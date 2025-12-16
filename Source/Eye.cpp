@@ -15,22 +15,15 @@ Eye::Eye(ModulePhysics* physics, int _x, int _y, Module* _listener)
 }
 bool Eye::Start()
 {
-	LOG("Loading hand");
+	LOG("Loading Eye");
 	texture = LoadTexture("Assets/Textures/eye.png");
 	return true;
 }
 // Unload assets
 bool Eye::CleanUp()
 {
-	LOG("Unloading hand");
+	LOG("Unloading Eye");
 
-	return true;
-}
-
-// Update: draw background
-bool Eye::Update() {
-	Behave();
-	Draw();
 	return true;
 }
 
