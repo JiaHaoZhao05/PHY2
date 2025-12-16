@@ -24,6 +24,10 @@ public:
 	virtual bool CleanUp() {
 		return true;
 	}
+	virtual void OnCollisionWithPlayer() {}
 	void Draw();
 	void Destroy();
+
+	ModuleAudio* audio;
+	unsigned int sound;
 };

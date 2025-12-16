@@ -16,6 +16,7 @@ Eye::Eye(ModulePhysics* physics, int _x, int _y, Module* _listener)
 bool Eye::Start()
 {
 	LOG("Loading hand");
+	sound = audio->LoadFx("Assets/Sounds/eyeCollision");
 	texture = LoadTexture("Assets/Textures/eye.png");
 	return true;
 }
@@ -41,4 +42,8 @@ void Eye::Behave() {
 		shot.Normalize();
 		physBody->body->ApplyForceToCenter(-force * shot, true);
 	}
+}
+
+void Eye::OnCollisionWithPlayer() {
+	audio->PlayFx(sound-1);
 }

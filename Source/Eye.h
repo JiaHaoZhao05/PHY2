@@ -14,6 +14,7 @@ public:
 	bool Start();
 	bool Update();
 	bool CleanUp();
+	void OnCollisionWithPlayer() override;
 private:
 	b2Vec2 shot;
 	float maxspeed = 40;
