@@ -69,6 +69,7 @@ void ModuleGame::CheckTimers() {
 		int time = startTimer.ReadSec();
 		switch (time) {
 		case 0: //3
+
 			App->renderer->Draw(countdownTex3, player->pos.x -75, player->pos.y + 100);
 			DrawCircle(player->pos.x, player->pos.y, 40, RED);
 			break;
@@ -83,7 +84,9 @@ void ModuleGame::CheckTimers() {
 		case 3: //GO
 			App->renderer->Draw(countdownTexGO, player->pos.x - 75, player->pos.y + 100);
 			DrawCircle(player->pos.x, player->pos.y, 40, GREEN);
-			starting = false;
+			if (time>4) {
+				starting = false;
+			}
 			StartGame();
 			break;
 		}
