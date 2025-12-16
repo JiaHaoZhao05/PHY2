@@ -4,6 +4,7 @@
 #include "p2Point.h"
 #include "PhysicEntity.h"
 #include "ModulePhysics.h"
+#include "ModuleAudio.h"
 
 class Items : public PhysicEntity {
 
@@ -12,18 +13,21 @@ protected:
 
 public:
 	Items() {}
-	Items(PhysBody* _body, Module* _listener, EntityType _type);
+	Items(PhysBody* _body, Module* _listener, EntityType _type, ModuleAudio* _audio);
 	~Items() {}
 
 	virtual bool Start() {
 		return true;
 	}
-	virtual bool Update() {
-		return true;
-	}
+	virtual bool Update();
 	virtual bool CleanUp() {
 		return true;
 	}
+	virtual void OnCollisionWithPlayer() {}
 	void Draw();
+	virtual void Behave() {}
 	void Destroy();
+
+	ModuleAudio* audio;
+	unsigned int sound;
 };

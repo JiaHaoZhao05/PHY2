@@ -33,6 +33,7 @@ public:
 	void LoadEntities();
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 	void EndCollision(PhysBody* bodyA, PhysBody* bodyB);
+	void CheckMusic();
 
 public:
 
@@ -42,7 +43,8 @@ public:
 	bool gamePaused = true;
 	Timer startTimer;
 	bool starting = false;
-	
+	Timer musicTime;
+	unsigned int music;
 	float bestTime;
 	
 

@@ -4,6 +4,7 @@
 #include "ModulePhysics.h"
 #include "ModuleGame.h"
 #include "Eye.h"
+#include "Tooth.h"
 //#include "PhysicEntity.h"
 
 #include "p2Point.h"
@@ -83,9 +84,11 @@ update_status ModulePhysics::PreUpdate()
 	return UPDATE_CONTINUE;
 }
 
-PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, float friction, float rotation, EntityType _type, Module* _listener, uint16 categoryBits, uint16 maskBits, int16 groupIndex, float bounceness)
+PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, float friction, float rotation, EntityType _type, Module* _listener, uint16 categoryBits, uint16 maskBits, int16 groupIndex, float bounceness, float density)
 {
 	PhysBody* pbody = new PhysBody();
+
+	pbody->type = _type;
 
 	b2BodyDef body;
 	body.type = b2_dynamicBody;
@@ -99,7 +102,8 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, float friction, 
 
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
-	fixture.density = 1.0f;
+	fixture.density = density;
+	fixture.restitution = bounceness;
 
 	b->CreateFixture(&fixture);
 
@@ -109,7 +113,8 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, float friction, 
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, float rotation, EntityType _type, Module* _listener, uint16 categoryBits, uint16 maskBits, float friction, int16 groupIndex, float bounceness)
+PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, float rotation, EntityType _type, Module* _listener, uint16 categoryBits, uint16 maskBits, float friction, int16 groupIndex, float bounceness, float density)
+
 {
 	PhysBody* pbody = new PhysBody();
 
@@ -127,9 +132,9 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, fl
 
 	b2FixtureDef fixture;
 	fixture.shape = &box;
-	fixture.density = 1.0f;
+	fixture.density = density;
 	fixture.friction = friction;
-	fixture.restitution = 0.2f;
+	fixture.restitution = bounceness;
 
 	// TODO 2: Add filter categoryBits and maskBits to fixture
 	fixture.filter.categoryBits = categoryBits;
@@ -287,7 +292,10 @@ update_status ModulePhysics::PostUpdate()
 			n->create = false;
 			switch (n->ID()) {
 			case 1:
-				n->AddItem(new Eye(App->physics, n->physBody->body->GetPosition().x * PIXELS_PER_METER, n->physBody->body->GetPosition().y * PIXELS_PER_METER, this));
+				n->AddItem(new Eye(App->physics, n->physBody->body->GetPosition().x * PIXELS_PER_METER, n->physBody->body->GetPosition().y * PIXELS_PER_METER, this, App->audio));
+				break;
+			case 2:
+				n->AddItem(new Tooth(App->physics, n->physBody->body->GetPosition().x * PIXELS_PER_METER, n->physBody->body->GetPosition().y * PIXELS_PER_METER, this, App->audio));
 				break;
 			default:
 				break;

@@ -28,6 +28,9 @@ bool Player::Start()
 	turnFX = audio->LoadFx("Assets/Sounds/turnFX.wav");
 	crashFX = audio->LoadFx("Assets/Sounds/crashFX.wav");
 	engineFX = audio->LoadFx("Assets/Sounds/engineFX.wav");
+	boostFX = audio->LoadFx("Assets/Sounds/boostFX.wav");
+	armThrowFX = audio->LoadFx("Assets/Sounds/armThrowFX.wav");
+	carCollisionWithCarFX = audio->LoadFx("Assets/Sounds/carCollisionWithCarFX.wav");
 	/*texture = LoadTexture("Assets/Textures/player.png");*/
 
 	return true;
@@ -69,9 +72,9 @@ void Player::Throttle(bool front) {
 	}
 }
 void Player::Turn(bool left, bool turn) {
-	if (turnFXCooldown.ReadSec() > 2.0f) {
+	if (turnFXTimePlaying.ReadSec() > 0.2f) {
 		audio->PlayFx(turnFX - 1);
-		turnFXCooldown.Start();
+		turnFXTimePlaying.Start();
 	}
 	if (turn) {
 		if (abs(physBody->body->GetAngularVelocity()) < maxtorque) {
@@ -127,8 +130,10 @@ void Player::Draw() {
 }
 
 void Player::AddItem(Items* item) {
+	audio->PlayFx(armThrowFX-1);
 	PItems.push_back(item);
 }
+
 void Player::CheckCheckpoints() {
 	static bool debug = false;
 	if (IsKeyPressed(KEY_F1))
@@ -153,12 +158,13 @@ void Player::CheckCheckpoints() {
 }
 
 
-void Player::OnCollisionEnemy() {
+void Player::OnCollissionEnemy() {
+	audio->PlayFx(carCollisionWithCarFX-1);
 	//physBody->body->ApplyLinearImpulseToCenter({ -5,0 }, 1);
 }
 
-void Player::OnCollisionBooster(b2Vec2 dir) {
-	
+void Player::OnCollissionBooster(b2Vec2 dir) {
+	audio->PlayFx(boostFX-1);
 	physBody->body->ApplyLinearImpulseToCenter(b2Vec2{ dir.x * 2,dir.y * 2 }, true);
 }
 
@@ -182,3 +188,6 @@ void Player::EndCollisionSurface() {
 	if (insideSurface) return;
 	physBody->body->GetFixtureList()->SetFriction(friction);
 }
+
+
+

@@ -24,6 +24,9 @@ bool ModuleGame::Start()
 	SetTargetFPS(60);
 	App->scenario->LoadMap();
 	LoadEntities();
+	music = App->audio->LoadFx("Assets/Sounds/music.wav");
+	App->audio->PlayFx(music-1),
+	musicTime.Start();
 
 	return ret;
 }
@@ -46,6 +49,7 @@ bool ModuleGame::CleanUp()
 // Update: draw background
 update_status ModuleGame::Update()
 {
+	CheckMusic();
 	CheckTimers();
 	App->scenario->Update();
 	ReadInputs();
@@ -109,7 +113,7 @@ void ModuleGame::ReadInputs() {
 	}
 	if (IsKeyPressed(KEY_SPACE)) {
 		if (player->PItems.size() < 3) {
-			player->AddItem(new Hand(App->physics, player->pos.x, player->pos.y, this, player->physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f))));
+			player->AddItem(new Hand(App->physics, player->pos.x, player->pos.y, this, player->physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f)), App->audio));
 		}
 	}
 }
@@ -189,7 +193,13 @@ void ModuleGame::OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
 			}
 			break;
 		case(EntityType::ITEM):
-
+			for (Enemy* n : enemies) {
+				for (Items* m : n->EItems) {
+					if (m->physBody == bodyB) {
+						m->OnCollisionWithPlayer();
+					}
+				}
+			}
 			break;
 		case(EntityType::BOOSTER_UP):
 			player->OnCollisionBooster({0,-1});
@@ -228,5 +238,11 @@ void ModuleGame::EndCollision(PhysBody* bodyA, PhysBody* bodyB) {
 			player->EndCollisionSurface();
 			break;
 		}
+	}
+}
+
+void ModuleGame::CheckMusic() {
+	if (musicTime.ReadSec() > 106.945f) {
+		App->audio->PlayFx(music-1);
 	}
 }

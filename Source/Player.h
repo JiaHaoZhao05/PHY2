@@ -64,7 +64,10 @@ private:
 	unsigned int turnFX;
 	unsigned int crashFX;
 	unsigned int engineFX;
+	unsigned int boostFX;
+	unsigned int armThrowFX;
+	unsigned int carCollisionWithCarFX;
 	Timer throttleFXCooldown;
 	Timer brakeFXCooldown;
-	Timer turnFXCooldown;
+	Timer turnFXTimePlaying;
 };

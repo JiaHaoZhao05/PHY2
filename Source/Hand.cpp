@@ -7,8 +7,9 @@
 #include "ModulePhysics.h"
 #include "PhysicEntity.h"
 
-Hand::Hand(ModulePhysics* physics, int _x, int _y, Module* _listener, b2Vec2 eject)
-	: Items(physics->CreateRectangle(_x, _y, 32, 64, 0, EntityType::ITEM, _listener, ITEM,0, MAP | ENEMY, 0, 0.8), _listener, EntityType::ITEM)
+Hand::Hand(ModulePhysics* physics, int _x, int _y, Module* _listener, b2Vec2 eject, ModuleAudio* _audio)
+	: Items(physics->CreateRectangle(_x, _y, 32, 64, 0, EntityType::ITEM, _listener, ITEM, 0, MAP | ENEMY, 0, 0.8), _listener, EntityType::ITEM, _audio)
+
 {
 	Start();
 	shot = eject;
@@ -16,22 +17,15 @@ Hand::Hand(ModulePhysics* physics, int _x, int _y, Module* _listener, b2Vec2 eje
 // Load assets
 bool Hand::Start()
 {
-	LOG("Loading hand");
+	LOG("Loading Hand");
 	texture = LoadTexture("Assets/Textures/hand.png");
 	return true;
 }
 // Unload assets
 bool Hand::CleanUp()
 {
-	LOG("Unloading hand");
+	LOG("Unloading Hand");
 
-	return true;
-}
-
-// Update: draw background
-bool Hand::Update() {
-	Behave();
-	Draw();
 	return true;
 }
 
@@ -48,3 +42,5 @@ void Hand::Behave() {
 		physBody->body->ApplyAngularImpulse(torque, true);
 	}
 }
+
+void Hand::OnCollisionWithPlayer() {}

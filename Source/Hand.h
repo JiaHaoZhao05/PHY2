@@ -8,12 +8,12 @@
 class Hand : public Items {
 public:
 	Hand() {}
-	Hand(ModulePhysics* physics, int _x, int _y, Module* _listener, b2Vec2 eject);
+	Hand(ModulePhysics* physics, int _x, int _y, Module* _listener, b2Vec2 eject, ModuleAudio* audio);
 	~Hand() {}
-	void Behave();
 	bool Start();
-	bool Update();
+	void Behave();
 	bool CleanUp();
+	void OnCollisionWithPlayer() override;
 private:
 	bool hasbeenshot = false;
 	b2Vec2 shot;
