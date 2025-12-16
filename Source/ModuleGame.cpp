@@ -165,10 +165,6 @@ void ModuleGame::UpdateEntities() {
 	for (Enemy* entity : enemies) {
 		if (entity->finished==false){
 			entity->Update();
-			/*if (entity->pendingToDelete) {
-				App->physics->QueueBodyForDestroy(entity->physBody);
-				delete entity;
-			}*/
 			for (Items* n : entity->EItems) {
 				n->Update();
 				if (n->pendingToDelete) {
@@ -176,6 +172,9 @@ void ModuleGame::UpdateEntities() {
 					delete n;
 				}
 			}
+		}
+		else {
+			Start();
 		}
 	}
 	for (Items* n : player->PItems) {
