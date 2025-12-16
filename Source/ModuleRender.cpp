@@ -48,10 +48,10 @@ update_status ModuleRender::Update()
     // NOTE: This function setups render batching system for
     // maximum performance, all consecutive Draw() calls are
     // not processed until EndDrawing() is called
-    if(App->game->gamePaused==false)DrawText(TextFormat("Time: %.2f", App->game->timer.ReadSec()), camera.target.x - SCREEN_WIDTH/2, camera.target.y-SCREEN_HEIGHT/2, GetFontDefault(), 20, WHITE, 30);
-    else DrawText(TextFormat("Time: %.2f", App->game->currentTime), camera.target.x - SCREEN_WIDTH / 2, camera.target.y - SCREEN_HEIGHT / 2, GetFontDefault(), 20, WHITE, 30);
-    if (App->game->finishedOnce)DrawText(TextFormat("Best time: %.2f", App->game->bestTime), camera.target.x - SCREEN_WIDTH / 2, camera.target.y - SCREEN_HEIGHT / 2 + 40, GetFontDefault(), 20, WHITE, 30);
-    if (App->game->gamePaused == false)DrawText(TextFormat("Ammo: %i", 3- App->game->player->PItems.size()), camera.target.x + SCREEN_WIDTH / 3, camera.target.y - SCREEN_HEIGHT / 2, GetFontDefault(), 20, WHITE, 30);
+    if(App->game->gamePaused==false)DrawText(TextFormat("Time: %.2f", App->game->timer.ReadSec()), camera.target.x - SCREEN_WIDTH/2, camera.target.y-SCREEN_HEIGHT/2, GetFontDefault(), 10, WHITE, 30);
+    else DrawText(TextFormat("Time: %.2f", App->game->currentTime), camera.target.x - SCREEN_WIDTH / 2, camera.target.y - SCREEN_HEIGHT / 2, GetFontDefault(), 10, WHITE, 30);
+    if (App->game->finishedOnce)DrawText(TextFormat("Best time: %.2f", App->game->bestTime), camera.target.x - SCREEN_WIDTH / 2, camera.target.y - SCREEN_HEIGHT / 2 + 40, GetFontDefault(), 10, WHITE, 30);
+    if (App->game->gamePaused == false)DrawText(TextFormat("Ammo: %i", 3- App->game->player->PItems.size()), camera.target.x + SCREEN_WIDTH / 2.65, camera.target.y - SCREEN_HEIGHT / 2, GetFontDefault(), 10, WHITE, 30);
     //BeginMode2D(camera);
 	return UPDATE_CONTINUE;
 }
