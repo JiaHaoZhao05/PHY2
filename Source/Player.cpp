@@ -158,12 +158,12 @@ void Player::CheckCheckpoints() {
 }
 
 
-void Player::OnCollissionEnemy() {
+void Player::OnCollisionEnemy() {
 	audio->PlayFx(carCollisionWithCarFX-1);
 	//physBody->body->ApplyLinearImpulseToCenter({ -5,0 }, 1);
 }
 
-void Player::OnCollissionBooster(b2Vec2 dir) {
+void Player::OnCollisionBooster(b2Vec2 dir) {
 	audio->PlayFx(boostFX-1);
 	physBody->body->ApplyLinearImpulseToCenter(b2Vec2{ dir.x * 2,dir.y * 2 }, true);
 }
