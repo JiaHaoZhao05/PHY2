@@ -47,7 +47,9 @@ public:
 	unsigned int music;
 	float bestTime;
 	bool finishedOnce = false;
-	
+	float x, y, _x, _y;
+	int raycast;
+	int raycast2;
 
 	Map1* map1;
 	

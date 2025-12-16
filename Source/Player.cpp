@@ -165,27 +165,18 @@ void Player::OnCollisionEnemy() {
 
 void Player::OnCollisionBooster(b2Vec2 dir) {
 	audio->PlayFx(boostFX-1);
-	physBody->body->ApplyLinearImpulseToCenter(b2Vec2{ dir.x * 2,dir.y * 2 }, true);
+	physBody->body->ApplyLinearImpulseToCenter(b2Vec2{ dir.x * 4,dir.y * 4 }, true);
 }
 
 void Player::OnCollisionRoughSurface() {
-	if (physBody->body->GetFixtureList()->GetFriction() == frictionRough) insideSurface = false;
-	else {
-		physBody->body->GetFixtureList()->SetFriction(frictionRough);
-		insideSurface = true;
-	}
+	physBody->body->GetFixtureList()->SetFriction(frictionRough);
 }
 
 void Player::OnCollisionSlidingSurface() {
-	if (physBody->body->GetFixtureList()->GetFriction() == frictionSlide) insideSurface = false;
-	else {
-		physBody->body->GetFixtureList()->SetFriction(frictionSlide);
-		insideSurface = true;
-	}
+	physBody->body->GetFixtureList()->SetFriction(frictionSlide);
 }
 
 void Player::EndCollisionSurface() {
-	if (insideSurface) return;
 	physBody->body->GetFixtureList()->SetFriction(friction);
 }
 

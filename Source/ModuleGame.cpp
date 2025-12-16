@@ -57,6 +57,7 @@ update_status ModuleGame::Update()
 	if (player->finished) {
 		EndGame();
 	}
+	DrawLine(x, y, x - 2000, y, RED);
 	return UPDATE_CONTINUE;
 }
 
