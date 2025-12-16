@@ -113,7 +113,8 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, float friction, 
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, float friction, float rotation, EntityType _type, Module* _listener, uint16 categoryBits, uint16 maskBits, int16 groupIndex, float bounceness, float density)
+PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, float rotation, EntityType _type, Module* _listener, uint16 categoryBits, uint16 maskBits, float friction, int16 groupIndex, float bounceness, float density)
+
 {
 	PhysBody* pbody = new PhysBody();
 
@@ -510,16 +511,12 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 }
 void ModulePhysics::EndContact(b2Contact* contact)
 {
-	PhysBody* bodyA =
-		reinterpret_cast<PhysBody*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
-	PhysBody* bodyB =
-		reinterpret_cast<PhysBody*>(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
-
-	if (!bodyA || !bodyB) return;
-
-	if (bodyA->listener && bodyB->listener)
-	{
+	PhysBody* bodyA = reinterpret_cast<PhysBody*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
+	PhysBody* bodyB = reinterpret_cast<PhysBody*>(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
+	if (!bodyA || !bodyB)
+		return;
+	if (bodyA->listener)
 		bodyA->listener->EndCollision(bodyA, bodyB);
+	if (bodyB->listener)
 		bodyB->listener->EndCollision(bodyB, bodyA);
-	}
 }

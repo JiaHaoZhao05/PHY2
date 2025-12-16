@@ -23,6 +23,8 @@ public:
 	std::vector<b2Vec2> checkpoints;
 	std::vector<b2Vec2> centerLine;
 	std::vector<std::pair<std::vector<int>,b2Vec2>> boosterList;
+	std::vector<std::vector<int>> roughSurfaceList;
+	std::vector<std::vector<int>> slidingSurfaceList;
 
 private:
 	std::vector<int> booster1;
@@ -38,5 +40,17 @@ private:
 	std::vector<int> booster11;
 	std::vector<int> booster12;
 
-	
+	std::vector<int> roughSurface1;
+	std::vector<int> roughSurface2;
+	std::vector<int> roughSurface3;
+	std::vector<int> roughSurface4;
+	std::vector<int> roughSurface5;
+	std::vector<int> roughSurface6;
+
+	std::vector<int> slidingSurface1;
+	std::vector<int> slidingSurface2;
+	std::vector<int> slidingSurface3;
+	std::vector<int> slidingSurface4;
+	std::vector<int> slidingSurface5;
+	std::vector<int> slidingSurface6;
 };

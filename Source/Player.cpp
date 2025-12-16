@@ -7,8 +7,8 @@
 #include "PhysicEntity.h"
 #include "Player.h"
 
-Player::Player(ModulePhysics* physics, int pos_x, int pos_y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _checkpoints, ModuleAudio* _audio)
-	: Car(physics->CreateRectangle(pos_x, pos_y, 32, 64, _friction, _rotation, EntityType::PLAYER, _listener, PLAYER), _listener, EntityType::PLAYER), checkpoints(_checkpoints), audio(_audio)
+Player::Player(ModulePhysics* physics, int pos_x, int pos_y, Module* _listener, float _rotation, std::vector<b2Vec2> _checkpoints, ModuleAudio* _audio)
+	: Car(physics->CreateRectangle(pos_x, pos_y, 32, 64, _rotation, EntityType::PLAYER, _listener, PLAYER), _listener, EntityType::PLAYER), checkpoints(_checkpoints), audio(_audio)
 {}
 
 Player::~Player()
@@ -32,6 +32,7 @@ bool Player::Start()
 	armThrowFX = audio->LoadFx("Assets/Sounds/armThrowFX.wav");
 	carCollisionWithCarFX = audio->LoadFx("Assets/Sounds/carCollisionWithCarFX.wav");
 	/*texture = LoadTexture("Assets/Textures/player.png");*/
+
 	return true;
 }
 // Unload assets
@@ -157,12 +158,36 @@ void Player::CheckCheckpoints() {
 }
 
 
-void Player::OnCollissionEnemy() {
+void Player::OnCollisionEnemy() {
 	audio->PlayFx(carCollisionWithCarFX-1);
 	//physBody->body->ApplyLinearImpulseToCenter({ -5,0 }, 1);
 }
 
-void Player::OnCollissionBooster(b2Vec2 dir) {
+void Player::OnCollisionBooster(b2Vec2 dir) {
 	audio->PlayFx(boostFX-1);
 	physBody->body->ApplyLinearImpulseToCenter(b2Vec2{ dir.x * 2,dir.y * 2 }, true);
 }
+
+void Player::OnCollisionRoughSurface() {
+	if (physBody->body->GetFixtureList()->GetFriction() == frictionRough) insideSurface = false;
+	else {
+		physBody->body->GetFixtureList()->SetFriction(frictionRough);
+		insideSurface = true;
+	}
+}
+
+void Player::OnCollisionSlidingSurface() {
+	if (physBody->body->GetFixtureList()->GetFriction() == frictionSlide) insideSurface = false;
+	else {
+		physBody->body->GetFixtureList()->SetFriction(frictionSlide);
+		insideSurface = true;
+	}
+}
+
+void Player::EndCollisionSurface() {
+	if (insideSurface) return;
+	physBody->body->GetFixtureList()->SetFriction(friction);
+}
+
+
+

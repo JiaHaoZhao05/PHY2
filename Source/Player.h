@@ -11,7 +11,7 @@
 
 class Player :public Car {
 public:
-	Player(ModulePhysics* physics, int pos_x, int pos_y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _checkpoints, ModuleAudio* _audio);
+	Player(ModulePhysics* physics, int pos_x, int pos_y, Module* _listener, float _rotation, std::vector<b2Vec2> _checkpoints, ModuleAudio* _audio);
 	~Player();
 	void Throttle(bool front);
 	void Turn(bool left, bool turn);
@@ -26,8 +26,11 @@ public:
 	void CheckCheckpoints();
 	
 	//collisions
-	void OnCollissionEnemy();
-	void OnCollissionBooster(b2Vec2 dir);
+	void OnCollisionEnemy();
+	void OnCollisionBooster(b2Vec2 dir);
+	void OnCollisionRoughSurface();
+	void OnCollisionSlidingSurface();
+	void EndCollisionSurface();
 
 public:
 	std::vector<Items*> PItems;
@@ -38,11 +41,16 @@ private:
 	Texture2D texture;
 	float maxspeed = 40;
 	float speed = 5;
-
 	float maxtorque = 4;
 	float torque = 2.5;
-
 	float brake = 5;
+
+	float friction = 0.6f;
+	float frictionRough = 1.0f;
+	float frictionSlide = 0.1f;
+
+	bool insideSurface = false;
+
 protected:
 
 private:

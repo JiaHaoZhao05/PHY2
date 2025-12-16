@@ -11,6 +11,11 @@ protected:
 	b2Vec2 pos;
 	float speed;
 	double angle;
+	float friction;
+	float frictionRough;
+	float frictionSlide;
+	bool insideSurface;
+
 private:
 	Texture2D texture;
 

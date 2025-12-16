@@ -84,7 +84,6 @@ void ModuleGame::CheckTimers() {
 
 void ModuleGame::ReadInputs() {
 	if (gamePaused){
-		DrawText(TextFormat("Time: %.2f", bestTime), player->pos.x - SCREEN_WIDTH / 2, player->pos.y - SCREEN_HEIGHT / 2, 5, BLACK);
 		if (IsKeyPressed(KEY_ENTER)) {
 			if (player->finished) RestartGame();
 			else {
@@ -169,10 +168,10 @@ void ModuleGame::EndGame() {
 
 void ModuleGame::LoadEntities() {
 	float rotation = App->scenario->initialRotation;
-	player = new Player(App->physics, App->scenario->mapPos[0].x, App->scenario->mapPos[0].y, this, 0.6f, rotation, App->scenario->checkpoints, App->audio);
-	enemies.emplace_back(new Enemy(App->physics, App->scenario->mapPos[1].x, App->scenario->mapPos[1].y, this, 0.6f, rotation, App->scenario->centerLine, App->audio));
-	enemies.emplace_back(new EnemyTooth(App->physics, App->scenario->mapPos[2].x, App->scenario->mapPos[2].y, this, 0.6f, rotation, App->scenario->centerLine, App->audio));
-	enemies.emplace_back(new EnemyPsy(App->physics, App->scenario->mapPos[3].x, App->scenario->mapPos[3].y, this, 0.6f, rotation, App->scenario->centerLine, App->audio));
+	player = new Player(App->physics, App->scenario->mapPos[0].x, App->scenario->mapPos[0].y, this, rotation, App->scenario->checkpoints, App->audio);
+	enemies.emplace_back(new Enemy(App->physics, App->scenario->mapPos[1].x, App->scenario->mapPos[1].y, this, rotation, App->scenario->centerLine, App->audio));
+	enemies.emplace_back(new EnemyTooth(App->physics, App->scenario->mapPos[2].x, App->scenario->mapPos[2].y, this, rotation, App->scenario->centerLine, App->audio));
+	enemies.emplace_back(new EnemyPsy(App->physics, App->scenario->mapPos[3].x, App->scenario->mapPos[3].y, this, rotation, App->scenario->centerLine, App->audio));
 
 
 	player->Start();
@@ -186,7 +185,7 @@ void ModuleGame::OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
 	if (bodyA->type == EntityType::PLAYER) {
 		switch (bodyB->type) {
 		case(EntityType::ENEMY):
-			player->OnCollissionEnemy();
+			player->OnCollisionEnemy();
 			for (Enemy* n : enemies) {
 				if (n->physBody == bodyB) {
 					n->Create();
@@ -203,16 +202,22 @@ void ModuleGame::OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
 			}
 			break;
 		case(EntityType::BOOSTER_UP):
-			player->OnCollissionBooster({0,-1});
+			player->OnCollisionBooster({0,-1});
 			break;
 		case(EntityType::BOOSTER_DOWN):
-			player->OnCollissionBooster({ 0,1 });
+			player->OnCollisionBooster({ 0,1 });
 			break;
 		case(EntityType::BOOSTER_LEFT):
-			player->OnCollissionBooster({-1,0});
+			player->OnCollisionBooster({-1,0});
 			break;
 		case(EntityType::BOOSTER_RIGHT):
-			player->OnCollissionBooster({1,0});
+			player->OnCollisionBooster({1,0});
+			break;
+		case(EntityType::ROUGH_SURFACE):
+			player->OnCollisionRoughSurface();
+			break;
+		case(EntityType::SLIDING_SURFACE):
+			player->OnCollisionSlidingSurface();
 			break;
 		}
 	}
@@ -225,6 +230,12 @@ void ModuleGame::EndCollision(PhysBody* bodyA, PhysBody* bodyB) {
 		case(EntityType::ENEMY):
 			break;
 		case(EntityType::ITEM):
+			break;
+		case(EntityType::ROUGH_SURFACE):
+			player->EndCollisionSurface();
+			break;
+		case(EntityType::SLIDING_SURFACE):
+			player->EndCollisionSurface();
 			break;
 		}
 	}
