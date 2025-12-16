@@ -7,8 +7,8 @@
 #include "PhysicEntity.h"
 #include "Player.h"
 
-Player::Player(ModulePhysics* physics, int pos_x, int pos_y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _checkpoints, ModuleAudio* _audio)
-	: Car(physics->CreateRectangle(pos_x, pos_y, 32, 64, _friction, _rotation, EntityType::PLAYER, _listener, PLAYER), _listener, EntityType::PLAYER), checkpoints(_checkpoints), audio(_audio)
+Player::Player(ModulePhysics* physics, int pos_x, int pos_y, Module* _listener, float _rotation, std::vector<b2Vec2> _checkpoints, ModuleAudio* _audio)
+	: Car(physics->CreateRectangle(pos_x, pos_y, 32, 64, friction, _rotation, EntityType::PLAYER, _listener, PLAYER), _listener, EntityType::PLAYER), checkpoints(_checkpoints), audio(_audio)
 {}
 
 Player::~Player()
@@ -152,11 +152,23 @@ void Player::CheckCheckpoints() {
 }
 
 
-void Player::OnCollissionEnemy() {
+void Player::OnCollisionEnemy() {
 	//physBody->body->ApplyLinearImpulseToCenter({ -5,0 }, 1);
 }
 
-void Player::OnCollissionBooster(b2Vec2 dir) {
+void Player::OnCollisionBooster(b2Vec2 dir) {
 	
 	physBody->body->ApplyLinearImpulseToCenter(b2Vec2{ dir.x * 2,dir.y * 2 }, true);
+}
+
+void Player::OnCollisionRoughSurface() {
+	physBody->body->GetFixtureList()->SetFriction(frictionRough);
+}
+
+void Player::OnCollisionSlidingSurface() {
+	physBody->body->GetFixtureList()->SetFriction(frictionSlide);
+}
+
+void Player::EndCollisionSurface() {
+	physBody->body->GetFixtureList()->SetFriction(friction);
 }

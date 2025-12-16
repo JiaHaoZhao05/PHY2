@@ -29,7 +29,7 @@ struct AIController {
 
 class Enemy :public Car {
 public:
-	Enemy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio);
+	Enemy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio);
 	~Enemy();
 
 	void Move();
@@ -49,6 +49,10 @@ public:
     b2Vec2 initialPos;
 	bool isActive = false;
 	std::vector<Items*> EItems;
+
+	float friction = 0.6;
+	float frictionRough = 0.2;
+	float frictionSlide = 0.9;
 protected:
 	int id = 1;
 	Texture2D texture;
@@ -69,7 +73,7 @@ private:
 
 class EnemyTooth :public Enemy {
 public:
-	EnemyTooth(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio);
+	EnemyTooth(ModulePhysics* physics, int _x, int _y, Module* _listener, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio);
 	~EnemyTooth();
 	bool Start() override;
 public:
@@ -78,7 +82,7 @@ public:
 
 class EnemyPsy :public Enemy {
 public:
-	EnemyPsy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio);
+	EnemyPsy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio);
 	~EnemyPsy();
 	bool Start() override;
 public:

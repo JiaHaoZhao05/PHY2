@@ -8,8 +8,8 @@
 #include "ModulePhysics.h"
 #include "PhysicEntity.h"
 
-Enemy::Enemy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio)
-    : Car(physics->CreateRectangle(_x, _y, 32, 64, _friction, _rotation, EntityType::ENEMY, _listener, ENEMY), _listener, EntityType::ENEMY), centerLine(_centerLine)
+Enemy::Enemy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio)
+    : Car(physics->CreateRectangle(_x, _y, 32, 64, friction, _rotation, EntityType::ENEMY, _listener, ENEMY), _listener, EntityType::ENEMY), centerLine(_centerLine)
 {
 }
 Enemy::~Enemy()
@@ -138,8 +138,8 @@ void Enemy::Create() {
 int Enemy::ID() { 
     return id; 
 }
-EnemyTooth::EnemyTooth(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio)
-    :Enemy(physics, _x, _y, _listener, _friction, _rotation, _centerLine, _audio)
+EnemyTooth::EnemyTooth(ModulePhysics* physics, int _x, int _y, Module* _listener, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio)
+    :Enemy(physics, _x, _y, _listener, _rotation, _centerLine, _audio)
 {
 }
 EnemyTooth::~EnemyTooth()
@@ -157,8 +157,8 @@ bool EnemyTooth::Start(){
     brake = 2;
     return true;
 }
-EnemyPsy::EnemyPsy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _friction, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio)
-    :Enemy(physics, _x, _y, _listener, _friction, _rotation, _centerLine, _audio)
+EnemyPsy::EnemyPsy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio)
+    :Enemy(physics, _x, _y, _listener, _rotation, _centerLine, _audio)
 {
 }
 EnemyPsy::~EnemyPsy()
