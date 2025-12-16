@@ -152,6 +152,7 @@ void ModuleGame::StartGame() {
 void ModuleGame::RestartGame() {
 	player->finished = false;
 	player->physBody->body->SetFixedRotation(false);
+	App->audio->StopFx(music);
 	CleanUp();
 	LoadEntities();
 }
@@ -162,6 +163,7 @@ void ModuleGame::EndGame() {
 	for (Enemy* entity : enemies) {
 		entity->isActive = false;
 	}
+	App->audio->StopFx(music);
 	player->physBody->body->SetLinearVelocity({0,0});
 	player->physBody->body->SetFixedRotation(true);
 }
