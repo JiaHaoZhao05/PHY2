@@ -8,7 +8,7 @@
 class Eye : public Items {
 public:
 	Eye() {}
-	Eye(ModulePhysics* physics, int _x, int _y, Module* _listener, ModuleAudio* audio);
+	Eye(ModulePhysics* physics, int _x, int _y, Module* _listener, ModuleAudio* audio, unsigned int _sound);
 	~Eye() {}
 	bool Start();
 	bool CleanUp();

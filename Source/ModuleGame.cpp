@@ -23,17 +23,12 @@ bool ModuleGame::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 	SetTargetFPS(60);
+	Loadsfx();
 	App->scenario->LoadMap();
 	LoadEntities();
-	//music = App->audio->LoadFx("Assets/Sounds/music.wav");
-	App->audio->PlayFx(music-1),
-	musicTime.Start();
-
-	Loadsfx();
-
+	ReadPlayerFX();
 	startTex = LoadTexture("Assets/Textures/screenstart.png");
 	endTex = LoadTexture("Assets/Textures/screenend.png");
-
 	countdownTex1 = LoadTexture("Assets/Textures/Countdown/1.png");
 	countdownTex2 = LoadTexture("Assets/Textures/Countdown/2.png");
 	countdownTex3 = LoadTexture("Assets/Textures/Countdown/3.png");
@@ -44,8 +39,13 @@ bool ModuleGame::Start()
 
 bool ModuleGame::CleanUp()
 {
+	App->scenario->CleanUp();
 	App->physics->QueueBodyForDestroy(player->physBody);
 	for (Enemy* entity : enemies) {
+		for (Items* item : entity->EItems) {
+			App->physics->QueueBodyForDestroy(item->physBody);
+		}
+		entity->EItems.clear();
 		App->physics->QueueBodyForDestroy(entity->physBody);
 	}
 	enemies.clear();
@@ -56,6 +56,7 @@ bool ModuleGame::CleanUp()
 		App->physics->QueueBodyForDestroy(item->physBody);
 	}
 	player->PItems.clear();
+	//App->audio->CleanUp();
 	
 	return true;
 }
@@ -63,11 +64,13 @@ bool ModuleGame::CleanUp()
 // Update: draw background
 update_status ModuleGame::Update()
 {
-	CheckMusic();
+	if (!gamePaused) {
+		CheckMusic();
+	}
+	UpdateEntities();
 	CheckTimers();
 	App->scenario->Update();
 	ReadInputs();
-	UpdateEntities();
 	if (player->finished) {
 		EndGame();
 	}
@@ -93,10 +96,10 @@ void ModuleGame::CheckTimers() {
 		case 3: //GO
 			App->audio->PlayFx(countdownAudioGO - 1);
 			App->renderer->Draw(countdownTexGO, player->pos.x - 75, player->pos.y + 100);
-			if (time>4) {
-				starting = false;
-			}
 			StartGame();
+			break;
+		case 4:
+			starting = false;
 			break;
 		}
 	}
@@ -184,6 +187,8 @@ void ModuleGame::UpdateEntities() {
 
 void ModuleGame::StartGame() {
 	gamePaused = false;
+	App->audio->PlayFx(music-1);
+	musicTime.Start();
 	timer.Start();
 	player->isActive = true;
 	for (Enemy* entity : enemies) {
@@ -193,10 +198,12 @@ void ModuleGame::StartGame() {
 
 void ModuleGame::RestartGame() {
 	player->finished = false;
+	App->audio->StopFx(music - 1);
 	player->physBody->body->SetFixedRotation(false);
-	App->audio->StopFx(music);
 	CleanUp();
-	LoadEntities();
+	App->scenario->LoadMap();
+	LoadEntities();	
+	ReadPlayerFX();
 }
 
 void ModuleGame::EndGame() {
@@ -209,7 +216,6 @@ void ModuleGame::EndGame() {
 	for (Enemy* entity : enemies) {
 		entity->isActive = false;
 	}
-	App->audio->StopFx(music);
 	player->physBody->body->SetLinearVelocity({0,0});
 	player->physBody->body->SetFixedRotation(true);
 }
@@ -221,12 +227,10 @@ void ModuleGame::LoadEntities() {
 	enemies.emplace_back(new EnemyTooth(App->physics, App->scenario->mapPos[2].x, App->scenario->mapPos[2].y, this, rotation, App->scenario->centerLine, App->audio));
 	enemies.emplace_back(new EnemyPsy(App->physics, App->scenario->mapPos[3].x, App->scenario->mapPos[3].y, this, rotation, App->scenario->centerLine, App->audio));
 
-
 	player->Start();
 	for (Enemy* entity : enemies) {
 		entity->Start();
 	}
-
 }
 
 void ModuleGame::OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
@@ -353,8 +357,32 @@ void ModuleGame::CheckMusic() {
 }
 
 void ModuleGame::Loadsfx() {
+	throttleFX = App->audio->LoadFx("Assets/Sounds/throttleFX.wav");
+	brakeFX = App->audio->LoadFx("Assets/Sounds/brakeFX.wav");
+	turnFX = App->audio->LoadFx("Assets/Sounds/turnFX.wav");
+	crashFX = App->audio->LoadFx("Assets/Sounds/crashFX.wav");
+	engineFX = App->audio->LoadFx("Assets/Sounds/engineFX.wav");
+	boostFX = App->audio->LoadFx("Assets/Sounds/boostFX.wav");
+	armThrowFX = App->audio->LoadFx("Assets/Sounds/armThrowFX.wav");
+	carCollisionWithCarFX = App->audio->LoadFx("Assets/Sounds/carCollisionWithCarFX.wav");
+
+	music = App->audio->LoadFx("Assets/Sounds/music.wav");
 	countdownAudio1 = App->audio->LoadFx("Assets/Sounds/Countdown/1D.wav");
 	countdownAudio2 = App->audio->LoadFx("Assets/Sounds/Countdown/2.wav");
 	countdownAudio3 = App->audio->LoadFx("Assets/Sounds/Countdown/3.wav");
 	countdownAudioGO = App->audio->LoadFx("Assets/Sounds/Countdown/GO.wav");
+	toothFX = App->audio->LoadFx("Assets/Sounds/toothCollisionFX.wav");
+	spitFX = App->audio->LoadFx("Assets/Sounds/toothCollisionFX.wav");
+	eyeFX = App->audio->LoadFx("Assets/Sounds/eyeCollisionFX.wav");
+}
+
+void ModuleGame::ReadPlayerFX() {
+	player->throttleFX = throttleFX;
+	player->brakeFX = brakeFX;
+	player->turnFX = turnFX;
+	player->crashFX = crashFX;
+	player->engineFX = engineFX;
+	player->boostFX = boostFX;
+	player->armThrowFX = armThrowFX;
+	player->carCollisionWithCarFX = carCollisionWithCarFX;
 }

@@ -8,8 +8,8 @@
 #include "PhysicEntity.h"
 
 // Load assets
-Eye::Eye(ModulePhysics* physics, int _x, int _y, Module* _listener, ModuleAudio* _audio)
-	: Items(physics->CreateCircle(_x, _y, 16, 0.2, 0, EntityType::ITEM, _listener, ITEM, MAP | PLAYER | ENEMY, 0, 1), _listener, EntityType::ITEM, _audio)
+Eye::Eye(ModulePhysics* physics, int _x, int _y, Module* _listener, ModuleAudio* _audio, unsigned int _sound)
+	: Items(physics->CreateCircle(_x, _y, 16, 0.2, 0, EntityType::ITEM, _listener, ITEM, MAP | PLAYER | ENEMY, 0, 1), _listener, EntityType::ITEM, _audio, _sound)
 {
 	Start();
 }
@@ -18,8 +18,6 @@ bool Eye::Start()
 
 	LOG("Loading Eye");
 
-
-	sound = audio->LoadFx("Assets/Sounds/eyeCollisionFX.wav");
 
 	texture = LoadTexture("Assets/Textures/eye.png");
 	return true;

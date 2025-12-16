@@ -8,7 +8,7 @@
 class Tooth : public Items {
 public:
 	Tooth() {}
-	Tooth(ModulePhysics* physics, int _x, int _y, Module* _listener, ModuleAudio* _audio);
+	Tooth(ModulePhysics* physics, int _x, int _y, Module* _listener, ModuleAudio* _audio, unsigned int _sound);
 	~Tooth() {}
 	void Behave();
 	bool Start();
