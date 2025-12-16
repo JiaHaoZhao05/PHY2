@@ -48,6 +48,7 @@ public:
 	Timer musicTime;
 	unsigned int music;
 	float bestTime;
+	bool finishedOnce = false;
 	
 	Texture2D countdownTex1;
 	Texture2D countdownTex2;

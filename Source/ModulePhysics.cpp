@@ -253,6 +253,8 @@ PhysBody* ModulePhysics::CreateChainSensor(int x, int y, std::vector<int> points
 	bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(pbody);
 
 	b2Body* body = world->CreateBody(&bodyDef);
+	
+	
 
 	int count = points.size() / 2;
 	b2Vec2* vertices = new b2Vec2[count];
@@ -262,12 +264,11 @@ PhysBody* ModulePhysics::CreateChainSensor(int x, int y, std::vector<int> points
 		vertices[i].x = points[i * 2] / PIXELS_PER_METER;
 		vertices[i].y = points[i * 2 + 1] / PIXELS_PER_METER;
 	}
-
-	b2ChainShape shape;
-	shape.CreateLoop(vertices, count);
+	b2PolygonShape b;
+	b.Set(vertices, count);
 
 	b2FixtureDef fixtureDef;
-	fixtureDef.shape = &shape;
+	fixtureDef.shape = &b;
 	fixtureDef.friction = 0.8f;
 	fixtureDef.filter.categoryBits = categoryBits;
 	fixtureDef.filter.maskBits = maskBits;
@@ -525,14 +526,25 @@ void ModulePhysics::BeginContact(b2Contact* contact)
 	if (physB && physB->listener != NULL)
 		physB->listener->OnCollision(physB, physA);
 }
+
 void ModulePhysics::EndContact(b2Contact* contact)
 {
 	PhysBody* bodyA = reinterpret_cast<PhysBody*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
 	PhysBody* bodyB = reinterpret_cast<PhysBody*>(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
-	if (!bodyA || !bodyB)
-		return;
-	if (bodyA->listener)
-		bodyA->listener->EndCollision(bodyA, bodyB);
-	if (bodyB->listener)
-		bodyB->listener->EndCollision(bodyB, bodyA);
+	if (!bodyA || !bodyB) return;
+	if (bodyA->listener) {
+			bodyA->listener->EndCollision(bodyA, bodyB);
+		//if (bodyB->Contains(bodyA->body->GetPosition().x, bodyA->body->GetPosition().y)) {
+			//	bodyA->listener->EndCollision(bodyA, bodyB);
+			//	}
+	}
+
+	if (bodyB->listener) {
+			bodyB->listener->EndCollision(bodyB, bodyA);
+			
+		//if (bodyA->Contains(bodyB->body->GetPosition().x, bodyB->body->GetPosition().y)) {
+			//	bodyB->listener->EndCollision(bodyA, bodyB);
+			//}
+	}
 }
+
