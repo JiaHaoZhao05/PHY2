@@ -13,7 +13,7 @@ protected:
 
 public:
 	Items() {}
-	Items(PhysBody* _body, Module* _listener, EntityType _type, ModuleAudio* _audio, unsigned int _sound = NULL);
+	Items(PhysBody* _body, Module* _listener, EntityType _type, Application* _app, unsigned int _sound = NULL);
 	~Items() {}
 
 	virtual bool Start() {
@@ -28,6 +28,6 @@ public:
 	virtual void Behave() {}
 	void Destroy();
 
-	ModuleAudio* audio;
+	Application* app;
 	unsigned int sound;
 };

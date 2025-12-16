@@ -6,7 +6,7 @@
 class Thumb : public Items {
 public:
 	Thumb() {}
-	Thumb(ModulePhysics* physics, int _x, int _y, Module* _listener, b2Vec2 eject, ModuleAudio* audio);
+	Thumb(ModulePhysics* physics, int _x, int _y, Module* _listener, b2Vec2 eject, Application* app);
 	~Thumb() {}
 	bool Start();
 	void Behave();

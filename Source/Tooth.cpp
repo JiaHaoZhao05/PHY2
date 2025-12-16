@@ -8,8 +8,8 @@
 #include "PhysicEntity.h"
 
 // Load assets
-Tooth::Tooth(ModulePhysics* physics, int _x, int _y, Module* _listener, ModuleAudio* _audio, unsigned int _sound)
-	: Items(physics->CreateRectangle(_x, _y, 32, 32, 0, EntityType::ITEM, _listener, ITEM, MAP | ENEMY | PLAYER, 0, 0, 1, 10), _listener, EntityType::ITEM, _audio, _sound)
+Tooth::Tooth(ModulePhysics* physics, int _x, int _y, Module* _listener, Application* _app, unsigned int _sound)
+	: Items(physics->CreateRectangle(_x, _y, 32, 32, 0, EntityType::ITEM, _listener, ITEM, MAP | ENEMY | PLAYER, 0, 0, 1, 10), _listener, EntityType::ITEM, _app, _sound)
 {
 	Start();
 }
@@ -31,10 +31,10 @@ void Tooth::Behave() {
 	if (physBody->body->GetLinearVelocity().Length() < maxspeed) {
 		shot = physBody->body->GetLinearVelocity();
 		shot.Normalize();
-		physBody->body->ApplyForceToCenter(force * shot, true);
+		app->physics->ApplySpeed(force * shot, physBody);
 	}
 }
 
 void Tooth::OnCollisionWithPlayer() {
-	audio->PlayFx(sound-1);
+	app->audio->PlayFx(sound-1);
 }
