@@ -5,6 +5,7 @@
 #include "ModuleGame.h"
 #include "Eye.h"
 #include "Tooth.h"
+#include "Spit.h"
 //#include "PhysicEntity.h"
 
 #include "p2Point.h"
@@ -153,30 +154,42 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height, fl
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateRectangleSensor(int x, int y, int width, int height)
+PhysBody* ModulePhysics::CreateRectangleSensor(int x, int y, int width, int height, float rotation, EntityType _type, Module* _listener, uint16 categoryBits, uint16 maskBits, float friction, int16 groupIndex, float bounceness, float density)
 {
 	PhysBody* pbody = new PhysBody();
+
+	pbody->type = _type;
 
 	b2BodyDef body;
 	body.type = b2_staticBody;
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
 	body.userData.pointer = reinterpret_cast<uintptr_t>(pbody);
+	body.angle = rotation;
 
 	b2Body* b = world->CreateBody(&body);
-
 	b2PolygonShape box;
 	box.SetAsBox(PIXEL_TO_METERS(width) * 0.5f, PIXEL_TO_METERS(height) * 0.5f);
 
 	b2FixtureDef fixture;
 	fixture.shape = &box;
-	fixture.density = 1.0f;
+	fixture.density = density;
+	fixture.friction = friction;
+	fixture.restitution = bounceness;
+
+	// TODO 2: Add filter categoryBits and maskBits to fixture
+	fixture.filter.categoryBits = categoryBits;
+	fixture.filter.maskBits = maskBits;
+
+	// TODO 5: Add groupIndex filter to fixture. Set default value to 0
+	fixture.filter.groupIndex = groupIndex;
 	fixture.isSensor = true;
 
 	b->CreateFixture(&fixture);
 
 	pbody->body = b;
-	pbody->width = width;
-	pbody->height = height;
+	pbody->width = (int)(width * 0.5f);
+	pbody->height = (int)(height * 0.5f);
+	pbody->listener = _listener;
 
 	return pbody;
 }
@@ -296,6 +309,9 @@ update_status ModulePhysics::PostUpdate()
 				break;
 			case 2:
 				n->AddItem(new Tooth(App->physics, n->physBody->body->GetPosition().x * PIXELS_PER_METER, n->physBody->body->GetPosition().y * PIXELS_PER_METER, this, App->audio));
+				break;
+			case 3:
+				n->AddItem(new Spit(App->physics, n->physBody->body->GetPosition().x * PIXELS_PER_METER, n->physBody->body->GetPosition().y * PIXELS_PER_METER, this, App->audio));
 				break;
 			default:
 				break;

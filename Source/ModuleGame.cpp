@@ -7,7 +7,7 @@
 #include "Scenario.h"
 #include "Player.h"
 #include "Hand.h"
-#include "Eye.h"
+
 ModuleGame::ModuleGame(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	
@@ -24,7 +24,7 @@ bool ModuleGame::Start()
 	SetTargetFPS(60);
 	App->scenario->LoadMap();
 	LoadEntities();
-	music = App->audio->LoadFx("Assets/Sounds/music.wav");
+	//music = App->audio->LoadFx("Assets/Sounds/music.wav");
 	App->audio->PlayFx(music-1),
 	musicTime.Start();
 
@@ -219,6 +219,11 @@ void ModuleGame::OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
 		case(EntityType::SLIDING_SURFACE):
 			player->OnCollisionSlidingSurface();
 			break;
+		case EntityType::SPIT:
+			player->OnCollisionSpit(true);
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -236,6 +241,10 @@ void ModuleGame::EndCollision(PhysBody* bodyA, PhysBody* bodyB) {
 			break;
 		case(EntityType::SLIDING_SURFACE):
 			player->EndCollisionSurface();
+			break;
+		case EntityType::SPIT:
+			player->OnCollisionSpit(false);
+		default:
 			break;
 		}
 	}

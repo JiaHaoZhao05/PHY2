@@ -190,6 +190,8 @@
     <ClInclude Include="Source/p2Point.h" />
     <ClInclude Include="Source\Car.h" />
     <ClInclude Include="Source\Enemy.h" />
+    <ClInclude Include="Source\EnemyPsy.h" />
+    <ClInclude Include="Source\EnemyTooth.h" />
     <ClInclude Include="Source\Eye.h" />
     <ClInclude Include="Source\Hand.h" />
     <ClInclude Include="Source\Items.h" />
@@ -197,6 +199,7 @@
     <ClInclude Include="Source\ModuleGame.h" />
     <ClInclude Include="Source\PhysicEntity.h" />
     <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\Spit.h" />
     <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\Tooth.h" />
   </ItemGroup>
@@ -209,6 +212,8 @@
     <ClCompile Include="Source/ModuleRender.cpp" />
     <ClCompile Include="Source/ModuleWindow.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
+    <ClCompile Include="Source\EnemyPsy.cpp" />
+    <ClCompile Include="Source\EnemyTooth.cpp" />
     <ClCompile Include="Source\Eye.cpp" />
     <ClCompile Include="Source\Hand.cpp" />
     <ClCompile Include="Source\Items.cpp" />
@@ -217,6 +222,7 @@
     <ClCompile Include="Source\Scenario.h" />
     <ClCompile Include="Source\ModuleGame.cpp" />
     <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\Spit.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\Tooth.cpp" />
   </ItemGroup>

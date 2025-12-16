@@ -44,7 +44,9 @@ enum class EntityType
 	BOOSTER_UP,
 	BOOSTER_DOWN,
 	BOOSTER_LEFT,
-	BOOSTER_RIGHT
+	BOOSTER_RIGHT,
+	SPIT,
+
 };
 
 

@@ -4,6 +4,8 @@
 #include "Module.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "EnemyPsy.h"
+#include "EnemyTooth.h"
 #include "Map1.h"
 
 #include "p2Point.h"

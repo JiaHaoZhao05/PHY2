@@ -45,11 +45,6 @@ bool Enemy::Update() {
 	Draw();
 	return true;;
 }
-
-
-void Enemy::Move() {
-
-}
 void Enemy::Draw() {
 	Vector2 position{ physBody->body->GetPosition().x * PIXELS_PER_METER, physBody->body->GetPosition().y * PIXELS_PER_METER };
 	float scale = 1.0f;
@@ -145,42 +140,4 @@ void Enemy::Create() {
 }
 int Enemy::ID() { 
     return id; 
-}
-EnemyTooth::EnemyTooth(ModulePhysics* physics, int _x, int _y, Module* _listener, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio)
-    :Enemy(physics, _x, _y, _listener, _rotation, _centerLine, _audio)
-{
-}
-EnemyTooth::~EnemyTooth()
-{
-}
-bool EnemyTooth::Start(){
-    LOG("Loading enemy");
-    id = 2;
-    texture = LoadTexture("Assets/Textures/enemy2.png");
-    speed = 10; //10
-    maxspeed = 38; //38
-    angle = 0;
-    torque = 1;
-    maxtorque = 6;
-    brake = 2;
-    return true;
-}
-EnemyPsy::EnemyPsy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio)
-    :Enemy(physics, _x, _y, _listener, _rotation, _centerLine, _audio)
-{
-}
-EnemyPsy::~EnemyPsy()
-{
-}
-bool EnemyPsy::Start() {
-    LOG("Loading enemy");
-    id = 3;
-    texture = LoadTexture("Assets/Textures/enemy3.png");
-    speed = 11;
-    maxspeed = 11;
-    angle = 0;
-    torque = 8;
-    maxtorque = 20;
-    brake = 2;
-    return true;
 }

@@ -31,6 +31,7 @@ public:
 	void OnCollisionRoughSurface();
 	void OnCollisionSlidingSurface();
 	void EndCollisionSurface();
+	void OnCollisionSpit(bool inside);
 
 public:
 	std::vector<Items*> PItems;

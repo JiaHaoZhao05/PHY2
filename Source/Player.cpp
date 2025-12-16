@@ -189,5 +189,11 @@ void Player::EndCollisionSurface() {
 	physBody->body->GetFixtureList()->SetFriction(friction);
 }
 
-
-
+void Player::OnCollisionSpit(bool inside) {
+	if (inside) {
+		physBody->body->GetFixtureList()->SetFriction(frictionSlide);
+	}
+	else {
+		physBody->body->GetFixtureList()->SetFriction(friction);
+	}
+}

@@ -31,11 +31,9 @@ class Enemy :public Car {
 public:
 	Enemy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio);
 	~Enemy();
-
-	void Move();
     void Draw();
     void GroundFriction();
-	void AddItem(Items* item);
+	virtual void AddItem(Items* item);
 	void Create(); 
 	int ID(); 
 public:
@@ -68,23 +66,5 @@ private:
 	AIController ai;
     std::vector<b2Vec2> centerLine;
 	Module* audio;
-
-};
-
-class EnemyTooth :public Enemy {
-public:
-	EnemyTooth(ModulePhysics* physics, int _x, int _y, Module* _listener, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio);
-	~EnemyTooth();
-	bool Start() override;
-public:
-
-};
-
-class EnemyPsy :public Enemy {
-public:
-	EnemyPsy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio);
-	~EnemyPsy();
-	bool Start() override;
-public:
 
 };

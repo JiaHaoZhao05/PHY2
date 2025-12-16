@@ -40,9 +40,6 @@
     <ClCompile Include="Source\Scenario.h">
       <Filter>Headers</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Enemy.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Hand.cpp">
       <Filter>Sources\Items</Filter>
     </ClCompile>
@@ -54,6 +51,18 @@
     </ClCompile>
     <ClCompile Include="Source\Tooth.cpp">
       <Filter>Sources\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Spit.cpp">
+      <Filter>Sources\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy.cpp">
+      <Filter>Sources\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EnemyPsy.cpp">
+      <Filter>Sources\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EnemyTooth.cpp">
+      <Filter>Sources\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -99,9 +108,6 @@
     <ClInclude Include="Source\Car.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Enemy.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Hand.h">
       <Filter>Headers\Items</Filter>
     </ClInclude>
@@ -113,6 +119,18 @@
     </ClInclude>
     <ClInclude Include="Source\Tooth.h">
       <Filter>Headers\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Spit.h">
+      <Filter>Headers\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy.h">
+      <Filter>Headers\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EnemyPsy.h">
+      <Filter>Headers\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EnemyTooth.h">
+      <Filter>Headers\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +148,12 @@
     </Filter>
     <Filter Include="Sources\Items">
       <UniqueIdentifier>{b5ee802f-f0f6-4136-ad9d-f5e95e8ca4f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Enemies">
+      <UniqueIdentifier>{c7101a1b-0dfe-496f-85c9-93283ac37bb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Enemies">
+      <UniqueIdentifier>{164a5e3d-fc6f-4ad4-b5a6-8ae6e101a369}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
