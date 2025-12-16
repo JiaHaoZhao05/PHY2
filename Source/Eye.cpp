@@ -40,9 +40,7 @@ void Eye::Behave() {
 		physBody->body->ApplyForceToCenter(-force * shot, true);
 	}
 	else {
-		shot = physBody->body->GetLinearVelocity();
-		shot.Normalize();
-		physBody->body->ApplyForceToCenter(force * shot, true);
+		physBody->body->SetLinearVelocity(b2Vec2{0,0});
 	}
 }
 
