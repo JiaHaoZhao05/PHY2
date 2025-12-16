@@ -7,6 +7,7 @@
 #include "Scenario.h"
 #include "Player.h"
 #include "Hand.h"
+#include "Thumb.h"
 
 ModuleGame::ModuleGame(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -49,6 +50,9 @@ bool ModuleGame::CleanUp()
 	}
 	enemies.clear();
 	for (Items* item : player->PItems) {
+		App->physics->QueueBodyForDestroy(item->physBody);
+	}
+	for (Items* item : player->Thumbs) {
 		App->physics->QueueBodyForDestroy(item->physBody);
 	}
 	player->PItems.clear();
@@ -142,6 +146,11 @@ void ModuleGame::ReadInputs() {
 			player->AddItem(new Hand(App->physics, player->pos.x, player->pos.y, this, player->physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f)), App->audio));
 		}
 	}
+	if (IsKeyPressed(KEY_T)) {
+		if (player->Thumbs.size() < 4) {
+			player->Thumbus(new Thumb(App->physics, player->pos.x, player->pos.y, this, player->physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f)), App->audio));
+		}
+	}
 }
 		
 
@@ -158,6 +167,13 @@ void ModuleGame::UpdateEntities() {
 		}
 	}
 	for (Items* n : player->PItems) {
+		n->Update();
+		if (n->pendingToDelete) {
+			App->physics->QueueBodyForDestroy(n->physBody);
+			delete n;
+		}
+	}
+	for (Items* n : player->Thumbs) {
 		n->Update();
 		if (n->pendingToDelete) {
 			App->physics->QueueBodyForDestroy(n->physBody);

@@ -133,7 +133,10 @@ void Player::AddItem(Items* item) {
 	audio->PlayFx(armThrowFX-1);
 	PItems.push_back(item);
 }
-
+void Player::Thumbus(Items* item) {
+	audio->PlayFx(armThrowFX - 1);
+	Thumbs.push_back(item);
+}
 void Player::CheckCheckpoints() {
 	static bool debug = false;
 	if (IsKeyPressed(KEY_F1))
