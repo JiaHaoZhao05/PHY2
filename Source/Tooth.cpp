@@ -8,14 +8,15 @@
 #include "PhysicEntity.h"
 
 // Load assets
-Tooth::Tooth(ModulePhysics* physics, int _x, int _y, Module* _listener)
-	: Items(physics->CreateRectangle(_x, _y, 32, 32, 0, 0, EntityType::ITEM, _listener, ITEM, MAP | ENEMY | PLAYER, 0, 1, 10), _listener, EntityType::ITEM)
+Tooth::Tooth(ModulePhysics* physics, int _x, int _y, Module* _listener, ModuleAudio* _audio)
+	: Items(physics->CreateRectangle(_x, _y, 32, 32, 0, 0, EntityType::ITEM, _listener, ITEM, MAP | ENEMY | PLAYER, 0, 1, 10), _listener, EntityType::ITEM, _audio)
 {
 	Start();
 }
 bool Tooth::Start()
 {
 	LOG("Loading Tooth");
+	sound = audio->LoadFx("Assets/Sounds/toothCollisionFX.wav");
 	texture = LoadTexture("Assets/Textures/tooth.png");
 	return true;
 }
@@ -33,4 +34,8 @@ void Tooth::Behave() {
 		shot.Normalize();
 		physBody->body->ApplyForceToCenter(force * shot, true);
 	}
+}
+
+void Tooth::OnCollisionWithPlayer() {
+	audio->PlayFx(sound-1);
 }
