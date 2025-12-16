@@ -158,7 +158,11 @@ void ModuleGame::RestartGame() {
 
 void ModuleGame::EndGame() {
 	gamePaused = true;
-	if (timer.ReadSec() < bestTime) bestTime = timer.ReadSec();
+	if (!finishedOnce) {
+		bestTime = timer.ReadSec();
+		finishedOnce = true;
+	}
+	else if (timer.ReadSec() < bestTime) bestTime = timer.ReadSec();
 	for (Enemy* entity : enemies) {
 		entity->isActive = false;
 	}

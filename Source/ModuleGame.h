@@ -46,6 +46,7 @@ public:
 	Timer musicTime;
 	unsigned int music;
 	float bestTime;
+	bool finishedOnce = false;
 	
 
 	Map1* map1;
