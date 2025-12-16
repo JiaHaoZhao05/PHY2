@@ -45,4 +45,5 @@ public:
 	EntityType type;
 	PhysBody* physBody;
 	Module* listener;
+	Application* app;
 };

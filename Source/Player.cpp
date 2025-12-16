@@ -7,8 +7,8 @@
 #include "PhysicEntity.h"
 #include "Player.h"
 
-Player::Player(ModulePhysics* physics, int pos_x, int pos_y, Module* _listener, float _rotation, std::vector<b2Vec2> _checkpoints, ModuleAudio* _audio)
-	: Car(physics->CreateRectangle(pos_x, pos_y, 32, 64, _rotation, EntityType::PLAYER, _listener, PLAYER), _listener, EntityType::PLAYER), checkpoints(_checkpoints), audio(_audio)
+Player::Player(ModulePhysics* physics, int pos_x, int pos_y, Module* _listener, float _rotation, std::vector<b2Vec2> _checkpoints, Application* _app)
+	: Car(physics->CreateRectangle(pos_x, pos_y, 32, 64, _rotation, EntityType::PLAYER, _listener, PLAYER), _listener, EntityType::PLAYER), checkpoints(_checkpoints), app(_app)
 {}
 
 Player::~Player()
@@ -50,29 +50,30 @@ bool Player::Update()
 //Player functions
 void Player::Throttle(bool front) {
 	if (throttleFXCooldown.ReadSec() > 1.0f) {
-		audio->PlayFx(engineFX-1);
+		app->audio->PlayFx(engineFX-1);
 		throttleFXCooldown.Start();
 	}
 	if (physBody->body->GetLinearVelocity().Length() < maxspeed) {
 		if (front) {
 			b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
-			physBody->body->ApplyForceToCenter(-speed * forward, true);
+			app->physics->ApplySpeed(-speed * forward, physBody);
 		}
 		else {
 			b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
-			physBody->body->ApplyForceToCenter(speed * forward, true);
+			app->physics->ApplySpeed(speed * forward, physBody);
 		}
 	}
 }
 void Player::Turn(bool left, bool turn) {
 	if (turnFXTimePlaying.ReadSec() > 0.2f) {
-		audio->PlayFx(turnFX-1);
+		app->audio->PlayFx(turnFX-1);
 		turnFXTimePlaying.Start();
 	}
 	if (turn) {
 		if (abs(physBody->body->GetAngularVelocity()) < maxtorque) {
-			if (left)physBody->body->ApplyTorque(-torque, true);
-			else physBody->body->ApplyTorque(torque, true);
+			if (left)app->physics->ApplyAngularSpeed(-torque, physBody);
+			
+			else app->physics->ApplyAngularSpeed(torque, physBody);
 		}
 	}
 	else {
@@ -83,7 +84,7 @@ void Player::Turn(bool left, bool turn) {
 }
 void Player::Brake() {
 	if (brakeFXCooldown.ReadSec() > 1.0f) {
-		audio->PlayFx(brakeFX-1);
+		app->audio->PlayFx(brakeFX-1);
 		brakeFXCooldown.Start();
 	}
 	b2Vec2 brakeF;
@@ -105,12 +106,12 @@ void Player::Brake() {
 	else {
 		brakeF.y = 0;
 	}
-	physBody->body->ApplyForceToCenter(brakeF, true);
+	app->physics->ApplySpeed(brakeF, physBody);
 }
 void Player::GroundFriction() {
 	b2Vec2 force = physBody->body->GetLinearVelocity();
 	force *= -1 * physBody->body->GetFixtureList()->GetDensity() * physBody->body->GetFixtureList()->GetFriction();
-	physBody->body->ApplyForceToCenter(force, true);
+	app->physics->ApplySpeed(force, physBody);
 }
 void Player::Draw() {
 	Vector2 position{ physBody->body->GetPosition().x * PIXELS_PER_METER, physBody->body->GetPosition().y * PIXELS_PER_METER };
@@ -123,11 +124,11 @@ void Player::Draw() {
 }
 
 void Player::AddItem(Items* item) {
-	audio->PlayFx(armThrowFX-1);
+	app->audio->PlayFx(armThrowFX-1);
 	PItems.push_back(item);
 }
 void Player::Thumbus(Items* item) {
-	audio->PlayFx(armThrowFX - 1);
+	app->audio->PlayFx(armThrowFX - 1);
 	Thumbs.push_back(item);
 }
 void Player::CheckCheckpoints() {
@@ -154,13 +155,13 @@ void Player::CheckCheckpoints() {
 
 
 void Player::OnCollisionEnemy() {
-	audio->PlayFx(carCollisionWithCarFX-1);
+	app->audio->PlayFx(carCollisionWithCarFX-1);
 	//physBody->body->ApplyLinearImpulseToCenter({ -5,0 }, 1);
 }
 
 void Player::OnCollisionBooster(b2Vec2 dir) {
-	audio->PlayFx(boostFX-1);
-	physBody->body->ApplyLinearImpulseToCenter(b2Vec2{ dir.x * 4,dir.y * 4 }, true);
+	app->audio->PlayFx(boostFX-1);
+	app->physics->ApplyImpulse(b2Vec2{ dir.x * 4,dir.y * 4 }, physBody);
 }
 
 void Player::OnCollisionRoughSurface() {

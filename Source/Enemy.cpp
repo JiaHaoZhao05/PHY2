@@ -8,7 +8,7 @@
 #include "ModulePhysics.h"
 #include "PhysicEntity.h"
 
-Enemy::Enemy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio)
+Enemy::Enemy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _rotation, std::vector<b2Vec2> _centerLine, Application* _app)
     : Car(physics->CreateRectangle(_x, _y, 32, 64, _rotation, EntityType::ENEMY, _listener, ENEMY), _listener, EntityType::ENEMY), centerLine(_centerLine)
 {
 }
@@ -83,7 +83,7 @@ void AIController::Update(Car* car, const std::vector<b2Vec2>& waypoints, float 
     b2Vec2 target = waypoints[currentWaypoint];
     target += car->initialPos;
     static bool debug = false;
-    if (IsKeyPressed(KEY_F1)) {debug = !debug;}
+    if (IsKeyPressed(KEY_F1)) { debug = !debug; }
     if (debug) {
         DrawCircle(target.x, target.y, 10, RED);
     }
@@ -124,7 +124,7 @@ void AIController::Update(Car* car, const std::vector<b2Vec2>& waypoints, float 
         if (steerCmd < 0) {
             car->physBody->body->ApplyTorque(-torque, true);
         }
-        else if(steerCmd > 0){
+        else if (steerCmd > 0) {
             car->physBody->body->ApplyTorque(torque, true);
         }
     }
@@ -137,6 +137,7 @@ void AIController::Update(Car* car, const std::vector<b2Vec2>& waypoints, float 
         }
     }
 }
+
 void Enemy::Create() { 
     if (EItems.size() < 3) {
         create = true;
