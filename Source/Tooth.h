@@ -16,6 +16,6 @@ public:
 	void OnCollisionWithPlayer() override;
 private:
 	b2Vec2 shot;
-	float maxspeed = 120;
+	float maxspeed = 110;
 	float force = 20;
 };

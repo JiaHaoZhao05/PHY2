@@ -18,6 +18,7 @@ public:
 	void Brake();
 	void GroundFriction();
 	void AddItem(Items* item);
+	void Thumbus(Items* item);
 
 	bool Start();
 	bool Update();
@@ -35,6 +36,7 @@ public:
 
 public:
 	std::vector<Items*> PItems;
+	std::vector<Items*> Thumbs;
 	b2Vec2 pos;
 	bool isActive = false;
 	bool finished = false;

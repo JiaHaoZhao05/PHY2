@@ -64,6 +64,9 @@
     <ClCompile Include="Source\EnemyTooth.cpp">
       <Filter>Sources\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Thumb.cpp">
+      <Filter>Sources\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source/Application.h">
@@ -131,6 +134,9 @@
     </ClInclude>
     <ClInclude Include="Source\EnemyTooth.h">
       <Filter>Headers\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Thumb.h">
+      <Filter>Headers\Items</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
