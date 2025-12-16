@@ -50,6 +50,9 @@ void Scenario::LoadMap1() {
 		else if (booster.second.y == -1)boosterType = EntityType::BOOSTER_UP;
 		App->physics->CreateChainSensor(0, 0, booster.first, boosterType, MAP, (ENEMY | PLAYER));
 	}
+	for (auto& roughSurface : map1->roughSurfaceList) {
+		App->physics->CreateChainSensor(0, 0, roughSurface, EntityType::ROUGH_SURFACE, MAP, (ENEMY | PLAYER));
+	}
 }
 
 void Scenario::Draw() {
