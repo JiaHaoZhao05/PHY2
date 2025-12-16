@@ -94,9 +94,12 @@ void ModuleGame::CheckTimers() {
 			App->renderer->Draw(countdownTex1, player->pos.x - 75, player->pos.y + 100);
 			break;
 		case 3: //GO
-			App->audio->PlayFx(countdownAudioGO - 1);
+			if (gamePaused) {
+				App->audio->PlayFx(countdownAudioGO - 1);
+				StartGame();
+			}
 			App->renderer->Draw(countdownTexGO, player->pos.x - 75, player->pos.y + 100);
-			StartGame();
+			
 			break;
 		case 4:
 			starting = false;
@@ -160,12 +163,18 @@ void ModuleGame::ReadInputs() {
 void ModuleGame::UpdateEntities() {
 	player->Update();
 	for (Enemy* entity : enemies) {
-		entity->Update();
-		for (Items* n : entity->EItems) {
-			n->Update();
-			if (n->pendingToDelete) {
-				App->physics->QueueBodyForDestroy(n->physBody);
-				delete n;
+		if (entity->finished==false){
+			entity->Update();
+			/*if (entity->pendingToDelete) {
+				App->physics->QueueBodyForDestroy(entity->physBody);
+				delete entity;
+			}*/
+			for (Items* n : entity->EItems) {
+				n->Update();
+				if (n->pendingToDelete) {
+					App->physics->QueueBodyForDestroy(n->physBody);
+					delete n;
+				}
 			}
 		}
 	}

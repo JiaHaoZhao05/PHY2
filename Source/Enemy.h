@@ -52,6 +52,7 @@ public:
 	float brake = 8;
     b2Vec2 initialPos;
 	bool isActive = false;
+	bool finished = false;
 	std::vector<Items*> EItems;
 
 	float friction = 0.6f;

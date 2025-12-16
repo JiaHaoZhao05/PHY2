@@ -513,14 +513,10 @@ Map1::Map1() {
 	roughSurfaceList.push_back(roughSurface3);
 
 	roughSurface4 = {
-		2828, 2134,
-		2587, 2268,
-		2483, 2669,
-		2615, 2723,
-		2603, 2533,
-		2635, 2396,
-		2701, 2275,
-		2777, 2202,
+		2666, 2075,
+		2457, 2675,
+		2570, 2685,
+		2731, 2170
 	};
 	roughSurfaceList.push_back(roughSurface4);
 
@@ -550,26 +546,18 @@ Map1::Map1() {
 
 
 	slidingSurface1 = {
-		5843, 1766,
-		5768, 1435,
-		4860, 1433,
-		4816, 1770,
-		5065, 1660,
-		5210, 1631,
-		5423, 1630,
-		5608, 1656,
+		4830, 1663,
+		5905, 1658,
+		5724, 1444,
+		4936, 1435,
 	};
 	slidingSurfaceList.push_back(slidingSurface1);
 
 	slidingSurface2 = {
-		5880, 2731,
-		5557, 2866,
-		5402, 2900,
-		5228, 2900,
-		4988, 2828,
-		4764, 2755,
-		4904, 3164,
-		5706, 3162,
+		5877, 2842,
+		4731, 2841,
+		4941, 3074,
+		5677, 3065,
 	};
 	slidingSurfaceList.push_back(slidingSurface2);
 
@@ -586,26 +574,19 @@ Map1::Map1() {
 	slidingSurfaceList.push_back(slidingSurface3);
 
 	slidingSurface4 = {
-		1978, 2686,
-		1847, 2783,
-		1967, 3376,
-		2410, 3110,
-		2249, 3046,
-		2132, 2976,
-		2033, 2873,
-		1996, 2769,
+		2430, 3194,
+		1893, 2690,
+		1862, 2948,
+		2166, 3209,
 	};
 	slidingSurfaceList.push_back(slidingSurface4);
 
 	slidingSurface5 = {
-		2108, 1792,
-		2111, 2026,
-		2072, 2212,
-		1978, 2371,
-		1831, 2508,
-		2143, 2397,
-		2260, 2165,
-		2203, 1840,
+		2106, 2436,
+		2247, 2264,
+		2234, 1952,
+		2170, 1857,
+		1908, 2501
 	};
 	slidingSurfaceList.push_back(slidingSurface5);
 

@@ -43,8 +43,8 @@ bool Enemy::Update() {
         ai.Update(this, centerLine, dt, speed, maxspeed, torque, maxtorque);
     }
     GroundFriction();
-	Draw();
-	return true;;
+	if(finished==false)Draw();
+	return true;
 }
 void Enemy::Draw() {
 	Vector2 position{ physBody->body->GetPosition().x * PIXELS_PER_METER, physBody->body->GetPosition().y * PIXELS_PER_METER };
@@ -94,7 +94,10 @@ void AIController::Update(Car* car, const std::vector<b2Vec2>& waypoints, float 
             target += car->initialPos;
         }
     }
-    else car->pendingToDelete = true;
+    else {
+        currentWaypoint = 0;
+        car->finished = true;
+    }
 
     // Desired direction
     b2Vec2 dir = target - pos;
