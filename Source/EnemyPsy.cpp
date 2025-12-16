@@ -18,7 +18,7 @@ bool EnemyPsy::Start() {
     LOG("Loading enemy");
     id = 3;
     texture = LoadTexture("Assets/Textures/enemy3.png");
-    speed = 1;
+    speed = 11;
     maxspeed = 11;
     angle = 0;
     torque = 8;
