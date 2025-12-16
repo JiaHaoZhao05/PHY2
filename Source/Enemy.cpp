@@ -129,6 +129,14 @@ void AIController::Update(Car* car, const std::vector<b2Vec2>& waypoints, float 
             car->physBody->body->ApplyTorque(torque, true);
         }
     }
+    else {
+        if (steerCmd < 0) {
+            car->physBody->body->ApplyTorque(torque, true);
+        }
+        else if (steerCmd > 0) {
+            car->physBody->body->ApplyTorque(-torque, true);
+        }
+    }
 }
 void Enemy::Create() { 
     if (EItems.size() < 3) {
@@ -149,7 +157,7 @@ bool EnemyTooth::Start(){
     LOG("Loading enemy");
     id = 2;
     texture = LoadTexture("Assets/Textures/enemy2.png");
-    speed = 10; //14
+    speed = 10; //10
     maxspeed = 38; //38
     angle = 0;
     torque = 1;
