@@ -109,22 +109,3 @@ bool ModuleRender::DrawText(const char * text, int x, int y, Font font, int spac
 
     return ret;
 }
-
-void DrawCountdown(int time, int x, int y) {
-    switch (time) {
-    case 0: //3
-        Texture2D texture = LoadTexture("Assets/Textures/Countdown/1.png");
-        DrawCircle(x, y, 40, RED);
-        break;
-    case 1: //2
-        DrawCircle(x, y, 40, ORANGE);
-        break;
-    case 2: //1
-        DrawCircle(x, y, 40, YELLOW);
-        break;
-    case 3: //GO
-        DrawCircle(x, y, 40, GREEN);
-        break;
-    }
-    
-}
