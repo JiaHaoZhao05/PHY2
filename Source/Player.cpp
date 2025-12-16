@@ -133,7 +133,10 @@ void Player::AddItem(Items* item) {
 	audio->PlayFx(armThrowFX-1);
 	PItems.push_back(item);
 }
-
+void Player::Thumbus(Items* item) {
+	audio->PlayFx(armThrowFX - 1);
+	Thumbs.push_back(item);
+}
 void Player::CheckCheckpoints() {
 	static bool debug = false;
 	if (IsKeyPressed(KEY_F1))
@@ -151,7 +154,6 @@ void Player::CheckCheckpoints() {
 		}
 	}
 	else if ((nextCheckpoint.x - pos.x) < 10.0f) { //END RACE
-		DrawCircle(pos.x, pos.y, 100, GREEN);
 		finished = true;
 		isActive = false;
 	}

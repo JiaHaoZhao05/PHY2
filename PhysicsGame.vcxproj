@@ -200,6 +200,7 @@
     <ClInclude Include="Source\PhysicEntity.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Spit.h" />
+    <ClInclude Include="Source\Thumb.h" />
     <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\Tooth.h" />
   </ItemGroup>
@@ -223,6 +224,7 @@
     <ClCompile Include="Source\ModuleGame.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Spit.cpp" />
+    <ClCompile Include="Source\Thumb.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\Tooth.cpp" />
   </ItemGroup>

@@ -36,6 +36,7 @@ public:
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 	void EndCollision(PhysBody* bodyA, PhysBody* bodyB);
 	void CheckMusic();
+	void Loadsfx();
 
 public:
 
@@ -45,15 +46,24 @@ public:
 	bool gamePaused = true;
 	Timer startTimer;
 	bool starting = false;
+	bool firsttime = true;
 	Timer musicTime;
 	unsigned int music;
 	float bestTime;
 	bool finishedOnce = false;
 	
+	Texture2D startTex;
+	Texture2D endTex;
 	Texture2D countdownTex1;
 	Texture2D countdownTex2;
 	Texture2D countdownTex3;
 	Texture2D countdownTexGO;
+
+	unsigned int countdownAudio1;
+	unsigned int countdownAudio2;
+	unsigned int countdownAudio3;
+	unsigned int countdownAudioGO;
+
 	Map1* map1;
 	
 	b2Vec2 initialPos; //player position,  needs to be in scenario

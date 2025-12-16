@@ -39,6 +39,11 @@ void Eye::Behave() {
 		shot.Normalize();
 		physBody->body->ApplyForceToCenter(-force * shot, true);
 	}
+	else {
+		shot = physBody->body->GetLinearVelocity();
+		shot.Normalize();
+		physBody->body->ApplyForceToCenter(force * shot, true);
+	}
 }
 
 void Eye::OnCollisionWithPlayer() {
