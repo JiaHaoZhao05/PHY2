@@ -8,11 +8,13 @@
 class Eye : public Items {
 public:
 	Eye() {}
-	Eye(ModulePhysics* physics, int _x, int _y, Module* _listener);
+	Eye(ModulePhysics* physics, int _x, int _y, Module* _listener, ModuleAudio* audio);
 	~Eye() {}
 	bool Start();
 	bool CleanUp();
 	void Behave();
+	void OnCollisionWithPlayer() override;
+
 private:
 	b2Vec2 shot;
 	float maxspeed = 40;
