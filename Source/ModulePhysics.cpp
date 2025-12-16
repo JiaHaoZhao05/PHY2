@@ -294,7 +294,7 @@ update_status ModulePhysics::PostUpdate()
 				n->AddItem(new Eye(App->physics, n->physBody->body->GetPosition().x * PIXELS_PER_METER, n->physBody->body->GetPosition().y * PIXELS_PER_METER, this, App->audio));
 				break;
 			case 2:
-				n->AddItem(new Tooth(App->physics, n->physBody->body->GetPosition().x * PIXELS_PER_METER, n->physBody->body->GetPosition().y * PIXELS_PER_METER, this));
+				n->AddItem(new Tooth(App->physics, n->physBody->body->GetPosition().x * PIXELS_PER_METER, n->physBody->body->GetPosition().y * PIXELS_PER_METER, this, App->audio));
 				break;
 			default:
 				break;
