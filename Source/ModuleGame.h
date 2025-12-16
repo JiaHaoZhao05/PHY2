@@ -4,6 +4,8 @@
 #include "Module.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "EnemyPsy.h"
+#include "EnemyTooth.h"
 #include "Map1.h"
 
 #include "p2Point.h"
@@ -47,10 +49,11 @@ public:
 	unsigned int music;
 	float bestTime;
 	bool finishedOnce = false;
-	float x, y, _x, _y;
-	int raycast;
-	int raycast2;
-
+	
+	Texture2D countdownTex1;
+	Texture2D countdownTex2;
+	Texture2D countdownTex3;
+	Texture2D countdownTexGO;
 	Map1* map1;
 	
 	b2Vec2 initialPos; //player position,  needs to be in scenario

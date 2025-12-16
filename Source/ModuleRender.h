@@ -22,7 +22,7 @@ public:
     bool DrawText(const char* text, int x, int y, Font font, int spacing, Color tint, float size) const;
 
 public:
-
+	
 	Color background;
 	Camera2D camera = { 0 };
 };

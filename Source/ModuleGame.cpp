@@ -7,7 +7,7 @@
 #include "Scenario.h"
 #include "Player.h"
 #include "Hand.h"
-#include "Eye.h"
+
 ModuleGame::ModuleGame(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	
@@ -24,9 +24,13 @@ bool ModuleGame::Start()
 	SetTargetFPS(60);
 	App->scenario->LoadMap();
 	LoadEntities();
-	music = App->audio->LoadFx("Assets/Sounds/music.wav");
+	//music = App->audio->LoadFx("Assets/Sounds/music.wav");
 	App->audio->PlayFx(music-1),
 	musicTime.Start();
+	countdownTex1 = LoadTexture("Assets/Textures/Countdown/1.png");
+	countdownTex2 = LoadTexture("Assets/Textures/Countdown/2.png");
+	countdownTex3 = LoadTexture("Assets/Textures/Countdown/3.png");
+	countdownTexGO = LoadTexture("Assets/Textures/Countdown/GO.png");
 
 	return ret;
 }
@@ -66,15 +70,19 @@ void ModuleGame::CheckTimers() {
 		int time = startTimer.ReadSec();
 		switch (time) {
 		case 0: //3
+			App->renderer->Draw(countdownTex3, player->pos.x -75, player->pos.y + 100);
 			DrawCircle(player->pos.x, player->pos.y, 40, RED);
 			break;
 		case 1: //2
+			App->renderer->Draw(countdownTex2, player->pos.x - 75, player->pos.y + 100);
 			DrawCircle(player->pos.x, player->pos.y, 40, ORANGE);
 			break;
 		case 2: //1
+			App->renderer->Draw(countdownTex1, player->pos.x - 75, player->pos.y + 100);
 			DrawCircle(player->pos.x, player->pos.y, 40, YELLOW);
 			break;
 		case 3: //GO
+			App->renderer->Draw(countdownTexGO, player->pos.x - 75, player->pos.y + 100);
 			DrawCircle(player->pos.x, player->pos.y, 40, GREEN);
 			starting = false;
 			StartGame();
@@ -153,6 +161,7 @@ void ModuleGame::StartGame() {
 void ModuleGame::RestartGame() {
 	player->finished = false;
 	player->physBody->body->SetFixedRotation(false);
+	App->audio->StopFx(music);
 	CleanUp();
 	LoadEntities();
 }
@@ -167,6 +176,7 @@ void ModuleGame::EndGame() {
 	for (Enemy* entity : enemies) {
 		entity->isActive = false;
 	}
+	App->audio->StopFx(music);
 	player->physBody->body->SetLinearVelocity({0,0});
 	player->physBody->body->SetFixedRotation(true);
 }
@@ -224,6 +234,11 @@ void ModuleGame::OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
 		case(EntityType::SLIDING_SURFACE):
 			player->OnCollisionSlidingSurface();
 			break;
+		case EntityType::SPIT:
+			player->OnCollisionSpit(true);
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -241,6 +256,10 @@ void ModuleGame::EndCollision(PhysBody* bodyA, PhysBody* bodyB) {
 			break;
 		case(EntityType::SLIDING_SURFACE):
 			player->EndCollisionSurface();
+			break;
+		case EntityType::SPIT:
+			player->OnCollisionSpit(false);
+		default:
 			break;
 		}
 	}

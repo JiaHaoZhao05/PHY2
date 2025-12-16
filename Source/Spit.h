@@ -5,17 +5,16 @@
 #include "PhysicEntity.h"
 #include "ModulePhysics.h"
 #include "Items.h"
-class Tooth : public Items {
+class Spit : public Items {
 public:
-	Tooth() {}
-	Tooth(ModulePhysics* physics, int _x, int _y, Module* _listener, ModuleAudio* _audio);
-	~Tooth() {}
-	void Behave();
+	Spit() {}
+	Spit(ModulePhysics* physics, int _x, int _y, Module* _listener, ModuleAudio* audio);
+	~Spit() {}
 	bool Start();
 	bool CleanUp();
+	void Behave();
 	void OnCollisionWithPlayer() override;
+
 private:
-	b2Vec2 shot;
-	float maxspeed = 120;
-	float force = 20;
+	
 };
