@@ -149,11 +149,11 @@ bool EnemyTooth::Start(){
     LOG("Loading enemy");
     id = 2;
     texture = LoadTexture("Assets/Textures/enemy2.png");
-    speed = 14;
-    maxspeed = 38;
+    speed = 10; //14
+    maxspeed = 38; //38
     angle = 0;
     torque = 1;
-    maxtorque = 4;
+    maxtorque = 6;
     brake = 2;
     return true;
 }

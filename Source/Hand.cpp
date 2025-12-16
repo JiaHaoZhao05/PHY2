@@ -16,22 +16,15 @@ Hand::Hand(ModulePhysics* physics, int _x, int _y, Module* _listener, b2Vec2 eje
 // Load assets
 bool Hand::Start()
 {
-	LOG("Loading hand");
+	LOG("Loading Hand");
 	texture = LoadTexture("Assets/Textures/hand.png");
 	return true;
 }
 // Unload assets
 bool Hand::CleanUp()
 {
-	LOG("Unloading hand");
+	LOG("Unloading Hand");
 
-	return true;
-}
-
-// Update: draw background
-bool Hand::Update() {
-	Behave();
-	Draw();
 	return true;
 }
 

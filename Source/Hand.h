@@ -10,9 +10,8 @@ public:
 	Hand() {}
 	Hand(ModulePhysics* physics, int _x, int _y, Module* _listener, b2Vec2 eject);
 	~Hand() {}
-	void Behave();
 	bool Start();
-	bool Update();
+	void Behave();
 	bool CleanUp();
 private:
 	bool hasbeenshot = false;

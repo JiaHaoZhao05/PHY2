@@ -9,6 +9,11 @@
 Items::Items(PhysBody* _body, Module* _listener, EntityType _type) : PhysicEntity(_body, _listener, _type)
 {
 }
+bool Items::Update() {
+	Behave();
+	Draw();
+	return true;
+}
 void Items::Draw() { //I'm sick of copying and pasting this
 	Vector2 position{ physBody->body->GetPosition().x * PIXELS_PER_METER, physBody->body->GetPosition().y * PIXELS_PER_METER };
 	float scale = 1.0f;
