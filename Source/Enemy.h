@@ -36,6 +36,12 @@ public:
 	virtual void AddItem(Items* item);
 	void Create(); 
 	int ID(); 
+
+	void OnCollisionBooster(b2Vec2 dir);
+	void OnCollisionRoughSurface();
+	void OnCollisionSlidingSurface();
+	void EndCollisionSurface();
+	void OnCollisionSpit(bool inside);
 public:
 	
 	bool create = false;
