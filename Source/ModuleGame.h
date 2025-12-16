@@ -54,6 +54,12 @@ public:
 	Texture2D countdownTex2;
 	Texture2D countdownTex3;
 	Texture2D countdownTexGO;
+
+	unsigned int countdownAudio1;
+	unsigned int countdownAudio2;
+	unsigned int countdownAudio3;
+	unsigned int countdownAudioGO;
+
 	Map1* map1;
 	
 	b2Vec2 initialPos; //player position,  needs to be in scenario
