@@ -142,3 +142,27 @@ void Enemy::Create() {
 int Enemy::ID() { 
     return id; 
 }
+void Enemy::OnCollisionBooster(b2Vec2 dir) {
+    physBody->body->ApplyLinearImpulseToCenter(b2Vec2{ dir.x * 4,dir.y * 4 }, true);
+}
+
+void Enemy::OnCollisionRoughSurface() {
+    physBody->body->GetFixtureList()->SetFriction(frictionRough);
+}
+
+void Enemy::OnCollisionSlidingSurface() {
+    physBody->body->GetFixtureList()->SetFriction(frictionSlide);
+}
+
+void Enemy::EndCollisionSurface() {
+    physBody->body->GetFixtureList()->SetFriction(friction);
+}
+
+void Enemy::OnCollisionSpit(bool inside) {
+    if (inside) {
+        physBody->body->GetFixtureList()->SetFriction(frictionSlide);
+    }
+    else {
+        physBody->body->GetFixtureList()->SetFriction(friction);
+    }
+}
