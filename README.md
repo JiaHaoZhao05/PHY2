@@ -15,12 +15,13 @@ A simple racing arcade simulator with [Box2D](https://box2d.org/) physics, featu
 
 ## Controls
 
-* W/Up arrow -> Throttle 
+* W/Up arrow -> Throttle
 * D/Right arrow -> Turn right
 * A/Left arrow -> Turn left
 * S/Down arrow -> Reverse
 * Shift -> Brake
 * Enter -> Start game
+* Spacebar -> Throw hand
 * Key F1 -> Debug
 
  	\*(While debugging you can click and drag the ball)
