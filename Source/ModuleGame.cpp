@@ -274,7 +274,37 @@ void ModuleGame::OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
 			break;
 		}
 	}
-
+	else if (bodyA->type == EntityType::ENEMY) {
+		for (Enemy* n : enemies) {
+			if (n->physBody == bodyA) {
+				switch (bodyB->type) {
+				case(EntityType::BOOSTER_UP):
+					n->OnCollisionBooster({ 0,-1 });
+					break;
+				case(EntityType::BOOSTER_DOWN):
+					n->OnCollisionBooster({ 0,1 });
+					break;
+				case(EntityType::BOOSTER_LEFT):
+					n->OnCollisionBooster({ -1,0 });
+					break;
+				case(EntityType::BOOSTER_RIGHT):
+					n->OnCollisionBooster({ 1,0 });
+					break;
+				case(EntityType::ROUGH_SURFACE):
+					n->OnCollisionRoughSurface();
+					break;
+				case(EntityType::SLIDING_SURFACE):
+					n->OnCollisionSlidingSurface();
+					break;
+				case EntityType::SPIT:
+					n->OnCollisionSpit(true);
+					break;
+				default:
+					break;
+				}
+			}
+		}
+	}
 }
 
 void ModuleGame::EndCollision(PhysBody* bodyA, PhysBody* bodyB) {
@@ -294,6 +324,24 @@ void ModuleGame::EndCollision(PhysBody* bodyA, PhysBody* bodyB) {
 			player->OnCollisionSpit(false);
 		default:
 			break;
+		}
+	}
+	else if (bodyA->type == EntityType::ENEMY) {
+		for (Enemy* n : enemies) {
+			if (n->physBody == bodyA) {
+				switch (bodyB->type) {
+				case(EntityType::ROUGH_SURFACE):
+					n->EndCollisionSurface();
+					break;
+				case(EntityType::SLIDING_SURFACE):
+					n->EndCollisionSurface();
+					break;
+				case EntityType::SPIT:
+					n->OnCollisionSpit(false);
+				default:
+					break;
+				}
+			}
 		}
 	}
 }
