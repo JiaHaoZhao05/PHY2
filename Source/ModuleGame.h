@@ -49,7 +49,10 @@ public:
 	unsigned int music;
 	float bestTime;
 	
-
+	Texture2D countdownTex1;
+	Texture2D countdownTex2;
+	Texture2D countdownTex3;
+	Texture2D countdownTexGO;
 	Map1* map1;
 	
 	b2Vec2 initialPos; //player position,  needs to be in scenario
