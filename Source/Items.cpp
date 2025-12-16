@@ -6,8 +6,9 @@
 #include "ModulePhysics.h"
 #include "PhysicEntity.h"
 #include "Items.h"
-Items::Items(PhysBody* _body, Module* _listener, EntityType _type) : PhysicEntity(_body, _listener, _type)
+Items::Items(PhysBody* _body, Module* _listener, EntityType _type, ModuleAudio* _audio) : PhysicEntity(_body, _listener, _type)
 {
+	audio = _audio;
 }
 void Items::Draw() { //I'm sick of copying and pasting this
 	Vector2 position{ physBody->body->GetPosition().x * PIXELS_PER_METER, physBody->body->GetPosition().y * PIXELS_PER_METER };

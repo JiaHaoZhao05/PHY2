@@ -114,7 +114,7 @@ void ModuleGame::ReadInputs() {
 	}
 	if (IsKeyPressed(KEY_SPACE)) {
 		if (player->PItems.size() < 3) {
-			player->AddItem(new Hand(App->physics, player->pos.x, player->pos.y, this, player->physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f))));
+			player->AddItem(new Hand(App->physics, player->pos.x, player->pos.y, this, player->physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f)), App->audio));
 		}
 	}
 }
@@ -197,7 +197,7 @@ void ModuleGame::OnCollision(PhysBody* bodyA, PhysBody* bodyB) {
 			for (Enemy* n : enemies) {
 				for (Items* m : n->EItems) {
 					if (m->physBody == bodyB) {
-						m->;
+						m->OnCollisionWithPlayer();
 					}
 				}
 			}

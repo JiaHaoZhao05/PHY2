@@ -4,6 +4,7 @@
 #include "p2Point.h"
 #include "PhysicEntity.h"
 #include "ModulePhysics.h"
+#include "ModuleAudio.h"
 
 class Items : public PhysicEntity {
 
@@ -12,7 +13,7 @@ protected:
 
 public:
 	Items() {}
-	Items(PhysBody* _body, Module* _listener, EntityType _type);
+	Items(PhysBody* _body, Module* _listener, EntityType _type, ModuleAudio* _audio);
 	~Items() {}
 
 	virtual bool Start() {
