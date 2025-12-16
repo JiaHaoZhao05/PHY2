@@ -88,6 +88,8 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius, float friction, 
 {
 	PhysBody* pbody = new PhysBody();
 
+	pbody->type = _type;
+
 	b2BodyDef body;
 	body.type = b2_dynamicBody;
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
@@ -289,7 +291,7 @@ update_status ModulePhysics::PostUpdate()
 			n->create = false;
 			switch (n->ID()) {
 			case 1:
-				n->AddItem(new Eye(App->physics, n->physBody->body->GetPosition().x * PIXELS_PER_METER, n->physBody->body->GetPosition().y * PIXELS_PER_METER, this));
+				n->AddItem(new Eye(App->physics, n->physBody->body->GetPosition().x * PIXELS_PER_METER, n->physBody->body->GetPosition().y * PIXELS_PER_METER, this, App->audio));
 				break;
 			case 2:
 				n->AddItem(new Tooth(App->physics, n->physBody->body->GetPosition().x * PIXELS_PER_METER, n->physBody->body->GetPosition().y * PIXELS_PER_METER, this));
