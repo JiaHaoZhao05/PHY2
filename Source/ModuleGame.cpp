@@ -28,15 +28,15 @@ bool ModuleGame::Start()
 	App->audio->PlayFx(music-1),
 	musicTime.Start();
 
+	Loadsfx();
+
+	startTex = LoadTexture("Assets/Textures/screenstart.png");
+	endTex = LoadTexture("Assets/Textures/screenend.png");
+
 	countdownTex1 = LoadTexture("Assets/Textures/Countdown/1.png");
 	countdownTex2 = LoadTexture("Assets/Textures/Countdown/2.png");
 	countdownTex3 = LoadTexture("Assets/Textures/Countdown/3.png");
 	countdownTexGO = LoadTexture("Assets/Textures/Countdown/GO.png");
-
-	countdownAudio1 = App->audio->LoadFx("Assets/Sounds/Countdown/1D.wav");
-	countdownAudio2 = App->audio->LoadFx("Assets/Sounds/Countdown/2.wav");
-	countdownAudio3 = App->audio->LoadFx("Assets/Sounds/Countdown/3.wav");
-	countdownAudioGO = App->audio->LoadFx("Assets/Sounds/Countdown/GO.wav");
 
 	return ret;
 }
@@ -77,28 +77,33 @@ void ModuleGame::CheckTimers() {
 		case 0: //3
 			App->audio->PlayFx(countdownAudio1-1);
 			App->renderer->Draw(countdownTex3, player->pos.x -75, player->pos.y + 100);
-			DrawCircle(player->pos.x, player->pos.y, 40, RED);
 			break;
 		case 1: //2
 			App->audio->PlayFx(countdownAudio2 - 1);
 			App->renderer->Draw(countdownTex2, player->pos.x - 75, player->pos.y + 100);
-			DrawCircle(player->pos.x, player->pos.y, 40, ORANGE);
 			break;
 		case 2: //1
 			App->audio->PlayFx(countdownAudio3 - 1);
 			App->renderer->Draw(countdownTex1, player->pos.x - 75, player->pos.y + 100);
-			DrawCircle(player->pos.x, player->pos.y, 40, YELLOW);
 			break;
 		case 3: //GO
 			App->audio->PlayFx(countdownAudioGO - 1);
 			App->renderer->Draw(countdownTexGO, player->pos.x - 75, player->pos.y + 100);
-			DrawCircle(player->pos.x, player->pos.y, 40, GREEN);
 			if (time>4) {
 				starting = false;
 			}
 			StartGame();
 			break;
 		}
+	}
+	else
+	{
+		if (firsttime) {
+			App->renderer->Draw(startTex, player->pos.x - 475, player->pos.y - 490);
+		}
+	}
+	if (player->finished) {
+		App->renderer->Draw(endTex, player->pos.x - 475, player->pos.y - 490);
 	}
 }
 
@@ -107,6 +112,7 @@ void ModuleGame::ReadInputs() {
 		if (IsKeyPressed(KEY_ENTER)) {
 			if (player->finished) RestartGame();
 			else {
+				firsttime = false;
 				starting = true;
 				startTimer.Start();
 			}
@@ -280,4 +286,11 @@ void ModuleGame::CheckMusic() {
 	if (musicTime.ReadSec() > 106.945f) {
 		App->audio->PlayFx(music-1);
 	}
+}
+
+void ModuleGame::Loadsfx() {
+	countdownAudio1 = App->audio->LoadFx("Assets/Sounds/Countdown/1D.wav");
+	countdownAudio2 = App->audio->LoadFx("Assets/Sounds/Countdown/2.wav");
+	countdownAudio3 = App->audio->LoadFx("Assets/Sounds/Countdown/3.wav");
+	countdownAudioGO = App->audio->LoadFx("Assets/Sounds/Countdown/GO.wav");
 }
