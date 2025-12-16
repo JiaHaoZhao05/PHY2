@@ -24,6 +24,10 @@ bool ModuleGame::Start()
 	SetTargetFPS(60);
 	App->scenario->LoadMap();
 	LoadEntities();
+	countdownTex1 = LoadTexture("Assets/Textures/Countdown/1.png");
+	countdownTex2 = LoadTexture("Assets/Textures/Countdown/2.png");
+	countdownTex3 = LoadTexture("Assets/Textures/Countdown/3.png");
+	countdownTexGO = LoadTexture("Assets/Textures/Countdown/GO.png");
 
 	return ret;
 }
@@ -61,15 +65,19 @@ void ModuleGame::CheckTimers() {
 		int time = startTimer.ReadSec();
 		switch (time) {
 		case 0: //3
+			App->renderer->Draw(countdownTex3, player->pos.x -75, player->pos.y + 100);
 			DrawCircle(player->pos.x, player->pos.y, 40, RED);
 			break;
 		case 1: //2
+			App->renderer->Draw(countdownTex2, player->pos.x - 75, player->pos.y + 100);
 			DrawCircle(player->pos.x, player->pos.y, 40, ORANGE);
 			break;
 		case 2: //1
+			App->renderer->Draw(countdownTex1, player->pos.x - 75, player->pos.y + 100);
 			DrawCircle(player->pos.x, player->pos.y, 40, YELLOW);
 			break;
 		case 3: //GO
+			App->renderer->Draw(countdownTexGO, player->pos.x - 75, player->pos.y + 100);
 			DrawCircle(player->pos.x, player->pos.y, 40, GREEN);
 			starting = false;
 			StartGame();
