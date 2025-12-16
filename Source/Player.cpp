@@ -163,27 +163,22 @@ void Player::OnCollisionBooster(b2Vec2 dir) {
 }
 
 void Player::OnCollisionRoughSurface() {
-	if (enterCol == false) {
-		enterCol = true;
+	if (physBody->body->GetFixtureList()->GetFriction() == frictionRough) insideSurface = false;
+	else {
 		physBody->body->GetFixtureList()->SetFriction(frictionRough);
-		enterCol = true;
+		insideSurface = true;
 	}
-	else enterCol = false;
 }
 
 void Player::OnCollisionSlidingSurface() {
-	if (enterCol == false) {
-		enterCol = true;
+	if (physBody->body->GetFixtureList()->GetFriction() == frictionSlide) insideSurface = false;
+	else {
 		physBody->body->GetFixtureList()->SetFriction(frictionSlide);
-		enterCol = true;
+		insideSurface = true;
 	}
-	else enterCol = false;
 }
 
 void Player::EndCollisionSurface() {
-	if (endCol == false) endCol = true;
-	else {
-		physBody->body->GetFixtureList()->SetFriction(friction);
-		endCol = false;
-	}
+	if (insideSurface) return;
+	physBody->body->GetFixtureList()->SetFriction(friction);
 }

@@ -49,8 +49,7 @@ private:
 	float frictionRough = 1.0f;
 	float frictionSlide = 0.1f;
 
-	bool endCol = false;
-	bool enterCol = false;
+	bool insideSurface = false;
 
 protected:
 
