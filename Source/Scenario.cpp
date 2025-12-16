@@ -53,6 +53,9 @@ void Scenario::LoadMap1() {
 	for (auto& roughSurface : map1->roughSurfaceList) {
 		App->physics->CreateChainSensor(0, 0, roughSurface, EntityType::ROUGH_SURFACE, MAP, (ENEMY | PLAYER));
 	}
+	for (auto& slidingSurface : map1->slidingSurfaceList) {
+		App->physics->CreateChainSensor(0, 0, slidingSurface, EntityType::SLIDING_SURFACE, MAP, (ENEMY | PLAYER));
+	}
 }
 
 void Scenario::Draw() {

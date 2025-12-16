@@ -8,7 +8,7 @@
 #include "Player.h"
 
 Player::Player(ModulePhysics* physics, int pos_x, int pos_y, Module* _listener, float _rotation, std::vector<b2Vec2> _checkpoints, ModuleAudio* _audio)
-	: Car(physics->CreateRectangle(pos_x, pos_y, 32, 64, friction, _rotation, EntityType::PLAYER, _listener, PLAYER), _listener, EntityType::PLAYER), checkpoints(_checkpoints), audio(_audio)
+	: Car(physics->CreateRectangle(pos_x, pos_y, 32, 64, _rotation, EntityType::PLAYER, _listener, PLAYER), _listener, EntityType::PLAYER), checkpoints(_checkpoints), audio(_audio)
 {}
 
 Player::~Player()
@@ -29,6 +29,7 @@ bool Player::Start()
 	crashFX = audio->LoadFx("Assets/Sounds/crashFX.wav");
 	engineFX = audio->LoadFx("Assets/Sounds/engineFX.wav");
 	/*texture = LoadTexture("Assets/Textures/player.png");*/
+
 	return true;
 }
 // Unload assets
@@ -162,13 +163,27 @@ void Player::OnCollisionBooster(b2Vec2 dir) {
 }
 
 void Player::OnCollisionRoughSurface() {
-	physBody->body->GetFixtureList()->SetFriction(frictionRough);
+	if (enterCol == false) {
+		enterCol = true;
+		physBody->body->GetFixtureList()->SetFriction(frictionRough);
+		enterCol = true;
+	}
+	else enterCol = false;
 }
 
 void Player::OnCollisionSlidingSurface() {
-	physBody->body->GetFixtureList()->SetFriction(frictionSlide);
+	if (enterCol == false) {
+		enterCol = true;
+		physBody->body->GetFixtureList()->SetFriction(frictionSlide);
+		enterCol = true;
+	}
+	else enterCol = false;
 }
 
 void Player::EndCollisionSurface() {
-	physBody->body->GetFixtureList()->SetFriction(friction);
+	if (endCol == false) endCol = true;
+	else {
+		physBody->body->GetFixtureList()->SetFriction(friction);
+		endCol = false;
+	}
 }

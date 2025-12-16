@@ -14,6 +14,8 @@ protected:
 	float friction;
 	float frictionRough;
 	float frictionSlide;
+	bool enterCol = false;
+	bool endCol = false;
 
 private:
 	Texture2D texture;

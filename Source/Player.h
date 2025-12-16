@@ -45,9 +45,13 @@ private:
 	float torque = 2.5;
 	float brake = 5;
 
-	float friction = 0.6;
-	float frictionRough = 0.2;
-	float frictionSlide = 0.9;
+	float friction = 0.6f;
+	float frictionRough = 1.0f;
+	float frictionSlide = 0.1f;
+
+	bool endCol = false;
+	bool enterCol = false;
+
 protected:
 
 private:

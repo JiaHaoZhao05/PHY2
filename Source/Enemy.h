@@ -50,9 +50,9 @@ public:
 	bool isActive = false;
 	std::vector<Items*> EItems;
 
-	float friction = 0.6;
-	float frictionRough = 0.2;
-	float frictionSlide = 0.9;
+	float friction = 0.6f;
+	float frictionRough = 1.0f;
+	float frictionSlide = 0.1f;
 protected:
 	int id = 1;
 	Texture2D texture;

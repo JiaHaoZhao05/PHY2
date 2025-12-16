@@ -9,7 +9,7 @@
 #include "PhysicEntity.h"
 
 Enemy::Enemy(ModulePhysics* physics, int _x, int _y, Module* _listener, float _rotation, std::vector<b2Vec2> _centerLine, ModuleAudio* _audio)
-    : Car(physics->CreateRectangle(_x, _y, 32, 64, friction, _rotation, EntityType::ENEMY, _listener, ENEMY), _listener, EntityType::ENEMY), centerLine(_centerLine)
+    : Car(physics->CreateRectangle(_x, _y, 32, 64, _rotation, EntityType::ENEMY, _listener, ENEMY), _listener, EntityType::ENEMY), centerLine(_centerLine)
 {
 }
 Enemy::~Enemy()
