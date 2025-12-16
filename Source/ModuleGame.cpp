@@ -379,7 +379,7 @@ void ModuleGame::Loadsfx() {
 	armThrowFX = App->audio->LoadFx("Assets/Sounds/armThrowFX.wav");
 	carCollisionWithCarFX = App->audio->LoadFx("Assets/Sounds/carCollisionWithCarFX.wav");
 
-	music = App->audio->LoadFx("Assets/Sounds/music.wav");
+	music = App->audio->LoadFx("Assets/Sounds/music.mp3");
 	countdownAudio1 = App->audio->LoadFx("Assets/Sounds/Countdown/1D.wav");
 	countdownAudio2 = App->audio->LoadFx("Assets/Sounds/Countdown/2.wav");
 	countdownAudio3 = App->audio->LoadFx("Assets/Sounds/Countdown/3.wav");
