@@ -306,13 +306,13 @@ update_status ModulePhysics::PostUpdate()
 			n->create = false;
 			switch (n->ID()) {
 			case 1:
-				n->AddItem(new Eye(App->physics, n->physBody->body->GetPosition().x * PIXELS_PER_METER, n->physBody->body->GetPosition().y * PIXELS_PER_METER, this, App->audio));
+				n->AddItem(new Eye(App->physics, n->physBody->body->GetPosition().x * PIXELS_PER_METER, n->physBody->body->GetPosition().y * PIXELS_PER_METER, this, App->audio, App->game->eyeFX));
 				break;
 			case 2:
-				n->AddItem(new Tooth(App->physics, n->physBody->body->GetPosition().x * PIXELS_PER_METER, n->physBody->body->GetPosition().y * PIXELS_PER_METER, this, App->audio));
+				n->AddItem(new Tooth(App->physics, n->physBody->body->GetPosition().x * PIXELS_PER_METER, n->physBody->body->GetPosition().y * PIXELS_PER_METER, this, App->audio, App->game->toothFX));
 				break;
 			case 3:
-				n->AddItem(new Spit(App->physics, n->physBody->body->GetPosition().x * PIXELS_PER_METER, n->physBody->body->GetPosition().y * PIXELS_PER_METER, this, App->audio));
+				n->AddItem(new Spit(App->physics, n->physBody->body->GetPosition().x * PIXELS_PER_METER, n->physBody->body->GetPosition().y * PIXELS_PER_METER, this, App->audio,  App->game->spitFX));
 				break;
 			default:
 				break;

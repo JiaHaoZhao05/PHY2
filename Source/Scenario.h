@@ -12,6 +12,7 @@ public:
 
 	void LoadMap();
 	void LoadMap1();
+	void UnloadMap1();
 	void Draw();
 
 
@@ -26,4 +27,5 @@ public:
 	PhysBody* chain2;
 	std::vector<b2Vec2> centerLine;
 	std::vector<b2Vec2> checkpoints;
+	std::vector<PhysBody*> surfaces;
 };

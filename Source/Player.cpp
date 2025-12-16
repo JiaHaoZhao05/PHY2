@@ -23,14 +23,7 @@ bool Player::Start()
 	currentCheckpoint = 0;
 	nextCheckpoint = checkpoints[currentCheckpoint];
 	nextCheckpoint += initialPos;
-	throttleFX = audio->LoadFx("Assets/Sounds/throttleFX.wav");
-	brakeFX = audio->LoadFx("Assets/Sounds/brakeFX.wav");
-	turnFX = audio->LoadFx("Assets/Sounds/turnFX.wav");
-	crashFX = audio->LoadFx("Assets/Sounds/crashFX.wav");
-	engineFX = audio->LoadFx("Assets/Sounds/engineFX.wav");
-	boostFX = audio->LoadFx("Assets/Sounds/boostFX.wav");
-	armThrowFX = audio->LoadFx("Assets/Sounds/armThrowFX.wav");
-	carCollisionWithCarFX = audio->LoadFx("Assets/Sounds/carCollisionWithCarFX.wav");
+
 	/*texture = LoadTexture("Assets/Textures/player.png");*/
 
 	return true;
@@ -57,7 +50,7 @@ bool Player::Update()
 //Player functions
 void Player::Throttle(bool front) {
 	if (throttleFXCooldown.ReadSec() > 1.0f) {
-		audio->PlayFx(engineFX - 1);
+		audio->PlayFx(engineFX-1);
 		throttleFXCooldown.Start();
 	}
 	if (physBody->body->GetLinearVelocity().Length() < maxspeed) {
@@ -73,7 +66,7 @@ void Player::Throttle(bool front) {
 }
 void Player::Turn(bool left, bool turn) {
 	if (turnFXTimePlaying.ReadSec() > 0.2f) {
-		audio->PlayFx(turnFX - 1);
+		audio->PlayFx(turnFX-1);
 		turnFXTimePlaying.Start();
 	}
 	if (turn) {
@@ -90,7 +83,7 @@ void Player::Turn(bool left, bool turn) {
 }
 void Player::Brake() {
 	if (brakeFXCooldown.ReadSec() > 1.0f) {
-		audio->PlayFx(brakeFX - 1);
+		audio->PlayFx(brakeFX-1);
 		brakeFXCooldown.Start();
 	}
 	b2Vec2 brakeF;

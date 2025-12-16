@@ -37,6 +37,7 @@ public:
 	void EndCollision(PhysBody* bodyA, PhysBody* bodyB);
 	void CheckMusic();
 	void Loadsfx();
+	void ReadPlayerFX();
 
 public:
 
@@ -59,10 +60,22 @@ public:
 	Texture2D countdownTex3;
 	Texture2D countdownTexGO;
 
+	unsigned int throttleFX;
+	unsigned int brakeFX;
+	unsigned int turnFX;
+	unsigned int crashFX;
+	unsigned int engineFX;
+	unsigned int boostFX;
+	unsigned int armThrowFX;
+	unsigned int carCollisionWithCarFX;
 	unsigned int countdownAudio1;
 	unsigned int countdownAudio2;
 	unsigned int countdownAudio3;
 	unsigned int countdownAudioGO;
+	unsigned int toothFX;
+	unsigned int spitFX;
+	unsigned int eyeFX;
+
 
 	Map1* map1;
 	
