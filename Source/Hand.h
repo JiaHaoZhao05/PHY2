@@ -8,7 +8,7 @@
 class Hand : public Items {
 public:
 	Hand() {}
-	Hand(ModulePhysics* physics, int _x, int _y, Module* _listener, b2Vec2 eject, ModuleAudio* audio);
+	Hand(ModulePhysics* physics, int _x, int _y, Module* _listener, b2Vec2 eject, Application* app);
 	~Hand() {}
 	bool Start();
 	void Behave();

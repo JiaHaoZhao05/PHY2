@@ -6,7 +6,7 @@
 #include "ModulePhysics.h"
 #include "PhysicEntity.h"
 #include "Items.h"
-Items::Items(PhysBody* _body, Module* _listener, EntityType _type, ModuleAudio* _audio, unsigned int _sound) : PhysicEntity(_body, _listener, _type) , audio (_audio), sound(_sound)
+Items::Items(PhysBody* _body, Module* _listener, EntityType _type, Application* _app, unsigned int _sound) : PhysicEntity(_body, _listener, _type) , app (_app), sound(_sound)
 
 {
 	

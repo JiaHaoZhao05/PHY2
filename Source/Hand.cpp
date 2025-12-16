@@ -7,8 +7,8 @@
 #include "ModulePhysics.h"
 #include "PhysicEntity.h"
 
-Hand::Hand(ModulePhysics* physics, int _x, int _y, Module* _listener, b2Vec2 eject, ModuleAudio* _audio)
-	: Items(physics->CreateRectangle(_x, _y, 32, 64, 0, EntityType::ITEM, _listener, ITEM, MAP | ENEMY, 0, 0, 1, 1), _listener, EntityType::ITEM, _audio)
+Hand::Hand(ModulePhysics* physics, int _x, int _y, Module* _listener, b2Vec2 eject, Application* _app)
+	: Items(physics->CreateRectangle(_x, _y, 32, 64, 0, EntityType::ITEM, _listener, ITEM, MAP | ENEMY, 0, 0, 1, 1), _listener, EntityType::ITEM, _app)
 {
 	Start();
 	shot = eject;
@@ -30,15 +30,15 @@ bool Hand::CleanUp()
 
 void Hand::Behave() {
 	if (!hasbeenshot) {
-		physBody->body->ApplyForceToCenter(-initimpulse * shot, true);
+		app->physics->ApplySpeed(-initimpulse * shot, physBody);
 		hasbeenshot = true;
 	}
 	if (physBody->body->GetLinearVelocity().Length() < maxspeed) {
 		b2Vec2 forward = physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f));
-		physBody->body->ApplyForceToCenter(-force * forward, true);
+		app->physics->ApplySpeed(-force * forward, physBody);
 	}
 	if (physBody->body->GetAngularVelocity() < maxtorque) {
-		physBody->body->ApplyAngularImpulse(torque, true);
+		app->physics->ApplyAngularSpeed(torque, physBody);
 	}
 }
 

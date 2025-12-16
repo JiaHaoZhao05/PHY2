@@ -8,8 +8,8 @@
 #include "PhysicEntity.h"
 
 // Load assets
-Eye::Eye(ModulePhysics* physics, int _x, int _y, Module* _listener, ModuleAudio* _audio, unsigned int _sound)
-	: Items(physics->CreateCircle(_x, _y, 16, 0.2, 0, EntityType::ITEM, _listener, ITEM, MAP | PLAYER | ENEMY, 0, 1), _listener, EntityType::ITEM, _audio, _sound)
+Eye::Eye(ModulePhysics* physics, int _x, int _y, Module* _listener, Application* _app, unsigned int _sound)
+	: Items(physics->CreateCircle(_x, _y, 16, 0.2, 0, EntityType::ITEM, _listener, ITEM, MAP | PLAYER | ENEMY, 0, 1), _listener, EntityType::ITEM, _app, _sound)
 {
 	Start();
 }
@@ -35,13 +35,13 @@ void Eye::Behave() {
 		shot.x = rand() % 21 - 10;
 		shot.y = rand() % 21 - 10;
 		shot.Normalize();
-		physBody->body->ApplyForceToCenter(-force * shot, true);
+		app->physics->ApplySpeed(-force * shot, physBody);
 	}
 	else {
-		physBody->body->SetLinearVelocity(b2Vec2{0,0});
+		app->physics->SetVelocity(b2Vec2{0,0}, physBody);
 	}
 }
 
 void Eye::OnCollisionWithPlayer() {
-	audio->PlayFx(sound-1);
+	app->audio->PlayFx(sound-1);
 }

@@ -72,6 +72,7 @@ public:
 	void ApplySpeed(b2Vec2 vec, PhysBody* body);
 	void ApplyImpulse(b2Vec2 vec, PhysBody* body);
 	void ApplyAngularSpeed(float torque, PhysBody* body);
+	void SetVelocity(b2Vec2 vec, PhysBody* body);
 private:
 	std::vector<PhysBody*> bodiesToDestroy;
 	bool debug;

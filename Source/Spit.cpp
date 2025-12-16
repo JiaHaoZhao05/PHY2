@@ -8,8 +8,8 @@
 #include "PhysicEntity.h"
 
 // Load assets
-Spit::Spit(ModulePhysics* physics, int _x, int _y, Module* _listener, ModuleAudio* _audio, unsigned int _sound)
-	: Items(physics->CreateRectangleSensor(_x, _y, 288, 288, 0, EntityType::SPIT, _listener, ITEM, MAP | ENEMY | PLAYER, 0, 0, 1, 10), _listener, EntityType::SPIT, _audio, _sound)
+Spit::Spit(ModulePhysics* physics, int _x, int _y, Module* _listener, Application* _app, unsigned int _sound)
+	: Items(physics->CreateRectangleSensor(_x, _y, 288, 288, 0, EntityType::SPIT, _listener, ITEM, MAP | ENEMY | PLAYER, 0, 0, 1, 10), _listener, EntityType::SPIT, _app, _sound)
 {
 	Start();
 }
@@ -29,5 +29,5 @@ bool Spit::CleanUp()
 void Spit::Behave() {}
 
 void Spit::OnCollisionWithPlayer() {
-	audio->PlayFx(sound-1);
+	app->audio->PlayFx(sound-1);
 }

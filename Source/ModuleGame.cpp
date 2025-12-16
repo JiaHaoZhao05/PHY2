@@ -152,12 +152,12 @@ void ModuleGame::ReadInputs() {
 	}
 	if (IsKeyPressed(KEY_SPACE)) {
 		if (player->PItems.size() < 3) {
-			player->AddItem(new Hand(App->physics, player->pos.x, player->pos.y, this, player->physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f)), App->audio));
+			player->AddItem(new Hand(App->physics, player->pos.x, player->pos.y, this, player->physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f)), App));
 		}
 	}
 	if (IsKeyPressed(KEY_T)) {
 		if (player->Thumbs.size() < 4) {
-			player->Thumbus(new Thumb(App->physics, player->pos.x, player->pos.y, this, player->physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f)), App->audio));
+			player->Thumbus(new Thumb(App->physics, player->pos.x, player->pos.y, this, player->physBody->body->GetWorldVector(b2Vec2(0.0f, 1.0f)), App));
 		}
 	}
 }
