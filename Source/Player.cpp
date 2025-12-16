@@ -57,7 +57,7 @@ bool Player::Update()
 //Player functions
 void Player::Throttle(bool front) {
 	if (throttleFXCooldown.ReadSec() > 1.0f) {
-		audio->PlayFx(engineFX - 1);
+		audio->PlayFx(engineFX-1);
 		throttleFXCooldown.Start();
 	}
 	if (physBody->body->GetLinearVelocity().Length() < maxspeed) {
@@ -73,7 +73,7 @@ void Player::Throttle(bool front) {
 }
 void Player::Turn(bool left, bool turn) {
 	if (turnFXTimePlaying.ReadSec() > 0.2f) {
-		audio->PlayFx(turnFX - 1);
+		audio->PlayFx(turnFX-1);
 		turnFXTimePlaying.Start();
 	}
 	if (turn) {
@@ -90,7 +90,7 @@ void Player::Turn(bool left, bool turn) {
 }
 void Player::Brake() {
 	if (brakeFXCooldown.ReadSec() > 1.0f) {
-		audio->PlayFx(brakeFX - 1);
+		audio->PlayFx(brakeFX-1);
 		brakeFXCooldown.Start();
 	}
 	b2Vec2 brakeF;

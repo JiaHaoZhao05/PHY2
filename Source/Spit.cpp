@@ -30,5 +30,5 @@ bool Spit::CleanUp()
 void Spit::Behave() {}
 
 void Spit::OnCollisionWithPlayer() {
-	audio->PlayFx(sound - 1);
+	audio->PlayFx(sound-1);
 }

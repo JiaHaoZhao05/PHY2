@@ -24,9 +24,7 @@ bool ModuleGame::Start()
 	SetTargetFPS(60);
 	App->scenario->LoadMap();
 	LoadEntities();
-	//music = App->audio->LoadFx("Assets/Sounds/music.wav");
-	App->audio->PlayFx(music-1),
-	musicTime.Start();
+	//	music = App->audio->LoadFx("Assets/Sounds/music.wav");
 	countdownTex1 = LoadTexture("Assets/Textures/Countdown/1.png");
 	countdownTex2 = LoadTexture("Assets/Textures/Countdown/2.png");
 	countdownTex3 = LoadTexture("Assets/Textures/Countdown/3.png");
@@ -37,8 +35,13 @@ bool ModuleGame::Start()
 
 bool ModuleGame::CleanUp()
 {
+	App->scenario->CleanUp();
 	App->physics->QueueBodyForDestroy(player->physBody);
 	for (Enemy* entity : enemies) {
+		for (Items* item : entity->EItems) {
+			App->physics->QueueBodyForDestroy(item->physBody);
+		}
+		entity->EItems.clear();
 		App->physics->QueueBodyForDestroy(entity->physBody);
 	}
 	enemies.clear();
@@ -46,6 +49,7 @@ bool ModuleGame::CleanUp()
 		App->physics->QueueBodyForDestroy(item->physBody);
 	}
 	player->PItems.clear();
+
 	
 	return true;
 }
@@ -53,11 +57,13 @@ bool ModuleGame::CleanUp()
 // Update: draw background
 update_status ModuleGame::Update()
 {
-	CheckMusic();
+	if (!gamePaused) {
+		CheckMusic();
+		UpdateEntities();
+	}
 	CheckTimers();
 	App->scenario->Update();
 	ReadInputs();
-	UpdateEntities();
 	if (player->finished) {
 		EndGame();
 	}
@@ -150,6 +156,8 @@ void ModuleGame::UpdateEntities() {
 
 void ModuleGame::StartGame() {
 	gamePaused = false;
+	App->audio->PlayFx(music-1);
+	musicTime.Start();
 	timer.Start();
 	player->isActive = true;
 	for (Enemy* entity : enemies) {
@@ -160,12 +168,15 @@ void ModuleGame::StartGame() {
 void ModuleGame::RestartGame() {
 	player->finished = false;
 	player->physBody->body->SetFixedRotation(false);
-	App->audio->StopFx(music);
 	CleanUp();
+	App->audio->Init();
 	LoadEntities();
+	App->scenario->LoadMap();
+	
 }
 
 void ModuleGame::EndGame() {
+	App->audio->CleanUp();
 	gamePaused = true;
 	if (!finishedOnce) {
 		bestTime = timer.ReadSec();
@@ -175,7 +186,6 @@ void ModuleGame::EndGame() {
 	for (Enemy* entity : enemies) {
 		entity->isActive = false;
 	}
-	App->audio->StopFx(music);
 	player->physBody->body->SetLinearVelocity({0,0});
 	player->physBody->body->SetFixedRotation(true);
 }
@@ -187,12 +197,10 @@ void ModuleGame::LoadEntities() {
 	enemies.emplace_back(new EnemyTooth(App->physics, App->scenario->mapPos[2].x, App->scenario->mapPos[2].y, this, rotation, App->scenario->centerLine, App->audio));
 	enemies.emplace_back(new EnemyPsy(App->physics, App->scenario->mapPos[3].x, App->scenario->mapPos[3].y, this, rotation, App->scenario->centerLine, App->audio));
 
-
 	player->Start();
 	for (Enemy* entity : enemies) {
 		entity->Start();
 	}
-
 }
 
 void ModuleGame::OnCollision(PhysBody* bodyA, PhysBody* bodyB) {

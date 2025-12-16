@@ -23,6 +23,11 @@ update_status Scenario::Update()
 
 bool Scenario::CleanUp()
 {
+	switch (currentMap) {
+	case 1:
+		UnloadMap1();
+		break;
+	}
 	return true;
 }
 
@@ -37,8 +42,8 @@ void Scenario::LoadMap() {
 void Scenario::LoadMap1() {
 	currentMapTex =  map1->mapTex;
 	mapPos = map1->startingLine;
-	chain1 = App->physics->CreateChain(0, 0, map1->chain3, MAP);
-	chain2 = App->physics->CreateChain(0, 0, map1->chain4, MAP);
+	surfaces.emplace_back(chain1 = App->physics->CreateChain(0, 0, map1->chain3, MAP));
+	surfaces.emplace_back(chain2 = App->physics->CreateChain(0, 0, map1->chain4, MAP));
 	centerLine = map1->GetCenterLine();
 	checkpoints = map1->GetCheckpoints();
 	initialRotation = map1->initialRotation;
@@ -48,14 +53,21 @@ void Scenario::LoadMap1() {
 		else if (booster.second.x == -1)boosterType = EntityType::BOOSTER_LEFT;
 		else if (booster.second.y == 1)boosterType = EntityType::BOOSTER_DOWN;
 		else if (booster.second.y == -1)boosterType = EntityType::BOOSTER_UP;
-		App->physics->CreateChainSensor(0, 0, booster.first, boosterType, MAP, (ENEMY | PLAYER));
+		surfaces.emplace_back(App->physics->CreateChainSensor(0, 0, booster.first, boosterType, MAP, (ENEMY | PLAYER)));
 	}
 	for (auto& roughSurface : map1->roughSurfaceList) {
-		App->physics->CreateChainSensor(0, 0, roughSurface, EntityType::ROUGH_SURFACE, MAP, (ENEMY | PLAYER));
+		surfaces.emplace_back(App->physics->CreateChainSensor(0, 0, roughSurface, EntityType::ROUGH_SURFACE, MAP, (ENEMY | PLAYER)));
 	}
 	for (auto& slidingSurface : map1->slidingSurfaceList) {
-		App->physics->CreateChainSensor(0, 0, slidingSurface, EntityType::SLIDING_SURFACE, MAP, (ENEMY | PLAYER));
+		surfaces.emplace_back(App->physics->CreateChainSensor(0, 0, slidingSurface, EntityType::SLIDING_SURFACE, MAP, (ENEMY | PLAYER)));
 	}
+}
+
+void Scenario::UnloadMap1() {
+	for (auto& surface : surfaces) {
+		App->physics->QueueBodyForDestroy(surface);
+	}
+	surfaces.clear();
 }
 
 void Scenario::Draw() {
