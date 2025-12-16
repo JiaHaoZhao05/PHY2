@@ -69,9 +69,8 @@ update_status ModuleGame::Update()
 	}
 	UpdateEntities();
 	CheckTimers();
-	App->scenario->Update();
 	ReadInputs();
-	if (player->finished) {
+	if (player->finished && !gamePaused) {
 		EndGame();
 	}
 	return UPDATE_CONTINUE;
@@ -208,6 +207,7 @@ void ModuleGame::StartGame() {
 }
 
 void ModuleGame::RestartGame() {
+	currentTime = 0.00;
 	player->finished = false;
 	App->audio->StopFx(music - 1);
 	player->physBody->body->SetFixedRotation(false);
@@ -219,11 +219,12 @@ void ModuleGame::RestartGame() {
 
 void ModuleGame::EndGame() {
 	gamePaused = true;
+	currentTime = timer.ReadSec();
 	if (!finishedOnce) {
-		bestTime = timer.ReadSec();
+		bestTime = currentTime;
 		finishedOnce = true;
 	}
-	else if (timer.ReadSec() < bestTime) bestTime = timer.ReadSec();
+	else if (currentTime < bestTime) bestTime = currentTime;
 	for (Enemy* entity : enemies) {
 		entity->isActive = false;
 	}

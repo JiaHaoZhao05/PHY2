@@ -17,7 +17,6 @@ bool Scenario::Init() {
 
 update_status Scenario::Update()
 {
-	//Draw();
 	return UPDATE_CONTINUE;
 }
 
@@ -71,7 +70,5 @@ void Scenario::UnloadMap1() {
 }
 
 void Scenario::Draw() {
-	//DrawLine(METERS_TO_PIXELS(v1.x), METERS_TO_PIXELS(v1.y), METERS_TO_PIXELS(v2.x), METERS_TO_PIXELS(v2.y), BLUE);
-	//DrawTexture(currentMapTex, mapPos.x-App->game->player->pos.x, mapPos.y-App->game->player->pos.y, WHITE);
 	DrawTexture(currentMapTex, 0, 0, WHITE);
 }

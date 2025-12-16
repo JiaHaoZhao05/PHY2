@@ -17,7 +17,7 @@ private:
 	b2Vec2 shot;
 	float maxtorque = 8;
 	float torque = 1;
-	float initimpulse = -80;
-	float maxspeed = 10;
+	float initimpulse = -400;
+	float maxspeed = 15;
 	float force = 4;
 };

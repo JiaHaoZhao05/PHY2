@@ -51,6 +51,7 @@ public:
 	Timer musicTime;
 	unsigned int music;
 	float bestTime;
+	float currentTime = 0.00;
 	bool finishedOnce = false;
 	
 	Texture2D startTex;
