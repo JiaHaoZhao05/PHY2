@@ -325,9 +325,8 @@ update_status ModulePhysics::PostUpdate()
 		return UPDATE_CONTINUE;
 	}
 
-	b2Body* mouseSelect = nullptr;
-	Vector2 mousePosition = GetMousePosition();
-	b2Vec2 pMousePosition = b2Vec2(PIXEL_TO_METERS(mousePosition.x), PIXEL_TO_METERS(mousePosition.y));
+	b2Body* body_clicked = nullptr;
+	b2Vec2 mouse_position = b2Vec2{ PIXEL_TO_METERS(GetMousePosition().x), PIXEL_TO_METERS(GetMousePosition().y) };
 
 	// Bonus code: this will iterate all objects in the world and draw the circles
 	// You need to provide your own macro to translate meters to pixels
@@ -400,38 +399,36 @@ update_status ModulePhysics::PostUpdate()
 			break;
 			}
 
-			if (mouse_joint == nullptr && mouseSelect == nullptr && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-
-				if (f->TestPoint(pMousePosition)) {
-					mouseSelect = b;
+			//Select obj
+			if (body_clicked == nullptr && mouse_joint == nullptr && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+				if (f->TestPoint(mouse_position)) {
+					body_clicked = b;
 				}
+
 			}
 		}
 	}
-
-	if (mouseSelect) {
+	//Assign joint
+	if (body_clicked != nullptr) {
 		b2MouseJointDef def;
-
 		def.bodyA = ground;
-		def.bodyB = mouseSelect;
-		def.target = pMousePosition;
+		def.bodyB = body_clicked;
+		def.target = mouse_position;
 		def.damping = 0.5f;
-		def.stiffness = 20.f;
-		def.maxForce = 100.f * mouseSelect->GetMass();
-
+		def.stiffness = 2.0f;
+		def.maxForce = 100.0f * body_clicked->GetMass();
 		mouse_joint = (b2MouseJoint*)world->CreateJoint(&def);
 	}
-	else if (mouse_joint && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-		mouse_joint->SetTarget(pMousePosition);
-		b2Vec2 anchorPosition = mouse_joint->GetBodyB()->GetPosition();
-		anchorPosition.x = METERS_TO_PIXELS(anchorPosition.x);
-		anchorPosition.y = METERS_TO_PIXELS(anchorPosition.y);
 
-		DrawLine(anchorPosition.x, anchorPosition.y, mousePosition.x, mousePosition.y, RED);
+	//DESTROY joint
+	if (mouse_joint != nullptr && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+		mouse_joint->SetTarget(mouse_position);
+		DrawLine(METERS_TO_PIXELS(mouse_joint->GetBodyB()->GetPosition().x), METERS_TO_PIXELS(mouse_joint->GetBodyB()->GetPosition().y), METERS_TO_PIXELS(mouse_position.x), METERS_TO_PIXELS(mouse_position.y), BLACK);
 	}
-	else if (mouse_joint && IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
+	else if (mouse_joint != nullptr) {
 		world->DestroyJoint(mouse_joint);
 		mouse_joint = nullptr;
+		body_clicked = nullptr;
 	}
 	return UPDATE_CONTINUE;
 }
